@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="row">
+        <button class="button button-up" [routerLink]="['/repository', repositoryId, 'version']"><i class="fa fa-level-up" aria-hidden="true"></i></button>
+      </div>
+      <div class="row">
+        <div>
+          <div class="drop-container drop-area" ngFileDrop (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }" (onUploadCompleted)="uploadCompled($event)">
+            <p class="drag-drop-paragraph">Drop files to upload</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9 offset-1">
+      <div class="row" *ngIf="files">
+        <div class="col-lg-3 col-sm-6 repository-container" *ngFor="let file of files">
+          <img class="card-img-top folder-img" [src]="fileImg" alt="File">
+          <div class="card-body">
+            <h5 style="word-wrap: break-word;">{{file.name}}</h5>
+            <div class="card-description">
+              <p>Created: {{file.creationDateTime}}</p>
+            </div>
+            <button (click)="downloadFile(file.id)" class="button file-button">Download</button>
+            <button (click)="deleteFile(file.id)" class="button file-button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

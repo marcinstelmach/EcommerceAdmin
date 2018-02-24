@@ -1,0 +1,19 @@
+md-card{
+  width: 20em;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.error {
+  color: red;
+}
+.error-msg {
+  display: block;
+  position: absolute;
+  font-size: 75%;
+  bottom: -2.5em;
+}
+.mat-input-container {
+  margin-bottom: 1em;
+}

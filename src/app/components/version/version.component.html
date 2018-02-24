@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="row">
+        <button class="button button-up" routerLink="/repository"><i class="fa fa-level-up" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="row">
+        <button class="button" data-toggle="modal" data-target=".add-version-modal" style="margin: auto;">Create new
+          Version
+        </button>
+      </div>
+    </div>
+    <div class="col-md-9 offset-1">
+      <div class="row" *ngIf="versions">
+        <div class="col-lg-2 col-sm-6 repository-container" *ngFor="let ver of versions">
+          <img class="card-img-top folder-img" [src]="emptyFolder" alt="Card image cap"
+               *ngIf="ver.countOfFiles === 0">
+          <img class="card-img-top folder-img" [src]="fullFolder" alt="Card image cap"
+               *ngIf="ver.countOfFiles > 0">
+          <div class="card-body">
+            <h5>{{ver.name}}</h5>
+            <div class="card-description">
+              <p class="description-paragraph">Description: {{ver.description}}</p>
+              <p *ngIf="ver.productionVersion" class="alert-warning">Production Version !!!</p>
+              <p class="description-paragraph">Created: {{ver.creationDateTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <p class="description-paragraph">Files: {{ver.countOfFiles}}</p>
+            </div>
+            <a [routerLink]="[ver.id, 'file']" class="button">Open</a>
+            <button (click)="deleteVersion(ver.id)" class="button">Delete</button>
+            <div class="container-prod-version">
+              <button (click)="setBasedVersion(ver.id)" class="button button-base-version" data-toggle="modal"
+                      data-target=".add-based-version-modal">Add version based on this version
+              </button>
+              <button (click)="changeVersionStatus(ver.id)" class="button button-prod-version"
+                      *ngIf="ver.productionVersion === false">Set as Production Version
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Add new version modal -->
+<div class="modal fade add-version-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 justify-content-md-center">
+          <mat-card>
+            <mat-card-title>Create new Version</mat-card-title>
+            <mat-card-content>
+              <form [formGroup]="versionForm">
+                <mat-input-container
+                  [ngClass]="{'error': versionForm.controls['name'].errors && !versionForm.controls['name'].pristine}"
+                  dividerColor="{{versionForm.controls['name'].errors && !versionForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+                  <input type="text" matInput formControlName="name" placeholder="Name" required>
+                  <div *ngIf="versionForm.controls['name'].errors && !versionForm.controls['name'].pristine"
+                       class="error-msg">
+                    <div
+                      [hidden]="!versionForm.controls['name'].errors.minlength">Name must has at least 3 characters
+                    </div>
+                    <div [hidden]="!versionForm.controls['name'].errors.required">Name is required.</div>
+                    <div [hidden]="!versionForm.controls['name'].errors.maxlength">Name must be no longer than 30
+                      characters.
+                    </div>
+                  </div>
+                </mat-input-container>
+                <mat-input-container
+                  [ngClass]="{'error': versionForm.controls['description'].errors && !versionForm.controls['description'].pristine}"
+                  dividerColor="{{versionForm.controls['description'].errors && !versionForm.controls['description'].pristine ? 'warn' : 'primary'}}">
+                  <input type="text" matInput formControlName="description" placeholder="Description" required>
+                  <div
+                    *ngIf="versionForm.controls['description'].errors && !versionForm.controls['description'].pristine"
+                    class="error-msg">
+                    <div
+                      [hidden]="!versionForm.controls['description'].errors.minlength">Name must has at least 3
+                      characters
+                    </div>
+                    <div [hidden]="!versionForm.controls['description'].errors.required">Name is required.</div>
+                    <div [hidden]="!versionForm.controls['description'].errors.maxlength">Name must be no longer than 30
+                      characters.
+                    </div>
+                  </div>
+                </mat-input-container>
+                <div *ngIf="errors" class="error">
+                  <small class="form-text validation-error">{{errors['name']}}</small>
+                  <small class="form-text validation-error">{{errors['description']}}</small>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="versionForm.invalid" (click)="addVersion()">Add Version
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Add based version modal-->
+
+<div class="modal fade add-based-version-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 justify-content-md-center">
+          <mat-card>
+            <mat-card-title>Add Based Version</mat-card-title>
+            <mat-card-content>
+              <form [formGroup]="versionForm">
+                <mat-input-container
+                  [ngClass]="{'error': versionForm.controls['name'].errors && !versionForm.controls['name'].pristine}"
+                  dividerColor="{{versionForm.controls['name'].errors && !versionForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+                  <input type="text" matInput formControlName="name" placeholder="Name" required>
+                  <div *ngIf="versionForm.controls['name'].errors && !versionForm.controls['name'].pristine"
+                       class="error-msg">
+                    <div
+                      [hidden]="!versionForm.controls['name'].errors.minlength">Name must has at least 3 characters
+                    </div>
+                    <div [hidden]="!versionForm.controls['name'].errors.required">Name is required.</div>
+                    <div [hidden]="!versionForm.controls['name'].errors.maxlength">Name must be no longer than 30
+                      characters.
+                    </div>
+                  </div>
+                </mat-input-container>
+                <mat-input-container
+                  [ngClass]="{'error': versionForm.controls['description'].errors && !versionForm.controls['description'].pristine}"
+                  dividerColor="{{versionForm.controls['description'].errors && !versionForm.controls['description'].pristine ? 'warn' : 'primary'}}">
+                  <input type="text" matInput formControlName="description" placeholder="Description" required>
+                  <div
+                    *ngIf="versionForm.controls['description'].errors && !versionForm.controls['description'].pristine"
+                    class="error-msg">
+                    <div
+                      [hidden]="!versionForm.controls['description'].errors.minlength">Name must has at least 3
+                      characters
+                    </div>
+                    <div [hidden]="!versionForm.controls['description'].errors.required">Name is required.</div>
+                    <div [hidden]="!versionForm.controls['description'].errors.maxlength">Name must be no longer than 30
+                      characters.
+                    </div>
+                  </div>
+                </mat-input-container>
+                <div *ngIf="errors" class="error">
+                  <small class="form-text validation-error">{{errors['name']}}</small>
+                  <small class="form-text validation-error">{{errors['description']}}</small>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="versionForm.invalid" (click)="addBasedVersion()" data-dismiss="modal">Add Based Version
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

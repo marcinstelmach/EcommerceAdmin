@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-md"></div>
+  <div class="col-md">
+    <mat-card>
+      <mat-card-title>Create new Account !</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="registerForm">
+          <mat-input-container
+            [ngClass]="{'error': registerForm.controls['email'].errors && !registerForm.controls['email'].pristine}"
+            dividerColor="{{registerForm.controls['email'].errors && !registerForm.controls['email'].pristine ? 'warn' : 'primary'}}">
+            <input type="email" matInput formControlName="email" placeholder="Email" required>
+            <div *ngIf="registerForm.controls['email'].errors && !registerForm.controls['email'].pristine"
+                 class="error-msg">
+              <div
+                [hidden]="!registerForm.controls['email'].errors.email && !registerForm.controls['email'].errors.required">
+                Email is invalid.
+              </div>
+              <div [hidden]="!registerForm.controls['email'].errors.required">Email is required.</div>
+            </div>
+          </mat-input-container>
+          <mat-input-container
+            [ngClass]="{'error': registerForm.controls['password'].errors && !registerForm.controls['password'].pristine}"
+            dividerColor="{{registerForm.controls['password'].errors && !registerForm.controls['password'].pristine ? 'warn' : 'primary'}}">
+            <input type="password" matInput formControlName="password" placeholder="Password" required>
+            <div *ngIf="registerForm.controls['password'].errors && !registerForm.controls['password'].pristine"
+                 class="error-msg">
+              <div [hidden]="!registerForm.controls['password'].errors.required">Password is required.</div>
+              <div [hidden]="!registerForm.controls['password'].errors.minlength">Password must has at least 6
+                characters
+              </div>
+            </div>
+          </mat-input-container>
+          <mat-input-container
+            [ngClass]="{'error': registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine}"
+            dividerColor="{{registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine ? 'warn' : 'primary'}}">
+            <input type="password" matInput formControlName="confirmPassword" placeholder="Password" required>
+            <div
+              *ngIf="registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine"
+              class="error-msg">
+              <div [hidden]="!registerForm.controls['confirmPassword'].errors.required">Password is required.</div>
+              <div [hidden]="!registerForm.controls['confirmPassword'].errors?.matchPassword">Passwords doesn't match
+              </div>
+            </div>
+          </mat-input-container>
+          <mat-input-container
+            [ngClass]="{'error': registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine}"
+            dividerColor="{{registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine ? 'warn' : 'primary'}}">
+            <input type="text" matInput formControlName="firstName" placeholder="First name" required>
+            <div *ngIf="registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine"
+                 class="error-msg">
+              <div [hidden]="!registerForm.controls['firstName'].errors.required">First name is required.</div>
+            </div>
+          </mat-input-container>
+          <mat-input-container
+            [ngClass]="{'error': registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine}"
+            dividerColor="{{registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine ? 'warn' : 'primary'}}">
+            <input type="text" matInput formControlName="lastName" placeholder="Last name" required>
+            <div *ngIf="registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine"
+                 class="error-msg">
+              <div [hidden]="!registerForm.controls['lastName'].errors.required">Last name is required.</div>
+            </div>
+          </mat-input-container>
+          <div *ngIf="errors" class="error">
+            <small class="form-text validation-error">{{errors['firstName']}}</small>
+            <small class="form-text validation-error">{{errors['lastName']}}</small>
+            <small class="form-text validation-error">{{errors['email']}}</small>
+            <small class="form-text validation-error">{{errors['password']}}</small>
+            <small class="form-text validation-error">{{errors['confirmPassword']}}</small>
+          </div>
+          <mat-card-actions align="end">
+            <button class="btn btn-success my-button" [disabled]="registerForm.invalid" (click)="register()" type="submit">
+              Register
+            </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="modal" tabindex="-1" role="dialog" id="successModal" [style.display]="showModal ? 'block' : 'none'">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Account Created !</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="userForDisplay">
+            <p>Id: {{userForDisplay.id}}</p>
+            <p>Name: {{userForDisplay.name}}</p>
+            <p>E-mail: {{userForDisplay.email}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="hideModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md"></div>
+</div>
+
+
+

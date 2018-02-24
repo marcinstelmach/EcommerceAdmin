@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <button class="button" data-toggle="modal" data-target=".bd-example-modal-lg">Create new Repository</button>
+    </div>
+    <div class="col-md-9 offset-1">
+      <div class="row" *ngIf="repositories">
+        <div class="col-lg-2 col-sm-6 repository-container" *ngFor="let repo of repositories">
+          <img class="card-img-top folder-img" [src]="emptyFolder" alt="Card image cap"
+               *ngIf="repo.countOfVersion === 0">
+          <img class="card-img-top folder-img" [src]="fullFolder" alt="Card image cap"
+               *ngIf="repo.countOfVersion > 0">
+          <div class="card-body">
+            <h5>{{repo.name}}</h5>
+            <div class="card-description">
+              <p>Created: {{repo.creationDateTime | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <p>Versions: {{repo.countOfVersion}}</p>
+            </div>
+            <a [routerLink]="[repo.id, 'version']" class="button">Open</a>
+            <button (click)="deleteRepository(repo.id)" class="button">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<h5 class="modal-title">Create new Repository</h5>-->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 justify-content-md-center">
+          <mat-card>
+            <mat-card-title>Create new Repository</mat-card-title>
+            <mat-card-content>
+              <form [formGroup]="repositoryForm">
+                <mat-input-container
+                  [ngClass]="{'error': repositoryForm.controls['name'].errors && !repositoryForm.controls['name'].pristine}"
+                  dividerColor="{{repositoryForm.controls['name'].errors && !repositoryForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+                  <input type="text" matInput formControlName="name" placeholder="Name" required>
+                  <div *ngIf="repositoryForm.controls['name'].errors && !repositoryForm.controls['name'].pristine"
+                       class="error-msg">
+                    <div
+                      [hidden]="!repositoryForm.controls['name'].errors.minlength">Name must has at least 3 characters
+                    </div>
+                    <div [hidden]="!repositoryForm.controls['name'].errors.required">Name is required.</div>
+                    <div [hidden]="!repositoryForm.controls['name'].errors.maxlength">Name must be no longer than 30
+                      characters.
+                    </div>
+                  </div>
+                </mat-input-container>
+                <div *ngIf="errors" class="error">
+                  <small class="form-text validation-error">{{errors['name']}}</small>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" [disabled]="repositoryForm.invalid" (click)="addRepository()">Save
+          changes
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

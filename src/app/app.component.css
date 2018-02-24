@@ -1,0 +1,51 @@
+.btn {
+  cursor: pointer;
+}
+
+.button {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ccc8c9;
+}
+
+a:link, .button {
+  text-decoration: none;
+  color: black;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button-up {
+  font-size: 30px;
+  margin:auto;
+  padding: 10px 40px;
+  margin-bottom: 10px;
+}
+
+
+a:link .button-up {
+  background-color: #fff;
+  color: #312d2e;
+}
+
+.card-description {
+  /*line-height: 10px;*/
+  word-wrap: break-word;
+  font-size: 12px;
+}
+
+.description-paragraph {
+  margin-bottom: 5px;
+}
