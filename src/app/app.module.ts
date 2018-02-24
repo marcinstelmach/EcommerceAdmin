@@ -22,6 +22,9 @@ import {RepositoryService} from './services/repositoryService';
 import {VersionService} from './services/versionService';
 import {FileService} from './services/fileService';
 import { NgUploaderModule } from 'ngx-uploader';
+import { ProductCategoryComponent } from './components/category/product-category/product-category.component';
+import { CharmCategoryComponent } from './components/category/charm-category/charm-category.component';
+import { CategoryComponent } from './components/category/category.component';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { NgUploaderModule } from 'ngx-uploader';
     RepositoryComponent,
     VersionComponent,
     FileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ProductCategoryComponent,
+    CharmCategoryComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
