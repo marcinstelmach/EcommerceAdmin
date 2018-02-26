@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="margin-bottom: 30px;">
+      <h2 class="text-center">Kategorie zawieszek</h2>
+    </div>
+    <div class="col-6" style="border-right: 1px black solid">
+      <h4 style="margin-bottom: 30px;">Dodaj</h4>
+      <div class="col-10">
+        <form [formGroup]="categoryForm">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa kategorii" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="categoryForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <button type="submit" class="btn btn-dark -align-right" (click)="addCategory()">Dodaj</button>
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <h4>Aktualne Kategorie</h4>
+      <div class="col-10">
+        <p *ngIf="treeError">Nie mozna pobrać kategorii</p>
+        <div *ngFor="let category of categories">
+          <p class="category"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i> {{category.name}} <i
+            class="fa fa-trash remove-trash" (click)="deleteCategoryModal(category.id)" data-toggle="modal"
+            data-target="#deleteModal"></i> <i class="fa fa-edit edit-pencil"></i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Czy na pewno usunąc kategorie ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Zastanów się dobrze, bo to zjebie całą bazę jesli są w tej kategorii produkty :D</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCategory(currentCategoryId)">Usuwamy !</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+      </div>
+    </div>
+  </div>
+</div>
