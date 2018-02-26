@@ -2,7 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './components/shared/header/header.component';
-import {RegisterComponent} from './components/register/register.component';
 import {LoginComponent} from './components/login/login.component';
 import {RepositoryComponent} from './components/repository/repository.component';
 import {VersionComponent} from './components/version/version.component';
@@ -22,16 +21,16 @@ import {RepositoryService} from './services/repositoryService';
 import {VersionService} from './services/versionService';
 import {FileService} from './services/fileService';
 import { NgUploaderModule } from 'ngx-uploader';
-import { ProductCategoryComponent } from './components/category/product-category/product-category.component';
-import { CharmCategoryComponent } from './components/category/charm-category/charm-category.component';
-import { CategoryComponent } from './components/category/category.component';
+import { ProductCategoryComponent } from './components/product-category/product-category.component';
+import {ProductCategoryService} from './services/productCategoryService';
+import {CharmCategoriesService} from './services/charmCategoriesService';
+import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegisterComponent,
     LoginComponent,
     RepositoryComponent,
     VersionComponent,
@@ -39,7 +38,6 @@ import { CategoryComponent } from './components/category/category.component';
     PageNotFoundComponent,
     ProductCategoryComponent,
     CharmCategoryComponent,
-    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +58,9 @@ import { CategoryComponent } from './components/category/category.component';
     AuthGuard,
     RepositoryService,
     VersionService,
-    FileService
+    FileService,
+    ProductCategoryService,
+    CharmCategoriesService
   ],
   bootstrap: [AppComponent]
 })
