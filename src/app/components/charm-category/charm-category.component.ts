@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductCategoryForDisplay} from '../../../models/productCategoryForDisplay';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductCategoryForCreation} from '../../../models/productCategoryForCreation';
+import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
+import {CharmCategoryForCreation} from '../../models/charmCategoryForCreation';
+import {CharmCategoryService} from '../../services/charmCategoryService';
 import {HttpErrorResponse} from '@angular/common/http';
-import {ProductCategoryTreeForDisplay} from '../../../models/productCategoryTreeForDisplay';
-import {ProductCategoryService} from '../../../services/productCategoryService';
-import {CharmCategoryForCreation} from '../../../models/charmCategoryForCreation';
-import {CharmCategoriesService} from '../../../services/charmCategoriesService';
-import {CharmCategoryForDisplay} from '../../../models/charmCategoryForDisplay';
+
+
 
 @Component({
   selector: 'app-charm-category',
@@ -24,7 +22,8 @@ export class CharmCategoryComponent implements OnInit {
   currentCategoryId: number;
 
   constructor(private fb: FormBuilder,
-              private categoryService: CharmCategoriesService) {
+              private categoryService: CharmCategoryService
+  ) {
   }
 
   ngOnInit() {

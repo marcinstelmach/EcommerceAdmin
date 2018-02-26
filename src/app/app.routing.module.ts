@@ -9,8 +9,8 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
 const routes: Routes = [
   // {path: 'register', component: RegisterComponent},
   {path: 'product-category', component: ProductCategoryComponent},
-  {path: 'charm-category', component: CharmCategoryComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'charm-category', component: CharmCategoryComponent},
   // {path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version', component: VersionComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version/:versionId/file', component: FileComponent, canActivate: [AuthGuard]},

@@ -17,10 +17,10 @@ export class ProductCategoryComponent implements OnInit {
   subCategoryForm: FormGroup;
   categoryForCreation: ProductCategoryForCreation;
   errors: any;
-  categoriesTree: ProductCategoryTreeForDisplay[] = [];
+  categoriesTree: ProductCategoryTreeForDisplay[];
   treeError = false;
   currentCategoryId: number;
-  parentCategories: ProductCategoryForDisplay[] = [];
+  parentCategories: ProductCategoryForDisplay[];
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductCategoryService) {

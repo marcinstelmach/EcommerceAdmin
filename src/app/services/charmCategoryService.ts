@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
-import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
 import {GlobalService} from './globalService';
+import {Observable} from 'rxjs/Observable';
+import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 
 @Injectable()
-export class CharmCategoriesService {
-  private url = this.global.servicePath + 'CharmsCategory/';
+export class CharmCategoryService {
+  private url: string;
 
-  constructor(private http: HttpClient, private global: GlobalService) {}
+  constructor(private http: HttpClient,
+              private globalService: GlobalService) {
+    this.url = this.globalService.servicePath + 'charmscategory/';
+  }
 
   addCategory(categoryForCreation: CharmCategoryForCreation): Observable<HttpResponse<any>> {
     return this.http.post(this.url, categoryForCreation, {
@@ -19,7 +22,7 @@ export class CharmCategoriesService {
     });
   }
 
-  getCategories(): Observable<HttpResponse<[]>> {
+  getCategories(): Observable<HttpResponse<CharmCategoryForDisplay[]>> {
     return this.http.get<CharmCategoryForDisplay[]>(this.url, {
       headers: {
         'Content-Type': 'application/json'

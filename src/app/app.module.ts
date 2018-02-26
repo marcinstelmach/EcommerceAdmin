@@ -23,8 +23,8 @@ import {FileService} from './services/fileService';
 import { NgUploaderModule } from 'ngx-uploader';
 import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import {ProductCategoryService} from './services/productCategoryService';
-import {CharmCategoriesService} from './services/charmCategoriesService';
 import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
+import {CharmCategoryService} from './services/charmCategoryService';
 
 
 @NgModule({
@@ -37,7 +37,7 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
     FileComponent,
     PageNotFoundComponent,
     ProductCategoryComponent,
-    CharmCategoryComponent,
+    CharmCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +60,7 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
     VersionService,
     FileService,
     ProductCategoryService,
-    CharmCategoriesService
+    CharmCategoryService
   ],
   bootstrap: [AppComponent]
 })
