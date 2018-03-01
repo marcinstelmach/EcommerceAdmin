@@ -33,7 +33,7 @@ export class CharmCategoryComponent implements OnInit {
 
   createFormForm() {
     this.categoryForm = this.fb.group({
-      'name': new FormControl('', [Validators.required]),
+      'name': new FormControl('', [Validators.required])
     });
   }
 

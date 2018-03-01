@@ -4,10 +4,11 @@ import {ProductCategoryComponent} from './components/product-category/product-ca
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
+import {CharmComponent} from './components/charm/charm.component';
 
 
 const routes: Routes = [
-  // {path: 'register', component: RegisterComponent},
+  {path: 'charm', component: CharmComponent},
   {path: 'product-category', component: ProductCategoryComponent},
   {path: 'login', component: LoginComponent},
   {path: 'charm-category', component: CharmCategoryComponent},

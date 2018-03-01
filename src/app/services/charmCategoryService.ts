@@ -4,6 +4,7 @@ import {GlobalService} from './globalService';
 import {Observable} from 'rxjs/Observable';
 import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
+import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
 
 @Injectable()
 export class CharmCategoryService {
@@ -32,6 +33,14 @@ export class CharmCategoryService {
 
   deleteCategory(categoryId: number): Observable<HttpResponse<any>> {
     return this.http.delete(this.url + categoryId, {
+      headers: {
+        'Content-Type': 'application/json'
+      }, observe: 'response'
+    });
+  }
+
+  getCategoriesWithCharms(): Observable<HttpResponse<CharmCategoryWithCharms[]>> {
+    return this.http.get<CharmCategoryWithCharms[]>(this.url + 'GetWithCharms', {
       headers: {
         'Content-Type': 'application/json'
       }, observe: 'response'

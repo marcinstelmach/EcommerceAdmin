@@ -25,6 +25,8 @@ import { ProductCategoryComponent } from './components/product-category/product-
 import {ProductCategoryService} from './services/productCategoryService';
 import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
 import {CharmCategoryService} from './services/charmCategoryService';
+import { CharmComponent } from './components/charm/charm.component';
+import {CharmService} from './services/charmService';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import {CharmCategoryService} from './services/charmCategoryService';
     FileComponent,
     PageNotFoundComponent,
     ProductCategoryComponent,
-    CharmCategoryComponent
+    CharmCategoryComponent,
+    CharmComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import {CharmCategoryService} from './services/charmCategoryService';
     VersionService,
     FileService,
     ProductCategoryService,
-    CharmCategoryService
+    CharmCategoryService,
+    CharmService
   ],
   bootstrap: [AppComponent]
 })

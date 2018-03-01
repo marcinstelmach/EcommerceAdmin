@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container main-container">
   <div class="row">
     <div class="col-12" style="margin-bottom: 30px;">
       <h2 class="text-center">Kategorie produktów</h2>
     </div>
-    <div class="col-6" style="border-right: 1px black solid">
+    <div class="col-md-6" style="border-right: 1px black solid">
       <h4 style="margin-bottom: 30px;">Dodaj</h4>
       <div class="col-10">
         <form [formGroup]="categoryForm">
@@ -51,12 +51,12 @@
         </div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <h4>Aktualne Kategorie</h4>
       <div class="col-10">
         <p *ngIf="treeError">Nie mozna pobrać kategorii</p>
         <div *ngFor="let category of categoriesTree">
-          <p class="category" [class.premium-color]="category.isPremium"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i> {{category.name}} <i
+          <p class="category"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i> {{category.name}} <i
             class="fa fa-trash remove-trash" (click)="deleteCategoryModal(category.id)" data-toggle="modal"
             data-target="#deleteModal"></i> <i class="fa fa-edit edit-pencil"></i></p>
           <div *ngFor="let children of category.children">

@@ -1,0 +1,83 @@
+<div class="container main-container">
+  <div class="col-12"><h1 class="text-center">Zawieszki</h1></div>
+  <div class="row">
+    <div class="col-md-6" style="border-right: 1px solid black;">
+      <h4 style="margin-bottom: 30px;">Dodaj zawieszke</h4>
+      <div class="col-10">
+        <form [formGroup]="charmForm">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa zawieszki" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="charmForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-group">
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
+            <small class="form-text text-muted form-error"
+                   *ngIf="charmForm.controls['price'].errors">Podaj cene
+            </small>
+          </div>
+          <div class="form-group">
+            <select class="custom-select" title="categories" formControlName="charmCategoryId">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="custom-select" title="categories" formControlName="type">
+              <option value="1">Dostępne</option>
+              <option value="2">Niedostępne</option>
+            </select>
+          </div>
+          <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                 [uploadInput]="uploadInput"  id="file" name="file"
+                 aria-describedby="fileHelp">
+          <span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span>
+          <div style="margin-top: 15px;">
+            <button type="submit" class="btn btn-dark -align-right" (click)="addCharm()" [disabled]="charmForm.invalid">
+              Dodaj
+            </button>
+          </div>
+
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+          <small class="form-text validation-error">{{errors['price']}}</small>
+          <small class="form-text validation-error">{{errors['charmCategoryId']}}</small>
+          <small class="form-text validation-error">{{errors['type']}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div id="accordion">
+        <div class="card" *ngFor="let category of categoriesWithCharms; let i=index;">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name" aria-expanded="false"
+                      aria-controls="collapse">
+                {{category.name}}
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+               <!--*ngFor="let charm of category.charms"-->
+
+            <div class="card-body">
+              <img [src]="pathToCharm" alt="charm">
+              <img [src]="pathToCharm" alt="charm">
+              <img [src]="pathToCharm" alt="charm">
+              <img [src]="pathToCharm" alt="charm">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $('.custom-file-input').on('change', function () {
+    $(this).next('.form-control-file').addClass("selected").html($(this).val());
+  });
+</script>
