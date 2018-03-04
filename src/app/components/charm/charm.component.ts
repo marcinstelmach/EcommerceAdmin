@@ -4,12 +4,10 @@ import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../../models/charmCategoryWithCharms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {charmStatus} from '../../models/types/charmStatus';
 import {CharmCategoryService} from '../../services/charmCategoryService';
 import {UploaderOptions, UploadFile, UploadInput, humanizeBytes, UploadOutput} from 'ngx-uploader';
 import {CharmForCreation} from '../../models/charmForCreation';
 import {GlobalService} from '../../services/globalService';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-charm',
@@ -27,25 +25,26 @@ export class CharmComponent implements OnInit {
   humanizeBytes: Function;
   dragOver: boolean;
   pathToCharm: string;
+  url: string;
+  uploadSuccessAlert = false;
+  uploadFailAlert = false;
+
 
   constructor(private charmService: CharmService,
               private fb: FormBuilder,
               private charmCategoryService: CharmCategoryService,
-              private globalService: GlobalService,
-              private sanitization: DomSanitizer) {
+              private globalService: GlobalService) {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
   }
 
   ngOnInit() {
-    // this.pathToCharm = <string>this.sanitization.bypassSecurityTrustUrl(this.globalService.assetsPath + 'img\\charms\\charm1.png');
-    this.pathToCharm = '../assets/img/charms/charm1.png/';
+    this.pathToCharm = '../assets/img/charms/';
+    this.url = this.globalService.servicePath;
     this.getCategories();
     this.getCategoriesWithCharms();
     this.createForm();
-    console.log(this.pathToCharm);
-    console.log(this.sanitization.bypassSecurityTrustUrl(this.globalService.assetsPath + 'img\\charms\\charm1.jpg'));
   }
 
 
@@ -53,14 +52,17 @@ export class CharmComponent implements OnInit {
     this.charmForm = this.fb.group({
       'name': new FormControl('', Validators.required),
       'price': new FormControl('', Validators.required),
-      'type': new FormControl('', Validators.required),
+      'type': new FormControl(0, Validators.required),
       'charmCategoryId': new FormControl('', Validators.required)
     });
+
   }
 
   getCategories() {
     this.charmCategoryService.getCategories().subscribe(resp => {
         this.categories = resp.body;
+        this.charmForm.controls['charmCategoryId'].setValue(this.categories[0].id);
+
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);
@@ -79,21 +81,17 @@ export class CharmComponent implements OnInit {
   addCharm() {
     this.charmForAdd = this.charmForm.value;
     this.charmForAdd.imageUrl = this.files[0].name;
-    console.log(this.charmForAdd);
-    // this.startUpload();
+    this.charmService.addCharm(this.charmForAdd).subscribe(resp => {
+      const categoryName = this.categories.find(s => s.id == this.charmForAdd.charmCategoryId).name;
+      this.startUpload(categoryName);
+      this.uploadSuccessAlert = false;
+    }, (err: HttpErrorResponse) => {
+      this.uploadFailAlert = true;
+    });
   }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === 'allAddedToQueue') { // when all files added in queue
-      // uncomment this if you want to auto upload files when added
-      // const event: UploadInput = {
-      //   type: 'uploadAll',
-      //   url: '/upload',
-      //   method: 'POST',
-      //   data: { foo: 'bar' }
-      // };
-      // this.uploadInput.emit(event);
-    } else if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
+    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
       // update current data in files array for uploading file
@@ -108,13 +106,20 @@ export class CharmComponent implements OnInit {
       this.dragOver = false;
     } else if (output.type === 'drop') {
       this.dragOver = false;
+    } else if (output.type === 'rejected') {
+      this.uploadFailAlert = true;
+    }
+    if (output.type === 'done') {
+      this.charmForm.reset();
+      this.getCategoriesWithCharms();
+      this.uploadSuccessAlert = true;
     }
   }
 
-  startUpload(): void {
+  startUpload(categoryName: string): void {
     const event: UploadInput = {
       type: 'uploadAll',
-      url: 'http://localhost:60474/api/charms/2/',
+      url: this.url + '/charms/' + categoryName + '/',
       method: 'POST',
       data: {foo: 'bar'}
     };

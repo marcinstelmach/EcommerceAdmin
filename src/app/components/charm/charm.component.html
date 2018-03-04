@@ -1,4 +1,12 @@
 <div class="container main-container">
+  <div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!uploadSuccessAlert">
+      <strong>Dodano zawieszke</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
   <div class="col-12"><h1 class="text-center">Zawieszki</h1></div>
   <div class="row">
     <div class="col-md-6" style="border-right: 1px solid black;">
@@ -24,14 +32,16 @@
           </div>
           <div class="form-group">
             <select class="custom-select" title="categories" formControlName="type">
-              <option value="1">Dostępne</option>
-              <option value="2">Niedostępne</option>
+              <option value="0">Dostępne</option>
+              <option value="1">Niedostępne</option>
             </select>
           </div>
-          <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
-                 [uploadInput]="uploadInput"  id="file" name="file"
-                 aria-describedby="fileHelp">
-          <span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span>
+          <div>
+            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" name="file">
+            <!--<span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span>-->
+          </div>
+
           <div style="margin-top: 15px;">
             <button type="submit" class="btn btn-dark -align-right" (click)="addCharm()" [disabled]="charmForm.invalid">
               Dodaj
@@ -49,7 +59,7 @@
     </div>
     <div class="col-md-6">
       <div id="accordion">
-        <div class="card" *ngFor="let category of categoriesWithCharms; let i=index;">
+        <div class="card" *ngFor="let category of categoriesWithCharms;">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
               <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name" aria-expanded="false"
@@ -63,10 +73,7 @@
                <!--*ngFor="let charm of category.charms"-->
 
             <div class="card-body">
-              <img [src]="pathToCharm" alt="charm">
-              <img [src]="pathToCharm" alt="charm">
-              <img [src]="pathToCharm" alt="charm">
-              <img [src]="pathToCharm" alt="charm">
+              <img *ngFor="let charm of category.charms; let i=index" src="{{pathToCharm + category.name + '/' + charm.imageUrl}}" alt="charm{{i}}" class="charm">
             </div>
           </div>
         </div>
@@ -74,10 +81,3 @@
     </div>
   </div>
 </div>
-
-
-<script>
-  $('.custom-file-input').on('change', function () {
-    $(this).next('.form-control-file').addClass("selected").html($(this).val());
-  });
-</script>

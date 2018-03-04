@@ -5,22 +5,24 @@ import {CharmCategoryService} from './charmCategoryService';
 import {Observable} from 'rxjs/Observable';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
+import {CharmForCreation} from '../models/charmForCreation';
 
 @Injectable()
 export class CharmService {
+  url: string;
 
   constructor(private globalService: GlobalService,
-              private http: HttpClient,
-              private charmCategoryService: CharmCategoryService) {
+              private http: HttpClient) {
+    this.url = this.globalService.servicePath + 'charms/';
 
   }
 
-  getCategories(): Observable<HttpResponse<CharmCategoryForDisplay[]>> {
-    return this.charmCategoryService.getCategories();
-  }
-
-  getCategoriesWithCharms(): Observable<HttpResponse<CharmCategoryWithCharms[]>> {
-    return this.charmCategoryService.getCategoriesWithCharms();
+  addCharm(charm: CharmForCreation): Observable<HttpResponse<CharmCategoryForDisplay>> {
+    return this.http.post<CharmCategoryForDisplay>(this.url, charm, {
+      headers: {
+        'Content-Type': 'application/json'
+      }, observe: 'response'
+    });
   }
 
 }

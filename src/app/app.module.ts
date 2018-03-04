@@ -27,7 +27,7 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
 import {CharmCategoryService} from './services/charmCategoryService';
 import { CharmComponent } from './components/charm/charm.component';
 import {CharmService} from './services/charmService';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,8 @@ import {CharmService} from './services/charmService';
     MatInputModule,
     MatCardModule,
     HttpClientModule,
-    NgUploaderModule
+    NgUploaderModule,
+    NgbModule
   ],
   providers: [
     GlobalService,
