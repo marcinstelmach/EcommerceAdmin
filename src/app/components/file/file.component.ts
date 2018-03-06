@@ -28,7 +28,11 @@ export class FileComponent implements OnInit {
   dragOver: boolean;
   userId: string;
 
-  constructor(private fileService: FileService, private fb: FormBuilder, private router: Router, private authService: AuthService, private globalService: GlobalService) {
+  constructor(private fileService: FileService,
+              private fb: FormBuilder,
+              private router: Router,
+              private authService: AuthService,
+              private globalService: GlobalService) {
     const splitedUrl = this.router.url.split('/');
     this.repositoryId = splitedUrl[2];
     this.versionId = splitedUrl[4];

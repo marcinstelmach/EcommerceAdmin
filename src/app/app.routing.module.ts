@@ -5,13 +5,14 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
 import {CharmComponent} from './components/charm/charm.component';
+import {AuthGuard} from './services/authGuard';
 
 
 const routes: Routes = [
-  {path: 'charm', component: CharmComponent},
-  {path: 'product-category', component: ProductCategoryComponent},
+  {path: 'charm', component: CharmComponent, canActivate: [AuthGuard]},
+  {path: 'product-category', component: ProductCategoryComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'charm-category', component: CharmCategoryComponent},
+  {path: 'charm-category', component: CharmCategoryComponent, canActivate: [AuthGuard]},
   // {path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version', component: VersionComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version/:versionId/file', component: FileComponent, canActivate: [AuthGuard]},

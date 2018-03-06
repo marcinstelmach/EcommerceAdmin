@@ -6,20 +6,25 @@ import {Observable} from 'rxjs/Observable';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
 import {CharmForCreation} from '../models/charmForCreation';
+import {AuthService} from './authService';
 
 @Injectable()
 export class CharmService {
   url: string;
+  public token: string;
 
   constructor(private globalService: GlobalService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private authService: AuthService) {
     this.url = this.globalService.servicePath + 'charms/';
+    this.token = this.authService.getToken();
 
   }
 
   addCharm(charm: CharmForCreation): Observable<HttpResponse<CharmCategoryForDisplay>> {
     return this.http.post<CharmCategoryForDisplay>(this.url, charm, {
       headers: {
+        'Authorization': 'Bearer ' + this.token,
         'Content-Type': 'application/json'
       }, observe: 'response'
     });

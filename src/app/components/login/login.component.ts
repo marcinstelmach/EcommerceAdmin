@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.token = data.body;
         this.authService.setToken(this.token);
-        this.router.navigate(['/repository']);
+        this.router.navigate(['/charm']);
       },
       (err: HttpErrorResponse) => {
         this.errors = err.error;
