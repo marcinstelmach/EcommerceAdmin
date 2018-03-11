@@ -8,6 +8,7 @@ import {CharmCategoryService} from '../../services/charmCategoryService';
 import {UploaderOptions, UploadFile, UploadInput, humanizeBytes, UploadOutput} from 'ngx-uploader';
 import {CharmForCreation} from '../../models/charmForCreation';
 import {GlobalService} from '../../services/globalService';
+import {AuthService} from '../../services/authService';
 
 @Component({
   selector: 'app-charm',
@@ -33,14 +34,16 @@ export class CharmComponent implements OnInit {
   constructor(private charmService: CharmService,
               private fb: FormBuilder,
               private charmCategoryService: CharmCategoryService,
-              private globalService: GlobalService) {
+              private globalService: GlobalService,
+              private authService: AuthService) {
+
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
   }
 
   ngOnInit() {
-    this.pathToCharm = '../assets/img/charms/';
+    this.pathToCharm = this.globalService.charmPath;
     this.url = this.globalService.servicePath;
     this.getCategories();
     this.getCategoriesWithCharms();
@@ -51,7 +54,7 @@ export class CharmComponent implements OnInit {
   createForm() {
     this.charmForm = this.fb.group({
       'name': new FormControl('', Validators.required),
-      'price': new FormControl('', Validators.required),
+      'price': new FormControl('5', Validators.required),
       'type': new FormControl(0, Validators.required),
       'charmCategoryId': new FormControl('', Validators.required)
     });
@@ -83,7 +86,7 @@ export class CharmComponent implements OnInit {
     this.charmForAdd.imageUrl = this.files[0].name;
     this.charmService.addCharm(this.charmForAdd).subscribe(resp => {
       const categoryName = this.categories.find(s => s.id == this.charmForAdd.charmCategoryId).name;
-      this.startUpload(categoryName);
+      this.startUpload(categoryName, resp.body.uniqueName);
       this.uploadSuccessAlert = false;
     }, (err: HttpErrorResponse) => {
       this.uploadFailAlert = true;
@@ -116,11 +119,13 @@ export class CharmComponent implements OnInit {
     }
   }
 
-  startUpload(categoryName: string): void {
+  startUpload(categoryName: string, uniqueName: string): void {
+    const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: this.url + '/charms/' + categoryName + '/',
+      url: this.url + '/charms/' + categoryName + '/' + uniqueName + '/',
       method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
       data: {foo: 'bar'}
     };
 

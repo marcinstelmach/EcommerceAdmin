@@ -28,6 +28,7 @@ import {CharmCategoryService} from './services/charmCategoryService';
 import { CharmComponent } from './components/charm/charm.component';
 import {CharmService} from './services/charmService';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ProductComponent } from './components/product/product.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     PageNotFoundComponent,
     ProductCategoryComponent,
     CharmCategoryComponent,
-    CharmComponent
+    CharmComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

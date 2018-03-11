@@ -7,6 +7,7 @@ import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
 import {CharmForCreation} from '../models/charmForCreation';
 import {AuthService} from './authService';
+import {CharmForDisplay} from '../models/charmForDisplay';
 
 @Injectable()
 export class CharmService {
@@ -21,8 +22,8 @@ export class CharmService {
 
   }
 
-  addCharm(charm: CharmForCreation): Observable<HttpResponse<CharmCategoryForDisplay>> {
-    return this.http.post<CharmCategoryForDisplay>(this.url, charm, {
+  addCharm(charm: CharmForCreation): Observable<HttpResponse<CharmForDisplay>> {
+    return this.http.post<CharmForDisplay>(this.url, charm, {
       headers: {
         'Authorization': 'Bearer ' + this.token,
         'Content-Type': 'application/json'

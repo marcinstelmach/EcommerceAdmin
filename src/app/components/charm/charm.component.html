@@ -19,11 +19,22 @@
                    *ngIf="charmForm.controls['name'].errors">Podaj nazwe
             </small>
           </div>
-          <div class="form-group">
-            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
-            <small class="form-text text-muted form-error"
-                   *ngIf="charmForm.controls['price'].errors">Podaj cene
-            </small>
+
+          <div class="input-group mb-3">
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price"
+                   aria-describedby="price">
+            <div class="input-group-append">
+              <span class="input-group-text" id="price">PLN</span>
+            </div>
+          </div>
+          <small class="form-text text-muted form-error"
+                 *ngIf="charmForm.controls['price'].errors">Podaj cene
+          </small>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <span class="input-group-text" id="basic-addon2">@example.com</span>
+            </div>
           </div>
           <div class="form-group">
             <select class="custom-select" title="categories" formControlName="charmCategoryId">
@@ -62,18 +73,21 @@
         <div class="card" *ngFor="let category of categoriesWithCharms;">
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name" aria-expanded="false"
+              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name"
+                      aria-expanded="false"
                       aria-controls="collapse">
                 {{category.name}}
               </button>
             </h5>
           </div>
 
-          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-               <!--*ngFor="let charm of category.charms"-->
+          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne"
+               data-parent="#accordion">
+            <!--*ngFor="let charm of category.charms"-->
 
             <div class="card-body">
-              <img *ngFor="let charm of category.charms; let i=index" src="{{pathToCharm + category.name + '/' + charm.imageUrl}}" alt="charm{{i}}" class="charm">
+              <img *ngFor="let charm of category.charms; let i=index"
+                   src="{{pathToCharm + category.name + '/' + charm.imageUrl}}" alt="charm{{i}}" class="charm">
             </div>
           </div>
         </div>

@@ -53,6 +53,7 @@ export class ProductCategoryComponent implements OnInit {
     this.categoryForCreation.parentId = null;
     this.categoryService.addCategory(this.categoryForCreation).subscribe(resp => {
         this.getCategoriesTree();
+        this.getParentCategories();
       },
       (err: HttpErrorResponse) => {
         this.errors = err.error;
