@@ -29,6 +29,7 @@ export class CharmComponent implements OnInit {
   url: string;
   uploadSuccessAlert = false;
   uploadFailAlert = false;
+  currentCharmId: number;
 
 
   constructor(private charmService: CharmService,
@@ -83,7 +84,7 @@ export class CharmComponent implements OnInit {
 
   addCharm() {
     this.charmForAdd = this.charmForm.value;
-    this.charmForAdd.imageUrl = this.files[0].name;
+    this.charmForAdd.imageExtension = this.getFileExtension(this.files[0].name);
     this.charmService.addCharm(this.charmForAdd).subscribe(resp => {
       const categoryName = this.categories.find(s => s.id == this.charmForAdd.charmCategoryId).name;
       this.startUpload(categoryName, resp.body.uniqueName);
@@ -125,10 +126,29 @@ export class CharmComponent implements OnInit {
       type: 'uploadAll',
       url: this.url + '/charms/' + categoryName + '/' + uniqueName + '/',
       method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + token },
+      headers: {'Authorization': 'Bearer ' + token},
       data: {foo: 'bar'}
     };
 
     this.uploadInput.emit(event);
+  }
+
+  private getFileExtension(fileName: string): string {
+    const index = fileName.indexOf('.');
+    return fileName.substr(index);
+  }
+
+  deleteCharmModal(charmId: number) {
+    this.currentCharmId = charmId;
+  }
+
+  deleteCharm() {
+    this.charmService.deleteCharm(this.currentCharmId).subscribe(resp => {
+      if (resp.ok) {
+        this.getCategoriesWithCharms();
+        return;
+      }
+      console.log('Cannot delete this charm :(');
+    });
   }
 }

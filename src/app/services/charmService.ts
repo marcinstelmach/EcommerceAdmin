@@ -31,4 +31,14 @@ export class CharmService {
     });
   }
 
+  deleteCharm(charmId: number): Observable<HttpResponse<any>> {
+    const deleteUrl = this.url + charmId + '/';
+    return this.http.delete(deleteUrl, {
+      headers: {
+        'Authorization': 'Bearer ' + this.token,
+        'Content-Type': 'application/json'
+      }, observe: 'response'
+    });
+  }
+
 }

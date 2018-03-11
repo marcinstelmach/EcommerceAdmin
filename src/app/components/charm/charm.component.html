@@ -20,21 +20,11 @@
             </small>
           </div>
 
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" placeholder="Cena" formControlName="price"
-                   aria-describedby="price">
-            <div class="input-group-append">
-              <span class="input-group-text" id="price">PLN</span>
-            </div>
-          </div>
-          <small class="form-text text-muted form-error"
-                 *ngIf="charmForm.controls['price'].errors">Podaj cene
-          </small>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon2">@example.com</span>
-            </div>
+          <div class="form-group">
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
+            <small class="form-text text-muted form-error"
+                   *ngIf="charmForm.controls['price'].errors">Podaj cene
+            </small>
           </div>
           <div class="form-group">
             <select class="custom-select" title="categories" formControlName="charmCategoryId">
@@ -69,6 +59,7 @@
       </div>
     </div>
     <div class="col-md-6">
+      <p>Aby usunąc zawieszkę, kliknij wybraną.</p>
       <div id="accordion">
         <div class="card" *ngFor="let category of categoriesWithCharms;">
           <div class="card-header" id="headingOne">
@@ -86,11 +77,34 @@
             <!--*ngFor="let charm of category.charms"-->
 
             <div class="card-body">
-              <img *ngFor="let charm of category.charms; let i=index"
-                   src="{{pathToCharm + category.name + '/' + charm.imageUrl}}" alt="charm{{i}}" class="charm">
+              <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)"
+                 data-toggle="modal" data-target="#deleteModal" class="charm-delete">
+              <img src="{{pathToCharm + category.name + '/' + charm.uniqueName}}" alt="charm{{i}}" class="charm">
+              </a>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Czy na pewno usunąc zawieszke ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Zastanów się dobrze :D</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCharm(currentCharmId)">Usuwamy !</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
       </div>
     </div>
   </div>

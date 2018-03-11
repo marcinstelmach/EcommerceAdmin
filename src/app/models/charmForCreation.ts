@@ -5,5 +5,5 @@ export class CharmForCreation {
   price: number;
   type: charmStatus;
   charmCategoryId: number;
-  imageUrl: string;
+  imageExtension: string;
 }
