@@ -57,4 +57,14 @@ export class ProductCategoryService {
       }, observe: 'response'
     });
   }
+
+  getChildCategories(): Observable<HttpResponse<ProductCategoryForDisplay[]>> {
+    const categoriesUrl = this.url + 'child';
+    return this.http.get<ProductCategoryForDisplay[]>(categoriesUrl, {
+      headers: {
+        'Authorization': 'Bearer ' + this.token,
+        'Content-Type': 'application/json'
+      }, observe: 'response'
+    });
+  }
 }

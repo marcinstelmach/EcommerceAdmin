@@ -1,3 +1,93 @@
-<p>
-  product works!
-</p>
+<div class="container main-container">
+  <div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!uploadSuccessAlert">
+      <strong>Dodano produkt</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="col-12"><h1 class="text-center">Produkty</h1></div>
+  <div class="row">
+    <div class="col-md-6" style="border-right: 1px solid black;">
+      <h4 style="margin-bottom: 30px;">Dodaj Produkt</h4>
+      <div class="col-10">
+        <form [formGroup]="productForm">
+          <div class="form-group">
+            <label for="name">Nazwa</label>
+            <input type="text" class="form-control" placeholder="Nazwa" formControlName="name" id="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="productForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="price">Cena (separator kropka . )</label>
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price" id="price">
+            <small class="form-text text-muted form-error"
+                   *ngIf="productForm.controls['price'].errors">Podaj cene
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="categories">Kategorie</label>
+            <select class="custom-select" title="categories" formControlName="categoryId" id="categories">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="status">Status</label>
+            <select class="custom-select" title="Status" formControlName="status" id="status">
+              <option value="0">Dostępne</option>
+              <option value="1">Niedostępne</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="hasCharms" id="hasCharms">
+              <label class="form-check-label" for="hasCharms">
+                Można dodawać zawieszki ?
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="colors">Kolory</label>
+            <input type="text" class="form-control" placeholder="Kolory" formControlName="colors" id="colors">
+            <small class="form-text text-muted form-error">Kolory mają być oddzielone przecinkiem</small>
+            <small class="form-text text-muted form-error"
+                   *ngIf="productForm.controls['colors'].errors">Podaj kolory po przecinku
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="sizes">Rozmiary, jeśli nie to puste</label>
+            <input type="text" class="form-control" placeholder="Rozmiary" formControlName="sizes" id="sizes">
+            <small class="form-text text-muted form-error">Rozmiary mają być oddzielone przecinkiem</small>
+            <small class="form-text text-muted form-error"
+                   *ngIf="productForm.controls['sizes'].errors">Podaj rozmiary po przecinku
+            </small>
+          </div>
+          <div class="form-group">
+            <label for="description">Opis</label>
+            <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+          </div>
+          <div>
+            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" name="file" multiple>
+          </div>
+
+          <div style="margin-top: 15px;">
+            <button type="submit" class="btn btn-dark -align-right" (click)="addProduct()" [disabled]="productForm.invalid">
+              Dodaj
+            </button>
+          </div>
+
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+          <small class="form-text validation-error">{{errors['price']}}</small>
+          <small class="form-text validation-error">{{errors['categoryId']}}</small>
+          <small class="form-text validation-error">{{errors['type']}}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

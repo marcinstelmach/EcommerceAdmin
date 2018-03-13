@@ -66,7 +66,6 @@ export class CharmComponent implements OnInit {
     this.charmCategoryService.getCategories().subscribe(resp => {
         this.categories = resp.body;
         this.charmForm.controls['charmCategoryId'].setValue(this.categories[0].id);
-
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);

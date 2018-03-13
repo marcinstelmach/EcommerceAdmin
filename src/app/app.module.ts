@@ -29,6 +29,7 @@ import { CharmComponent } from './components/charm/charm.component';
 import {CharmService} from './services/charmService';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProductComponent } from './components/product/product.component';
+import {ProductService} from './services/productService';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ProductComponent } from './components/product/product.component';
     FileService,
     ProductCategoryService,
     CharmCategoryService,
-    CharmService
+    CharmService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
