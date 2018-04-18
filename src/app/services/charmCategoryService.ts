@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {GlobalService} from './globalService';
 import {Observable} from 'rxjs/Observable';
 import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
 import {AuthService} from './authService';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class CharmCategoryService {
@@ -13,9 +13,8 @@ export class CharmCategoryService {
   private token: string;
 
   constructor(private http: HttpClient,
-              private globalService: GlobalService,
               private authService: AuthService) {
-    this.url = this.globalService.servicePath + 'charmscategory/';
+    this.url = environment.API_URL + 'charmscategory/';
     this.token = this.authService.getToken();
   }
 

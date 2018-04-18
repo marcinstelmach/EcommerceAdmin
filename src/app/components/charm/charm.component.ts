@@ -5,10 +5,10 @@ import {CharmCategoryWithCharms} from '../../models/charmCategoryWithCharms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CharmCategoryService} from '../../services/charmCategoryService';
-import {UploaderOptions, UploadFile, UploadInput, humanizeBytes, UploadOutput} from 'ngx-uploader';
+import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
 import {CharmForCreation} from '../../models/charmForCreation';
-import {GlobalService} from '../../services/globalService';
 import {AuthService} from '../../services/authService';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-charm',
@@ -35,7 +35,6 @@ export class CharmComponent implements OnInit {
   constructor(private charmService: CharmService,
               private fb: FormBuilder,
               private charmCategoryService: CharmCategoryService,
-              private globalService: GlobalService,
               private authService: AuthService) {
 
     this.files = []; // local uploading files array
@@ -44,8 +43,8 @@ export class CharmComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pathToCharm = this.globalService.charmPath;
-    this.url = this.globalService.servicePath;
+    this.pathToCharm = environment.charms;
+    this.url = environment.API_URL;
     this.getCategories();
     this.getCategoriesWithCharms();
     this.createForm();
@@ -132,11 +131,6 @@ export class CharmComponent implements OnInit {
     this.uploadInput.emit(event);
   }
 
-  private getFileExtension(fileName: string): string {
-    const index = fileName.indexOf('.');
-    return fileName.substr(index);
-  }
-
   deleteCharmModal(charmId: number) {
     this.currentCharmId = charmId;
   }
@@ -149,5 +143,10 @@ export class CharmComponent implements OnInit {
       }
       console.log('Cannot delete this charm :(');
     });
+  }
+
+  private getFileExtension(fileName: string): string {
+    const index = fileName.indexOf('.');
+    return fileName.substr(index);
   }
 }

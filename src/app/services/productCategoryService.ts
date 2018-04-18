@@ -3,9 +3,9 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {ProductCategoryForCreation} from '../models/productCategoryForCreation';
 import {Observable} from 'rxjs/Observable';
 import {ProductCategoryForDisplay} from '../models/productCategoryForDisplay';
-import {GlobalService} from './globalService';
 import {ProductCategoryTreeForDisplay} from '../models/productCategoryTreeForDisplay';
 import {AuthService} from './authService';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ProductCategoryService {
@@ -13,9 +13,8 @@ export class ProductCategoryService {
   private token: string;
 
   constructor(private http: HttpClient,
-              private global: GlobalService,
               private authService: AuthService) {
-    this.url = global.servicePath + 'productscategory/';
+    this.url = environment.API_URL + 'productscategory/';
     this.token = this.authService.getToken();
   }
 

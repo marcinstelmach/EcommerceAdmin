@@ -97,7 +97,7 @@ export class FileComponent implements OnInit {
     // const FileSaver = require('file-saver');
     this.fileService.downloadFileInfo(this.repositoryId, this.versionId, fileId).subscribe(
       resp => {
-        this.fileService.downoloadFile(this.repositoryId, this.versionId, fileId).subscribe(
+        this.fileService.downloadFile(this.repositoryId, this.versionId, fileId).subscribe(
           response => {
             FileSaver.saveAs(response, this.setFileName(resp.body.name));
           },

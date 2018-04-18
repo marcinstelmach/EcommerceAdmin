@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {AuthService} from './authService';
-import {GlobalService} from './globalService';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {FileForDisplay} from '../models/fileForDisplay';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class FileService {
@@ -12,9 +12,10 @@ export class FileService {
   private userId: string;
 
 
-  constructor(private authService: AuthService, private global: GlobalService, private http: HttpClient) {
+  constructor(private authService: AuthService,
+              private http: HttpClient) {
     this.userId = this.authService.getUserId();
-    this.url = this.global.servicePath + 'users/' + this.userId + '/repositories/';
+    this.url = environment.API_URL + 'users/' + this.userId + '/repositories/';
     this.token = this.authService.getToken();
   }
 
@@ -39,13 +40,13 @@ export class FileService {
   }
 
 
-  downoloadFile(repositoryId: string, versionId: string, fileId: string): any {
+  downloadFile(repositoryId: string, versionId: string, fileId: string): any {
     const myUrl = this.url + repositoryId + '/versions/' + versionId + '/files/download/' + fileId;
     return this.http.get(myUrl, {
       responseType: 'blob',
       headers: {'Authorization': 'Bearer ' + this.token}
     })
-      .map( res => {
+      .map(res => {
         return new Blob([res]);
       });
   }

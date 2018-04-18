@@ -1,15 +1,14 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductCategoryForCreation} from '../../models/productCategoryForCreation';
 import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay';
 import {ProductCategoryService} from '../../services/productCategoryService';
 import {HttpErrorResponse} from '@angular/common/http';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput} from 'ngx-uploader';
-import {GlobalService} from '../../services/globalService';
 import {UploadOutput} from 'ngx-uploader/index';
 import {AuthService} from '../../services/authService';
 import {ProductService} from '../../services/productService';
 import {ProductForCreation} from '../../models/productForCreation';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -31,13 +30,12 @@ export class ProductComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductCategoryService,
-              private globalService: GlobalService,
               private authService: AuthService,
               private productService: ProductService) {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
-    this.url = this.globalService.servicePath;
+    this.url = environment.API_URL;
   }
 
   ngOnInit() {
