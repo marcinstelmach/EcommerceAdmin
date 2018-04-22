@@ -43,7 +43,7 @@ export class CharmComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pathToCharm = environment.charms;
+    this.pathToCharm = environment.backendPath;
     this.url = environment.API_URL;
     this.getCategories();
     this.getCategoriesWithCharms();
@@ -83,13 +83,7 @@ export class CharmComponent implements OnInit {
   addCharm() {
     this.charmForAdd = this.charmForm.value;
     this.charmForAdd.imageExtension = this.getFileExtension(this.files[0].name);
-    this.charmService.addCharm(this.charmForAdd).subscribe(resp => {
-      const categoryName = this.categories.find(s => s.id == this.charmForAdd.charmCategoryId).name;
-      this.startUpload(categoryName, resp.body.uniqueName);
-      this.uploadSuccessAlert = false;
-    }, (err: HttpErrorResponse) => {
-      this.uploadFailAlert = true;
-    });
+    this.startUpload();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -113,19 +107,26 @@ export class CharmComponent implements OnInit {
     }
     if (output.type === 'done') {
       this.charmForm.reset();
-      this.getCategoriesWithCharms();
+      this.ngOnInit();
       this.uploadSuccessAlert = true;
     }
   }
 
-  startUpload(categoryName: string, uniqueName: string): void {
+  startUpload(): void {
+    console.log('Upload');
     const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: this.url + '/charms/' + categoryName + '/' + uniqueName + '/',
+      url: this.url + '/charms/all',
       method: 'POST',
-      headers: {'Authorization': 'Bearer ' + token},
-      data: {foo: 'bar'}
+      headers: {'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200'},
+      data: {
+        name: this.charmForAdd.name,
+        price: this.charmForAdd.price.toString(),
+        type: this.charmForAdd.type.toString(),
+        charmCategoryId: this.charmForAdd.charmCategoryId.toString(),
+        imageExtension: this.charmForAdd.imageExtension
+      }
     };
 
     this.uploadInput.emit(event);

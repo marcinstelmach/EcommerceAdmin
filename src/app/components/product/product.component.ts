@@ -32,8 +32,8 @@ export class ProductComponent implements OnInit {
               private categoryService: ProductCategoryService,
               private authService: AuthService,
               private productService: ProductService) {
-    this.files = []; // local uploading files array
-    this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
+    this.files = [];
+    this.uploadInput = new EventEmitter<UploadInput>();
     this.humanizeBytes = humanizeBytes;
     this.url = environment.API_URL;
   }
@@ -65,7 +65,7 @@ export class ProductComponent implements OnInit {
         console.log(err.message);
       });
   }
-
+  // wysylac zdjecie i produkt w jednym
   addProduct() {
     this.productForAdd = this.productForm.value;
     // this.productService.addProduct(this.productForAdd).subscribe(resp => {
@@ -74,8 +74,7 @@ export class ProductComponent implements OnInit {
     // }, (err: HttpErrorResponse) => {
     //   this.uploadFailAlert = true;
     // });
-    console.log(this.productForAdd);
-    console.log(this.files);
+    this.startUpload();
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -104,14 +103,23 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  startUpload(productId: number): void {
+  startUpload(): void {
     const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: this.url + '/products/' + productId + '/',
+      url: this.url + '/products/all',
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + token},
-      data: {foo: 'bar'}
+      data: {
+        name: this.productForAdd.name,
+        price: this.productForAdd.price.toString(),
+        categoryId: this.productForAdd.categoryId.toString(),
+        status: this.productForAdd.status.toString(),
+        description: this.productForAdd.description,
+        hasCharms: this.productForAdd.hasCharms.toString(),
+        colors: this.productForAdd.colors,
+        sizes: this.productForAdd.sizes
+      }
     };
 
     this.uploadInput.emit(event);

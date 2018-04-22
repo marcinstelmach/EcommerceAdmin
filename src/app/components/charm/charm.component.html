@@ -74,12 +74,12 @@
 
           <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne"
                data-parent="#accordion">
-            <!--*ngFor="let charm of category.charms"-->
+            <!--*ngFor="let charm of category.backendPath"-->
 
             <div class="card-body">
               <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)"
                  data-toggle="modal" data-target="#deleteModal" class="charm-delete">
-              <img src="{{pathToCharm + category.name + '/' + charm.uniqueName}}" alt="charm{{i}}" class="charm">
+              <img src="{{pathToCharm + charm.pathToImg}}" alt="charm{{i}}" class="charm">
               </a>
             </div>
           </div>

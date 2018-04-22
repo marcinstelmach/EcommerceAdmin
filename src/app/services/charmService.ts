@@ -13,7 +13,7 @@ export class CharmService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
-    this.url = environment.API_URL + 'charms/';
+    this.url = environment.API_URL + 'backendPath/';
     this.token = this.authService.getToken();
 
   }
