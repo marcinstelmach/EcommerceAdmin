@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {CharmForCreation} from '../models/charmForCreation';
 import {AuthService} from './authService';
 import {CharmForDisplay} from '../models/charmForDisplay';

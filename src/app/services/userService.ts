@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {UserForCreation} from '../models/userForCreation';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {UserForLogin} from '../models/userForLogin';
 import {UserForDisplay} from '../models/userForDisplay';
 import {TokenModel} from '../models/tokenModel';

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
 import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';

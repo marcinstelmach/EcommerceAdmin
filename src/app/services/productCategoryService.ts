@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {ProductCategoryForCreation} from '../models/productCategoryForCreation';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ProductCategoryForDisplay} from '../models/productCategoryForDisplay';
 import {ProductCategoryTreeForDisplay} from '../models/productCategoryTreeForDisplay';
 import {AuthService} from './authService';

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {AuthService} from './authService';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {ProductForCreation} from '../models/productForCreation';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ProductForDisplay} from '../models/productForDisplay';
 import {environment} from '../../environments/environment';
 
