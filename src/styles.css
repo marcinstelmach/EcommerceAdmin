@@ -2,3 +2,29 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.main-container {
+  padding: 30px;
+}
+
+.form-error {
+  color:red;
+}
+
+.remove-trash {
+  color: #cc0824;
+  cursor: pointer;
+}
+
+.remove-trash:hover {
+  color: #b10824;
+  cursor: pointer;
+}
+
+.edit-pencil {
+  color: #21a840;
+  cursor: pointer;
+}
+
+.edit-pencil:hover {
+  color: #21913a;
+}

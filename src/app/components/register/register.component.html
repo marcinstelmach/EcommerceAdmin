@@ -5,9 +5,9 @@
       <mat-card-title>Create new Account !</mat-card-title>
       <mat-card-content>
         <form [formGroup]="registerForm">
-          <mat-input-container
+          <mat-form-field
             [ngClass]="{'error': registerForm.controls['email'].errors && !registerForm.controls['email'].pristine}"
-            dividerColor="{{registerForm.controls['email'].errors && !registerForm.controls['email'].pristine ? 'warn' : 'primary'}}">
+            color="{{registerForm.controls['email'].errors && !registerForm.controls['email'].pristine ? 'warn' : 'primary'}}">
             <input type="email" matInput formControlName="email" placeholder="Email" required>
             <div *ngIf="registerForm.controls['email'].errors && !registerForm.controls['email'].pristine"
                  class="error-msg">
@@ -17,10 +17,10 @@
               </div>
               <div [hidden]="!registerForm.controls['email'].errors.required">Email is required.</div>
             </div>
-          </mat-input-container>
-          <mat-input-container
+          </mat-form-field>
+          <mat-form-field
             [ngClass]="{'error': registerForm.controls['password'].errors && !registerForm.controls['password'].pristine}"
-            dividerColor="{{registerForm.controls['password'].errors && !registerForm.controls['password'].pristine ? 'warn' : 'primary'}}">
+            color="{{registerForm.controls['password'].errors && !registerForm.controls['password'].pristine ? 'warn' : 'primary'}}">
             <input type="password" matInput formControlName="password" placeholder="Password" required>
             <div *ngIf="registerForm.controls['password'].errors && !registerForm.controls['password'].pristine"
                  class="error-msg">
@@ -29,10 +29,10 @@
                 characters
               </div>
             </div>
-          </mat-input-container>
-          <mat-input-container
+          </mat-form-field>
+          <mat-form-field
             [ngClass]="{'error': registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine}"
-            dividerColor="{{registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine ? 'warn' : 'primary'}}">
+            color="{{registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine ? 'warn' : 'primary'}}">
             <input type="password" matInput formControlName="confirmPassword" placeholder="Password" required>
             <div
               *ngIf="registerForm.controls['confirmPassword'].errors && !registerForm.controls['confirmPassword'].pristine"
@@ -41,25 +41,25 @@
               <div [hidden]="!registerForm.controls['confirmPassword'].errors?.matchPassword">Passwords doesn't match
               </div>
             </div>
-          </mat-input-container>
-          <mat-input-container
+          </mat-form-field>
+          <mat-form-field
             [ngClass]="{'error': registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine}"
-            dividerColor="{{registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine ? 'warn' : 'primary'}}">
+            color="{{registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine ? 'warn' : 'primary'}}">
             <input type="text" matInput formControlName="firstName" placeholder="First name" required>
             <div *ngIf="registerForm.controls['firstName'].errors && !registerForm.controls['firstName'].pristine"
                  class="error-msg">
               <div [hidden]="!registerForm.controls['firstName'].errors.required">First name is required.</div>
             </div>
-          </mat-input-container>
-          <mat-input-container
+          </mat-form-field>
+          <mat-form-field
             [ngClass]="{'error': registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine}"
-            dividerColor="{{registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine ? 'warn' : 'primary'}}">
+            color="{{registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine ? 'warn' : 'primary'}}">
             <input type="text" matInput formControlName="lastName" placeholder="Last name" required>
             <div *ngIf="registerForm.controls['lastName'].errors && !registerForm.controls['lastName'].pristine"
                  class="error-msg">
               <div [hidden]="!registerForm.controls['lastName'].errors.required">Last name is required.</div>
             </div>
-          </mat-input-container>
+          </mat-form-field>
           <div *ngIf="errors" class="error">
             <small class="form-text validation-error">{{errors['firstName']}}</small>
             <small class="form-text validation-error">{{errors['lastName']}}</small>

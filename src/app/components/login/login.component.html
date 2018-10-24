@@ -5,9 +5,9 @@
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm">
-          <mat-input-container
+          <mat-form-field
             [ngClass]="{'error': loginForm.controls['email'].errors && !loginForm.controls['email'].pristine}"
-            dividerColor="{{loginForm.controls['email'].errors && !loginForm.controls['email'].pristine ? 'warn' : 'primary'}}">
+            color="{{loginForm.controls['email'].errors && !loginForm.controls['email'].pristine ? 'warn' : 'primary'}}">
             <input type="email" matInput formControlName="email" placeholder="Email" required>
             <div *ngIf="loginForm.controls['email'].errors && !loginForm.controls['email'].pristine"
                  class="error-msg">
@@ -17,17 +17,17 @@
               </div>
               <div [hidden]="!loginForm.controls['email'].errors.required">Email is required.</div>
             </div>
-          </mat-input-container>
-          <mat-input-container
+          </mat-form-field>
+          <mat-form-field
             [ngClass]="{'error': loginForm.controls['password'].errors && !loginForm.controls['password'].pristine}"
-            dividerColor="{{loginForm.controls['password'].errors && !loginForm.controls['password'].pristine ? 'warn' : 'primary'}}">
+            color="{{loginForm.controls['password'].errors && !loginForm.controls['password'].pristine ? 'warn' : 'primary'}}">
             <input type="password" matInput formControlName="password" placeholder="Password" required>
             <div *ngIf="loginForm.controls['password'].errors && !loginForm.controls['password'].pristine"
                  class="error-msg">
               <div [hidden]="!loginForm.controls['password'].errors.required">Password is required.</div>
               <div [hidden]="!loginForm.controls['password'].errors.minlength">Password must has at least 6 characters</div>
             </div>
-          </mat-input-container>
+          </mat-form-field>
           <div *ngIf="errors" class="error">
             <small class="form-text validation-error">{{errors['email']}}</small>
             <small class="form-text validation-error">{{errors['password']}}</small>

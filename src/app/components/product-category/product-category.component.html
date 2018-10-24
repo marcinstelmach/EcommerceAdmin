@@ -1,0 +1,92 @@
+<div class="container main-container">
+  <div class="row">
+    <div class="col-12" style="margin-bottom: 30px;">
+      <h2 class="text-center">Kategorie produktów</h2>
+    </div>
+    <div class="col-md-6" style="border-right: 1px black solid">
+      <h4 style="margin-bottom: 30px;">Dodaj</h4>
+      <div class="col-10">
+        <form [formGroup]="categoryForm">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa kategorii" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="categoryForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-check" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="isPremium" formControlName="isPremium">
+            <label class="form-check-label" for="isPremium" style="margin-left: -10px;">Premium</label>
+          </div>
+          <button type="submit" class="btn btn-dark -align-right" (click)="addCategory()">Dodaj</button>
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+          <small class="form-text validation-error">{{errors['isPremium']}}</small>
+        </div>
+      </div>
+
+      <h4 style="margin-bottom: 30px; margin-top: 30px;">Dodaj podkategorie</h4>
+      <div class="col-10">
+        <form [formGroup]="subCategoryForm">
+          <div class="form-group">
+            <select class="custom-select" title="categories" formControlName="parentId">
+              <option *ngFor="let category of parentCategories" [value]="category.id">{{category.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa kategorii" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="categoryForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-check" style="margin-left: 20px;">
+            <input type="checkbox" class="form-check-input" id="isPremiumSub" formControlName="isPremium">
+            <label class="form-check-label" for="isPremiumSub" style="margin-left: -10px;">Premium</label>
+          </div>
+          <button type="submit" class="btn btn-dark -align-right" (click)="addSubCategory()">Dodaj</button>
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+          <small class="form-text validation-error">{{errors['isPremium']}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Aktualne Kategorie</h4>
+      <div class="col-10">
+        <p *ngIf="treeError">Nie mozna pobrać kategorii</p>
+        <div *ngFor="let category of categoriesTree">
+          <p class="category"><i class="fa fa-angle-right fa-1x" aria-hidden="true"></i> {{category.name}} <i
+            class="fa fa-trash remove-trash" (click)="deleteCategoryModal(category.id)" data-toggle="modal"
+            data-target="#deleteModal"></i> <i class="fa fa-edit edit-pencil"></i></p>
+          <div *ngFor="let children of category.children">
+            <p class="sub-category"><i class="fa fa-angle-double-right"></i> {{children.name}} <i
+              class="fa fa-trash remove-trash" (click)="deleteCategoryModal(children.id)" data-toggle="modal"
+              data-target="#deleteModal"></i> <i class="fa fa-edit edit-pencil"></i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Czy na pewno usunąc kategorie ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Zastanów się dobrze, bo to zjebie całą bazę jesli są w tej kategorii produkty :D</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCategory(currentCategoryId)">Usuwamy !</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+      </div>
+    </div>
+  </div>
+</div>

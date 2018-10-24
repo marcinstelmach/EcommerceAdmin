@@ -1,26 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-  <a class="navbar-brand" href="index.html">Awesome Repositores</a>
+  <a class="navbar-brand" href="index.html">Streetwood Admin</a>
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-        <a class="nav-link" routerLink="/repository">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <a class="nav-link" routerLink="/product">
           <i class="fa fa-fw fa-dashboard"></i>
-          <span class="nav-link-text">Repositories</span>
+          <span class="nav-link-text">Dodaj produkt</span>
         </a>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts" *ngIf="repositoryId!=undefined">
-        <a class="nav-link" [routerLink]="['repository', repositoryId, 'version']">
-          <i class="fa fa-fw fa-area-chart"></i>
-          <span class="nav-link-text">Versions</span>
-        </a>
-      </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables" *ngIf="versionId!=undefined">
-        <a class="nav-link" [routerLink]="['repository', repositoryId, 'version', versionId, 'file']">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <a class="nav-link" routerLink="/charm">
           <i class="fa fa-fw fa-table"></i>
-          <span class="nav-link-text">Files</span>
+          <span class="nav-link-text">Zawieszki</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <a class="nav-link" routerLink="/product-category">
+          <i class="fa fa-fw fa-area-chart"></i>
+          <span class="nav-link-text">Kategorie przedmiotów</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <a class="nav-link" routerLink="/charm-category">
+          <i class="fa fa-fw fa-area-chart"></i>
+          <span class="nav-link-text">Kategorie zawieszek</span>
         </a>
       </li>
     </ul>
@@ -29,10 +35,6 @@
       <li class="nav-item" [hidden]="isLogin">
         <a class="nav-link" routerLink="/login">
           <i class="fa fa-fw fa-sign-out"></i>login</a>
-      </li>
-      <li class="nav-item" [hidden]="isLogin">
-        <a class="nav-link" routerLink="/register">
-          <i class="fa fa-fw fa-sign-out"></i>Register</a>
       </li>
       <li class="nav-item" [hidden]="!isLogin">
         <a class="nav-link" (click)="logout()">

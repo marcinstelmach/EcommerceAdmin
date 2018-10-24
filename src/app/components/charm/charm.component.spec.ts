@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VersionComponent } from './version.component';
+import { CharmComponent } from './charm.component';
 
-describe('VersionComponent', () => {
-  let component: VersionComponent;
-  let fixture: ComponentFixture<VersionComponent>;
+describe('CharmComponent', () => {
+  let component: CharmComponent;
+  let fixture: ComponentFixture<CharmComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VersionComponent ]
+      declarations: [ CharmComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VersionComponent);
+    fixture = TestBed.createComponent(CharmComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

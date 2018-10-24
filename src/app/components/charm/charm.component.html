@@ -1,0 +1,111 @@
+<div class="container main-container">
+  <div class="col-12">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!uploadSuccessAlert">
+      <strong>Dodano zawieszke</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="col-12"><h1 class="text-center">Zawieszki</h1></div>
+  <div class="row">
+    <div class="col-md-6" style="border-right: 1px solid black;">
+      <h4 style="margin-bottom: 30px;">Dodaj zawieszke</h4>
+      <div class="col-10">
+        <form [formGroup]="charmForm">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa zawieszki" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="charmForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+
+          <div class="form-group">
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
+            <small class="form-text text-muted form-error"
+                   *ngIf="charmForm.controls['price'].errors">Podaj cene
+            </small>
+          </div>
+          <div class="form-group">
+            <select class="custom-select" title="categories" formControlName="charmCategoryId">
+              <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="custom-select" title="categories" formControlName="type">
+              <option value="0">Dostępne</option>
+              <option value="1">Niedostępne</option>
+            </select>
+          </div>
+          <div>
+            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" name="file">
+            <!--<span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span>-->
+          </div>
+
+          <div style="margin-top: 15px;">
+            <button type="submit" class="btn btn-dark -align-right" (click)="addCharm()" [disabled]="charmForm.invalid">
+              Dodaj
+            </button>
+          </div>
+
+        </form>
+        <div *ngIf="errors" class="error">
+          <small class="form-text validation-error">{{errors['name']}}</small>
+          <small class="form-text validation-error">{{errors['price']}}</small>
+          <small class="form-text validation-error">{{errors['charmCategoryId']}}</small>
+          <small class="form-text validation-error">{{errors['type']}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <p>Aby usunąc zawieszkę, kliknij wybraną.</p>
+      <div id="accordion">
+        <div class="card" *ngFor="let category of categoriesWithCharms;">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name"
+                      aria-expanded="false"
+                      aria-controls="collapse">
+                {{category.name}}
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne"
+               data-parent="#accordion">
+            <!--*ngFor="let charm of category.backendPath"-->
+
+            <div class="card-body">
+              <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)"
+                 data-toggle="modal" data-target="#deleteModal" class="charm-delete">
+              <img src="{{pathToCharm + charm.pathToImg}}" alt="charm{{i}}" class="charm">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Czy na pewno usunąc zawieszke ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Zastanów się dobrze :D</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCharm(currentCharmId)">Usuwamy !</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
+      </div>
+    </div>
+  </div>
+</div>

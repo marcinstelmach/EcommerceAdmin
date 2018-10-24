@@ -1,0 +1,7 @@
+.charm {
+  width: 40px;
+}
+
+.charm-delete:hover {
+  cursor: pointer;
+}

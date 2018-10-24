@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RepositoryComponent } from './repository.component';
+import { CharmCategoryComponent } from './charm-category.component';
 
-describe('RepositoryComponent', () => {
-  let component: RepositoryComponent;
-  let fixture: ComponentFixture<RepositoryComponent>;
+describe('CharmCategoryComponent', () => {
+  let component: CharmCategoryComponent;
+  let fixture: ComponentFixture<CharmCategoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RepositoryComponent ]
+      declarations: [ CharmCategoryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RepositoryComponent);
+    fixture = TestBed.createComponent(CharmCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
