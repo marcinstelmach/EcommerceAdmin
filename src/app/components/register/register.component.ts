@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     this.user = <UserForCreation> this.registerForm.value;
     this.userService.register(this.user).subscribe(
       data => {
-        this.userForDisplay = data.body;
+        // this.userForDisplay = data;
         this.showModal = true;
       },
       (err: HttpErrorResponse) => {

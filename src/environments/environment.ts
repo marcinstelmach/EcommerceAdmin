@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   name: 'Developing',
-  API_URL: 'http://localhost:60474/api/',
+  API_URL: '/api/',
   backendPath: 'http://localhost:60474/'
 };

@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/userService';
-import {UserForLogin} from '../../models/userForLogin';
-import {HttpErrorResponse} from '@angular/common/http';
-import {TokenModel} from '../../models/tokenModel';
-import {AuthService} from '../../services/authService';
+import {UserForLogin, UserLoginResponseFromApi} from '../../models/userForLogin';
+import {HttpErrorResponse} from '@angular/common/http';  
 import {Router} from '@angular/router';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +14,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: UserForLogin;
-  token: TokenModel;
+  token: UserLoginResponseFromApi;
   errors: any;
 
   constructor(private fb: FormBuilder,
@@ -36,11 +35,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.user = <UserForLogin> this.loginForm.value;
-    this.userService.login(this.user).subscribe(
+    this.user = this.loginForm.value;
+    this.authService.login(this.user).subscribe(
       data => {
-        this.token = data.body;
-        this.authService.setToken(this.token);
+        console.log(data);
+        this.token = data;
+        this.authService.setToken(data);
         this.router.navigate(['/charm']);
       },
       (err: HttpErrorResponse) => {

@@ -10,7 +10,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule, MatInputModule} from '@angular/material';
 import {UserService} from './services/userService';
 import {HttpClientModule} from '@angular/common/http';
-import {AuthService} from './services/authService';
 import {AuthGuard} from './services/authGuard';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
 import {NgUploaderModule} from 'ngx-uploader';
@@ -23,6 +22,7 @@ import {CharmService} from './services/charmService';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ProductComponent} from './components/product/product.component';
 import {ProductService} from './services/productService';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [

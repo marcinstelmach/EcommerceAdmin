@@ -1,11 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {CharmCategoryForCreation} from '../models/charmCategoryForCreation';
-import {CharmCategoryForDisplay} from '../models/charmCategoryForDisplay';
-import {CharmCategoryWithCharms} from '../models/charmCategoryWithCharms';
-import {AuthService} from './authService';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { CharmCategoryForCreation } from '../models/charmCategoryForCreation';
+import { AuthService } from './authService';
+import { API_CHARMS_CATEGORY_URL } from '../constants/enpoints';
 
 @Injectable()
 export class CharmCategoryService {
@@ -14,43 +13,50 @@ export class CharmCategoryService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
-    this.url = environment.API_URL + 'charmscategory/';
     this.token = this.authService.getToken();
   }
 
-  addCategory(categoryForCreation: CharmCategoryForCreation): Observable<HttpResponse<any>> {
-    return this.http.post(this.url, categoryForCreation, {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
+  public addCategory(categoryForCreation: CharmCategoryForCreation): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+      })
+    };
+
+    return this.http.post(API_CHARMS_CATEGORY_URL, categoryForCreation, options);
   }
 
-  getCategories(): Observable<HttpResponse<CharmCategoryForDisplay[]>> {
-    return this.http.get<CharmCategoryForDisplay[]>(this.url, {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
+  public getCategories(): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+      })
+    };
+
+    return this.http.get(API_CHARMS_CATEGORY_URL, options);
   }
 
-  deleteCategory(categoryId: number): Observable<HttpResponse<any>> {
-    return this.http.delete(this.url + categoryId, {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
+  public deleteCategory(categoryId: number): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+      })
+    };
+
+    return this.http.delete(API_CHARMS_CATEGORY_URL + categoryId, options);
   }
 
-  getCategoriesWithCharms(): Observable<HttpResponse<CharmCategoryWithCharms[]>> {
-    return this.http.get<CharmCategoryWithCharms[]>(this.url + 'GetWithCharms', {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
+  public getCategoriesWithCharms(): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+      })
+    };
+
+    return this.http.get(API_CHARMS_CATEGORY_URL + 'GetWithCharms', options);
   }
 }

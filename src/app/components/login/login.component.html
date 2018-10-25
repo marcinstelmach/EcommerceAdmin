@@ -5,25 +5,20 @@
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm">
-          <mat-form-field
-            [ngClass]="{'error': loginForm.controls['email'].errors && !loginForm.controls['email'].pristine}"
+          <mat-form-field [ngClass]="{'error': loginForm.controls['email'].errors && !loginForm.controls['email'].pristine}"
             color="{{loginForm.controls['email'].errors && !loginForm.controls['email'].pristine ? 'warn' : 'primary'}}">
             <input type="email" matInput formControlName="email" placeholder="Email" required>
-            <div *ngIf="loginForm.controls['email'].errors && !loginForm.controls['email'].pristine"
-                 class="error-msg">
-              <div
-                [hidden]="!loginForm.controls['email'].errors.email && !loginForm.controls['email'].errors.required">
+            <div *ngIf="loginForm.controls['email'].errors && !loginForm.controls['email'].pristine" class="error-msg">
+              <div [hidden]="!loginForm.controls['email'].errors.email && !loginForm.controls['email'].errors.required">
                 Email is invalid.
               </div>
               <div [hidden]="!loginForm.controls['email'].errors.required">Email is required.</div>
             </div>
           </mat-form-field>
-          <mat-form-field
-            [ngClass]="{'error': loginForm.controls['password'].errors && !loginForm.controls['password'].pristine}"
+          <mat-form-field [ngClass]="{'error': loginForm.controls['password'].errors && !loginForm.controls['password'].pristine}"
             color="{{loginForm.controls['password'].errors && !loginForm.controls['password'].pristine ? 'warn' : 'primary'}}">
             <input type="password" matInput formControlName="password" placeholder="Password" required>
-            <div *ngIf="loginForm.controls['password'].errors && !loginForm.controls['password'].pristine"
-                 class="error-msg">
+            <div *ngIf="loginForm.controls['password'].errors && !loginForm.controls['password'].pristine" class="error-msg">
               <div [hidden]="!loginForm.controls['password'].errors.required">Password is required.</div>
               <div [hidden]="!loginForm.controls['password'].errors.minlength">Password must has at least 6 characters</div>
             </div>
@@ -34,8 +29,7 @@
             <small class="form-text validation-error">{{errors}}</small>
           </div>
           <mat-card-actions align="end">
-            <button class="btn btn-success my-button" [disabled]="loginForm.invalid" (click)="login()"
-                    type="submit">
+            <button class="btn btn-success my-button" [disabled]="loginForm.invalid" (click)="login()" type="submit">
               Login
             </button>
           </mat-card-actions>

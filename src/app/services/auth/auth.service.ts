@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
-import { UserLoginResponseFromApi } from '../models/userForLogin';
+import { UserLoginResponseFromApi } from 'app/models/userForLogin';
 
 export const TOKEN = 'token';
 export const REFRESH_TOKEN = 'refreshToken';

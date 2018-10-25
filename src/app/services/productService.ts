@@ -1,29 +1,63 @@
-import {Injectable} from '@angular/core';
-import {AuthService} from './authService';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {ProductForCreation} from '../models/productForCreation';
-import {Observable} from 'rxjs';
-import {ProductForDisplay} from '../models/productForDisplay';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { AuthService } from './authService';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { ProductForCreation } from '../models/productForCreation';
+import { Observable } from 'rxjs';
+import { ProductForDisplay } from '../models/productForDisplay';
+import { API_PRODUCTS_URL } from '../constants/enpoints';
 
 @Injectable()
 export class ProductService {
-  url: string;
   public token: string;
 
   constructor(private http: HttpClient,
-              private authService: AuthService) {
-    this.url = environment.API_URL + 'products/';
+    private authService: AuthService) {
     this.token = this.authService.getToken();
 
   }
 
-  addProduct(productForCreation: ProductForCreation): Observable<HttpResponse<ProductForDisplay>> {
-    return this.http.post<ProductForDisplay>(this.url, productForCreation, {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
-        'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+  public addProduct(productForCreation: ProductForCreation): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+
+    return this.http.post(API_PRODUCTS_URL, productForCreation, options);
+  }
+
+  public fetchProductsList(): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+
+    return this.http.get(API_PRODUCTS_URL, options);
+  }
+  
+  public getProductById(id: number): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+
+    return this.http.get(API_PRODUCTS_URL + '/' + id, options);
+  }
+
+  
+  public getProductByCategoryId(categoryId: number): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+
+    return this.http.get(API_PRODUCTS_URL + '/' + categoryId, options);
   }
 }

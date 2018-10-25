@@ -18,7 +18,8 @@ export class CharmService {
 
   }
 
-  addCharm(charm: CharmForCreation): Observable<HttpResponse<CharmForDisplay>> {
+  addCharm(charm: CharmForCreation): Observable<any> {
+    console.log(this.url);
     return this.http.post<CharmForDisplay>(this.url, charm, {
       headers: {
         'Authorization': 'Bearer ' + this.token,
@@ -27,7 +28,7 @@ export class CharmService {
     });
   }
 
-  deleteCharm(charmId: number): Observable<HttpResponse<any>> {
+  deleteCharm(charmId: number): Observable<any> {
     const deleteUrl = this.url + charmId + '/';
     return this.http.delete(deleteUrl, {
       headers: {

@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {ProductCategoryForCreation} from '../models/productCategoryForCreation';
 import {Observable} from 'rxjs';
 import {ProductCategoryForDisplay} from '../models/productCategoryForDisplay';
 import {ProductCategoryTreeForDisplay} from '../models/productCategoryTreeForDisplay';
 import {AuthService} from './authService';
-import {environment} from '../../environments/environment';
+import { API_PRODUCTS_CATEGORIES_URL } from '../constants/enpoints';
 
 @Injectable()
 export class ProductCategoryService {
@@ -14,17 +14,18 @@ export class ProductCategoryService {
 
   constructor(private http: HttpClient,
               private authService: AuthService) {
-    this.url = environment.API_URL + 'productscategory/';
     this.token = this.authService.getToken();
   }
 
-  addCategory(category: ProductCategoryForCreation): Observable<HttpResponse<ProductCategoryForDisplay>> {
-    return this.http.post<ProductCategoryForDisplay>(this.url, category, {
-      headers: {
-        'Authorization': 'Bearer ' + this.token,
-        'Content-Type': 'application/json'
-      }, observe: 'response'
-    });
+  addCategory(category: ProductCategoryForCreation): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    };
+
+    return this.http.post(API_PRODUCTS_CATEGORIES_URL, category, options);
   }
 
   getCategoriesTree(): Observable<HttpResponse<ProductCategoryTreeForDisplay[]>> {
