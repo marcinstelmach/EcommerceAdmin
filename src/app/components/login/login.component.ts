@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     this.user = this.loginForm.value;
     this.authService.login(this.user).subscribe(
       data => {
-        console.log(data);
         this.token = data;
         this.authService.setToken(data);
         this.router.navigate(['/charm']);
