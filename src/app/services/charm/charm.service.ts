@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../authService';
-import { API_CHARMS_CATEGORY_URL, API_CHARMS } from 'src/app/constants/enpoints';
+import { API_CHARMS_CATEGORY_URL, API_CHARMS } from '../../constants/enpoints';
 import { CharmObject } from 'app/models/charm.interface';
 
 @Injectable()
 export class CharmService {
-  private token: string = '';
+  private token = '';
 
   constructor(private http: HttpClient,
     private authService: AuthService) {
