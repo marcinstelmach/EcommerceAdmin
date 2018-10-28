@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserForLogin, UserLoginResponseFromApi} from '../../models/userForLogin';
-import {HttpErrorResponse} from '@angular/common/http';  
+import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import { AuthService } from 'app/services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.user = this.loginForm.value;
+    this.user = this.loginForm.value; 
     const userCredentials = this.loginForm.value;
     console.log(userCredentials)
     this.authService.login(userCredentials.email, userCredentials.password).subscribe(

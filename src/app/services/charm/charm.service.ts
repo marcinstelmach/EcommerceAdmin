@@ -8,7 +8,7 @@ import { CharmObject } from 'app/models/charm.interface';
 
 @Injectable()
 export class CharmService {
-  private token: string = '';
+  private token = '';
 
   constructor(private http: HttpClient,
     private authService: AuthService) {
