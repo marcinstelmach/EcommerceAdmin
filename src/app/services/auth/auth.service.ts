@@ -1,32 +1,38 @@
+import { API_LOGIN_URL } from './../../constants/enpoints';
+import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { UserLoginResponseFromApi } from 'app/models/userForLogin';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export const TOKEN = 'token';
 export const REFRESH_TOKEN = 'refreshToken';
 export const EXPIRES = 'expires';
 export const USER_ID = 'userId';
-export const EMAIL = 'email';
+export const EMAIL_FIELD = 'email';
 
 @Injectable()
 export class AuthService {
-  getToken(): string {
+  constructor(private httpClient: HttpClient) {
+  }
+  
+  public getToken(): string {
     return localStorage.getItem(TOKEN);
   }
 
-  setToken(userData: UserLoginResponseFromApi) {
+  public setToken(userData: UserLoginResponseFromApi) {
     localStorage.setItem(TOKEN, userData.token);
     localStorage.setItem(REFRESH_TOKEN, userData.refreshToken);
     localStorage.setItem(EXPIRES, userData.expires);
     localStorage.setItem(USER_ID, userData.userId);
-    localStorage.setItem(EMAIL, userData.email);
+    localStorage.setItem(EMAIL_FIELD, userData.email);
   }
 
-  getTokenExpirationDate(): number {
+  public getTokenExpirationDate(): number {
     const validTo = localStorage.getItem(EXPIRES);
     return Date.parse(validTo);
   }
 
-  isTokenExpired(): boolean {
+  public isTokenExpired(): boolean {
     const token = this.getToken();
     const date = this.getTokenExpirationDate();
 
@@ -35,14 +41,31 @@ export class AuthService {
     return date.valueOf() < new Date().valueOf();
   }
 
-  removeTokens(): void {
+  public removeTokens(): void {
     localStorage.removeItem(TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     localStorage.removeItem(EXPIRES);
     localStorage.removeItem(USER_ID);
-    localStorage.removeItem(EMAIL);
+    localStorage.removeItem(EMAIL_FIELD);
   }
-  getUserId(): string {
+  public getUserId(): string {
     return localStorage.getItem(USER_ID);
+  }
+
+  public login(email: string, password: string): Observable<any> {
+    const data = {email, password};
+    const options = this.setupOptions();
+
+    return this.httpClient.post(API_LOGIN_URL, data, options)
+  }
+
+  private setupOptions(): any {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return options;
   }
 }

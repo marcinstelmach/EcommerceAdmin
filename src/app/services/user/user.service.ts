@@ -1,10 +1,11 @@
+import { RegisterComponent } from './../../components/register/register.component';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AuthService } from '../authService';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { API_USERS } from 'app/constants/enpoints';
 import { UserData } from 'app/models/user.interface';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,10 @@ export class UserService {
     };
 
     return this.http.get(API_USERS + '/' + id, options);
+  }
+
+  public register(params: any): Observable<any>{
+    return of({success: true});
   }
 
   private getHeadersOptions(): HttpHeaders {

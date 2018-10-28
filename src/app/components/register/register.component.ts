@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidation} from '../../services/PasswordValidation';
+
 import {UserForCreation} from '../../models/userForCreation';
-import {UserService} from '../../services/userService';
 import {UserForDisplay} from '../../models/userForDisplay';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-register',

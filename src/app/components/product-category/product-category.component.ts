@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductCategoryForCreation} from '../../models/productCategoryForCreation';
-import {ProductCategoryService} from '../../services/productCategoryService';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ProductCategoryTreeForDisplay} from '../../models/productCategoryTreeForDisplay';
 import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay';
+import { ProductsCategoriesService } from '../../services/products-categories/products-categories.service';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay'
 export class ProductCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   subCategoryForm: FormGroup;
-  categoryForCreation: ProductCategoryForCreation;
+  categoryForCreation: any;
   errors: any;
   categoriesTree: ProductCategoryTreeForDisplay[];
   treeError = false;
@@ -23,7 +23,7 @@ export class ProductCategoryComponent implements OnInit {
   parentCategories: ProductCategoryForDisplay[];
 
   constructor(private fb: FormBuilder,
-              private categoryService: ProductCategoryService) {
+              private categoryService: ProductsCategoriesService) {
   }
 
   ngOnInit() {
@@ -34,9 +34,15 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   createMainForm() {
+    // this.categoryForm = this.fb.group({
+    //   'name': new FormControl('', [Validators.required]),
+    //   'isPremium': new FormControl(false)
+    // });
+
     this.categoryForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
-      'isPremium': new FormControl(false)
+      'nameEng': new FormControl('', [Validators.required]),
+      'productCategoryId': new FormControl('', [Validators.required]) 
     });
   }
 
@@ -49,9 +55,9 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   addCategory() {
-    this.categoryForCreation = <ProductCategoryForCreation>this.categoryForm.value;
+    this.categoryForCreation = this.categoryForm.value;
     this.categoryForCreation.parentId = null;
-    this.categoryService.addCategory(this.categoryForCreation).subscribe(resp => {
+    this.categoryService.addProductCategory(this.categoryForCreation).subscribe(resp => {
         this.getCategoriesTree();
         this.getParentCategories();
       },
@@ -62,12 +68,12 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   getCategoriesTree() {
-    this.categoryService.getCategoriesTree().subscribe(resp => {
-        this.categoriesTree = resp.body;
-      },
-      (err: HttpErrorResponse) => {
-        this.treeError = true;
-      });
+    // this.categoryService.getCategoriesTree().subscribe(resp => {
+    //     this.categoriesTree = resp.body;
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     this.treeError = true;
+    //   });
   }
 
   deleteCategoryModal(categoryId: number) {
@@ -75,31 +81,31 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   deleteCategory() {
-    this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
-        this.currentCategoryId = null;
-        this.getCategoriesTree();
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
+    // this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
+    //     this.currentCategoryId = null;
+    //     this.getCategoriesTree();
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     console.log(err.message);
+    //   });
   }
 
   getParentCategories() {
-    this.categoryService.getParentCategories().subscribe(resp => {
-        this.parentCategories = resp.body;
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
+    // this.categoryService.getParentCategories().subscribe(resp => {
+    //     this.parentCategories = resp.body;
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     console.log(err.message);
+    //   });
   }
 
   addSubCategory() {
-    const subCategory = <ProductCategoryForCreation>this.subCategoryForm.value;
-    this.categoryService.addCategory(subCategory).subscribe(resp => {
-      this.getCategoriesTree();
-    }, (err: HttpErrorResponse) => {
-      console.log(err.message);
-    });
+    // const subCategory = <ProductCategoryForCreation>this.subCategoryForm.value;
+    // this.categoryService.addCategory(subCategory).subscribe(resp => {
+    //   this.getCategoriesTree();
+    // }, (err: HttpErrorResponse) => {
+    //   console.log(err.message);
+    // });
   }
 
 

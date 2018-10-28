@@ -1,8 +1,8 @@
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../authService';
 import { API_PRODUCTS_URL } from 'app/constants/enpoints';
 import { ProductData } from 'app/models/product.interface';
 

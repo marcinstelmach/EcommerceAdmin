@@ -1,6 +1,6 @@
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../authService';
 import { Observable } from 'rxjs';
 
 import { AddressSendToApi } from 'app/models/address.interface';

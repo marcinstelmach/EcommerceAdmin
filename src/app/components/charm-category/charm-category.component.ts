@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
 import {CharmCategoryForCreation} from '../../models/charmCategoryForCreation';
-import {CharmCategoryService} from '../../services/charmCategoryService';
 import {HttpErrorResponse} from '@angular/common/http';
+import { CharmCategoriesService } from '../../services/charm-categories/charm-categories.service';
 
 
 
@@ -22,8 +22,7 @@ export class CharmCategoryComponent implements OnInit {
   currentCategoryId: number;
 
   constructor(private fb: FormBuilder,
-              private categoryService: CharmCategoryService
-  ) {
+              private categoryService: CharmCategoriesService) {
   }
 
   ngOnInit() {
@@ -40,7 +39,7 @@ export class CharmCategoryComponent implements OnInit {
 
   addCategory() {
     this.categoryForCreation = <CharmCategoryForCreation>this.categoryForm.value;
-    this.categoryService.addCategory(this.categoryForCreation).subscribe(resp => {
+    this.categoryService.addCharmCategory(this.categoryForCreation.name).subscribe(resp => {
         this.getCharmCategories();
       },
       (err: HttpErrorResponse) => {

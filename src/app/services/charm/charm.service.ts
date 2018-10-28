@@ -1,9 +1,9 @@
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../authService';
-import { API_CHARMS_CATEGORY_URL, API_CHARMS } from 'src/app/constants/enpoints';
+import { API_CHARMS_CATEGORY_URL, API_CHARMS } from './../../constants/enpoints';
 import { CharmObject } from 'app/models/charm.interface';
 
 @Injectable()

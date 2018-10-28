@@ -1,14 +1,15 @@
+import { CharmService } from './../../services/charm/charm.service';
 import {Component, EventEmitter, OnInit} from '@angular/core';
-import {CharmService} from '../../services/charmService';
 import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
 import {CharmCategoryWithCharms} from '../../models/charmCategoryWithCharms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CharmCategoryService} from '../../services/charmCategoryService';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
 import {CharmForCreation} from '../../models/charmForCreation';
-import {AuthService} from '../../services/authService';
 import {environment} from '../../../environments/environment';
+import { CharmCategoriesService } from '../../services/charm-categories/charm-categories.service';
+import { AuthService } from './../../services/auth/auth.service';
+ 
 
 @Component({
   selector: 'app-charm',
@@ -34,7 +35,7 @@ export class CharmComponent implements OnInit {
 
   constructor(private charmService: CharmService,
               private fb: FormBuilder,
-              private charmCategoryService: CharmCategoryService,
+              private charmCategoryService: CharmCategoriesService,
               private authService: AuthService) {
 
     this.files = []; // local uploading files array
@@ -72,12 +73,12 @@ export class CharmComponent implements OnInit {
   }
 
   getCategoriesWithCharms() {
-    this.charmCategoryService.getCategoriesWithCharms().subscribe(resp => {
-        this.categoriesWithCharms = resp.body;
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
+    // this.charmCategoryService.getCategoriesWithCharms().subscribe(resp => {
+    //     this.categoriesWithCharms = resp.body;
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     console.log(err.message);
+    //   });
   }
 
   addCharm() {
@@ -137,13 +138,13 @@ export class CharmComponent implements OnInit {
   }
 
   deleteCharm() {
-    this.charmService.deleteCharm(this.currentCharmId).subscribe(resp => {
-      if (resp.ok) {
-        this.getCategoriesWithCharms();
-        return;
-      }
-      console.log('Cannot delete this charm :(');
-    });
+    // this.charmService.deleteCharm(this.currentCharmId).subscribe(resp => {
+    //   if (resp.ok) {
+    //     this.getCategoriesWithCharms();
+    //     return;
+    //   }
+    //   console.log('Cannot delete this charm :(');
+    // });
   }
 
   private getFileExtension(fileName: string): string {

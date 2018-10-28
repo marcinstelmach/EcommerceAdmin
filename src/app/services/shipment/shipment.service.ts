@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { AuthService } from '../authService';
+ 
 import { API_SHIPMENTS } from 'app/constants/enpoints';
 import { ShipmentData } from 'app/models/shipment.interface';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @Injectable()
 export class ShipmentService {

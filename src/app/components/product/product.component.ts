@@ -1,14 +1,14 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay';
-import {ProductCategoryService} from '../../services/productCategoryService';
 import {HttpErrorResponse} from '@angular/common/http';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput} from 'ngx-uploader';
 import {UploadOutput} from 'ngx-uploader/index';
-import {AuthService} from '../../services/authService';
-import {ProductService} from '../../services/productService';
 import {ProductForCreation} from '../../models/productForCreation';
 import {environment} from '../../../environments/environment';
+import { ProductsCategoriesService } from '../../services/products-categories/products-categories.service';
+import { AuthService } from 'app/services/auth/auth.service';
+import { ProductsService } from '../../services/products/products.service';
 
 @Component({
   selector: 'app-product',
@@ -29,9 +29,9 @@ export class ProductComponent implements OnInit {
   uploadFailAlert = false;
 
   constructor(private fb: FormBuilder,
-              private categoryService: ProductCategoryService,
+              private categoryService: ProductsCategoriesService,
               private authService: AuthService,
-              private productService: ProductService) {
+              private productService: ProductsService) {
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>();
     this.humanizeBytes = humanizeBytes;
@@ -46,24 +46,25 @@ export class ProductComponent implements OnInit {
   createForm() {
     this.productForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
+      'nameEng': new FormControl('', [Validators.required]),
       'price': new FormControl('', Validators.required),
-      'categoryId': new FormControl('', Validators.required),
-      'status': new FormControl(0, Validators.required),
       'description': new FormControl('', Validators.required),
-      'hasCharms': new FormControl(0, Validators.required),
-      'colors': new FormControl('czarny, biały'),
+      'descriptionEng': new FormControl(0, Validators.required),
+      'acceptCharms': new FormControl(true, Validators.required),
+      'hasCharms': new FormControl(0, Validators.required), 
+      'productCategoryId': new FormControl('', Validators.required), 
       'sizes': new FormControl('s, m, l, xl')
     });
   }
 
   getCategories() {
-    this.categoryService.getChildCategories().subscribe(resp => {
-        this.categories = resp.body;
-        this.productForm.controls['categoryId'].setValue(this.categories[0].id);
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
+    // this.categoryService.getChildCategories().subscribe(resp => {
+    //     this.categories = resp.body;
+    //     this.productForm.controls['categoryId'].setValue(this.categories[0].id);
+    //   },
+    //   (err: HttpErrorResponse) => {
+    //     console.log(err.message);
+    //   });
   }
   // wysylac zdjecie i produkt w jednym
   addProduct() {
