@@ -15,7 +15,7 @@ export class UserService {
     private authService: AuthService) {
     this.token = this.authService.getToken();
   }
-  
+
   public getUsers(): Observable<any> {
     const options = {
       headers: this.getHeadersOptions()
@@ -40,8 +40,16 @@ export class UserService {
     return this.http.get(API_USERS + '/' + id, options);
   }
 
-  public register(params: any): Observable<any>{
-    return of({success: true});
+  public ereaseUser(id: string): Observable<any> {
+    const options = {
+      headers: this.getHeadersOptions()
+    };
+
+    return this.http.put(API_USERS + '/erase/' + id, null, options);
+  }
+
+  public register(params: any): Observable<any> {
+    return of({ success: true });
   }
 
   private getHeadersOptions(): HttpHeaders {

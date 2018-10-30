@@ -45,6 +45,6 @@ export class ProductsCategoriesService {
       })
     };
 
-    return this.http.post(API_PRODUCTS_CATEGORIES_URL, options);
+    return this.http.post(API_PRODUCTS_CATEGORIES_URL, data, options);
   }
 }

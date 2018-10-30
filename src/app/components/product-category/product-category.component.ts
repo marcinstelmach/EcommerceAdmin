@@ -26,19 +26,11 @@ export class ProductCategoryComponent implements OnInit {
               private categoryService: ProductsCategoriesService) {
   }
 
-  ngOnInit() {
-    this.createSubCategoryForm();
-    this.getCategoriesTree();
-    this.createMainForm();
-    this.getParentCategories();
+  ngOnInit() {  
+    this.createMainForm(); 
   }
 
   createMainForm() {
-    // this.categoryForm = this.fb.group({
-    //   'name': new FormControl('', [Validators.required]),
-    //   'isPremium': new FormControl(false)
-    // });
-
     this.categoryForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
       'nameEng': new FormControl('', [Validators.required]),
@@ -47,19 +39,16 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   createSubCategoryForm() {
-    this.subCategoryForm = this.fb.group({
-      'parentId': new FormControl('', [Validators.required]),
-      'name': new FormControl('', [Validators.required]),
-      'isPremium': new FormControl(false)
-    });
+    // this.subCategoryForm = this.fb.group({
+    //   'parentId': new FormControl('', [Validators.required]),
+    //   'name': new FormControl('', [Validators.required]),
+    //   'isPremium': new FormControl(false)
+    // });
   }
 
   addCategory() {
-    this.categoryForCreation = this.categoryForm.value;
-    this.categoryForCreation.parentId = null;
-    this.categoryService.addProductCategory(this.categoryForCreation).subscribe(resp => {
-        this.getCategoriesTree();
-        this.getParentCategories();
+    const data = this.categoryForm.value;
+    this.categoryService.addProductCategory(data).subscribe(resp => {
       },
       (err: HttpErrorResponse) => {
         this.errors = err.error;
@@ -77,7 +66,7 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   deleteCategoryModal(categoryId: number) {
-    this.currentCategoryId = categoryId;
+    // this.currentCategoryId = categoryId;
   }
 
   deleteCategory() {

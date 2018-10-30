@@ -12,11 +12,9 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  user: UserForLogin;
-  token: UserLoginResponseFromApi;
-  errors: any;
-
+  public loginForm: FormGroup;  
+  public error: any;
+  
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
@@ -34,19 +32,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    this.user = this.loginForm.value; 
+  login() { 
     const userCredentials = this.loginForm.value;
     console.log(userCredentials)
     this.authService.login(userCredentials.email, userCredentials.password).subscribe(
-      data => {
-        this.token = data;
+      data => { 
         this.authService.setToken(data);
         this.router.navigate(['/charm']);
       },
       (err: HttpErrorResponse) => {
-        this.errors = err.error;
-        console.log(this.errors);
+        this.error = err.error;
+        console.log(this.error);
       }
     );
   }

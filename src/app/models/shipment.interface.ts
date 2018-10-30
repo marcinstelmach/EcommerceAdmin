@@ -1,4 +1,5 @@
 export interface ShipmentData {
+    id?: string;
     name: string;
     nameEng: string;
     description: string;

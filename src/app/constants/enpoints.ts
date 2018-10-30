@@ -13,5 +13,6 @@ export const API_CHARMS = '/charms';
 export const API_USERS = PREFIX + '/users';
 
 export const API_SHIPMENTS = PREFIX + '/shipments';
+export const API_PRODUCTS_CATEGORIES_DISCOUNT = PREFIX + '/ProductCategoryDiscounts';
 
 export const API_ADDRESSES = '/addresses';

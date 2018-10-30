@@ -16,26 +16,34 @@ export class CharmService {
   }
 
   public getCharms(id: number): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
+    const options = this.setupOptions();
     const url = `${API_CHARMS_CATEGORY_URL}/${id}${API_CHARMS}`;
 
     return this.http.get(url, options);
   }
 
-  public addCharm(id: number, charm: CharmObject): Observable<any> {
+  public addCharm(charm: CharmObject): Observable<any> {
+    const options = this.setupOptions();
+    const url = `/api/${API_CHARMS}`;
+
+    return this.http.post(url, charm, options);
+  }
+
+  public updateCharm(charm: CharmObject): Observable<any> {
+    const options = this.setupOptions();
+    const url = `/api/${API_CHARMS}`;
+
+    return this.http.put(url, charm, options);
+  }
+
+  private setupOptions(): any {
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`,
         'Content-Type': 'application/json'
       })
     };
-    const url = `${API_CHARMS_CATEGORY_URL}/${id}${API_CHARMS}`;
 
-    return this.http.post(url, charm, options);
+    return options;
   }
 }

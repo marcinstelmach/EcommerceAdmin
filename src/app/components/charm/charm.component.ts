@@ -1,15 +1,15 @@
 import { CharmService } from './../../services/charm/charm.service';
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
-import {CharmCategoryWithCharms} from '../../models/charmCategoryWithCharms';
-import {HttpErrorResponse} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
-import {CharmForCreation} from '../../models/charmForCreation';
-import {environment} from '../../../environments/environment';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { CharmCategoryForDisplay } from '../../models/charmCategoryForDisplay';
+import { CharmCategoryWithCharms } from '../../models/charmCategoryWithCharms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput } from 'ngx-uploader';
+import { CharmForCreation } from '../../models/charmForCreation';
+import { environment } from '../../../environments/environment';
 import { CharmCategoriesService } from '../../services/charm-categories/charm-categories.service';
 import { AuthService } from './../../services/auth/auth.service';
- 
+
 
 @Component({
   selector: 'app-charm',
@@ -34,9 +34,9 @@ export class CharmComponent implements OnInit {
 
 
   constructor(private charmService: CharmService,
-              private fb: FormBuilder,
-              private charmCategoryService: CharmCategoriesService,
-              private authService: AuthService) {
+    private fb: FormBuilder,
+    private charmCategoryService: CharmCategoriesService,
+    private authService: AuthService) {
 
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
@@ -53,20 +53,25 @@ export class CharmComponent implements OnInit {
 
 
   createForm() {
+    // this.charmForm = this.fb.group({
+    //   'name': new FormControl('', Validators.required),
+    //   'price': new FormControl('5', Validators.required),
+    //   'type': new FormControl(0, Validators.required),
+    //   'charmCategoryId': new FormControl('', Validators.required)
+    // });
+
     this.charmForm = this.fb.group({
       'name': new FormControl('', Validators.required),
-      'price': new FormControl('5', Validators.required),
-      'type': new FormControl(0, Validators.required),
-      'charmCategoryId': new FormControl('', Validators.required)
+      'nameEng': new FormControl('5', Validators.required),
+      'price': new FormControl(0, Validators.required)
     });
-
   }
 
   getCategories() {
     this.charmCategoryService.getCategories().subscribe(resp => {
-        this.categories = resp.body;
-        this.charmForm.controls['charmCategoryId'].setValue(this.categories[0].id);
-      },
+      this.categories = resp.body;
+      this.charmForm.controls['charmCategoryId'].setValue(this.categories[0].id);
+    },
       (err: HttpErrorResponse) => {
         console.log(err.message);
       });
@@ -82,9 +87,16 @@ export class CharmComponent implements OnInit {
   }
 
   addCharm() {
-    this.charmForAdd = this.charmForm.value;
-    this.charmForAdd.imageExtension = this.getFileExtension(this.files[0].name);
-    this.startUpload();
+    // this.charmForAdd = this.charmForm.value;
+    // this.charmForAdd.imageExtension = this.getFileExtension(this.files[0].name);
+    // this.startUpload();
+
+    const charmData = this.charmForm.value;
+
+    this.charmService.addCharm(charmData)
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -120,7 +132,7 @@ export class CharmComponent implements OnInit {
       type: 'uploadAll',
       url: this.url + '/charms/all',
       method: 'POST',
-      headers: {'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200'},
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200' },
       data: {
         name: this.charmForAdd.name,
         price: this.charmForAdd.price.toString(),

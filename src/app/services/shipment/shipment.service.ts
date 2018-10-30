@@ -23,12 +23,28 @@ export class ShipmentService {
     return this.http.get(API_SHIPMENTS, options);
   }
 
+  public getShipmentById(id: number): Observable<any> {
+    const options = {
+      headers: this.getHeadersOptions()
+    };
+
+    return this.http.get(API_SHIPMENTS, options);
+  }
+
   public addShipment(shipment: ShipmentData): Observable<any> {
     const options = {
       headers: this.getHeadersOptions()
     };
 
     return this.http.post(API_SHIPMENTS, shipment, options);
+  }
+
+  public updateShipment(shipment: ShipmentData): Observable<any> {
+    const options = {
+      headers: this.getHeadersOptions()
+    };
+
+    return this.http.put(API_SHIPMENTS+'/'+shipment.id, shipment, options);
   }
 
   private getHeadersOptions(): HttpHeaders {

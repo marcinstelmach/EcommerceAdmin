@@ -7,20 +7,22 @@
       </button>
     </div>
   </div>
-  <div class="col-12"><h1 class="text-center">Zawieszki</h1></div>
+  <div class="col-12">
+    <h1 class="text-center">Zawieszki</h1>
+  </div>
   <div class="row">
     <div class="col-md-6" style="border-right: 1px solid black;">
       <h4 style="margin-bottom: 30px;">Dodaj zawieszke</h4>
       <div class="col-10">
         <form [formGroup]="charmForm">
-          <div class="form-group">
+          <!-- <div class="form-group">
             <input type="text" class="form-control" placeholder="Nazwa zawieszki" formControlName="name">
             <small class="form-text text-muted form-error"
                    *ngIf="charmForm.controls['name'].errors">Podaj nazwe
             </small>
-          </div>
+          </div> -->
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <input type="number" class="form-control" placeholder="Cena" formControlName="price">
             <small class="form-text text-muted form-error"
                    *ngIf="charmForm.controls['price'].errors">Podaj cene
@@ -39,8 +41,23 @@
           </div>
           <div>
             <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
-                   [uploadInput]="uploadInput" name="file">
-            <!--<span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span>-->
+                   [uploadInput]="uploadInput" name="file"> -->
+          <!-- <span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span> -->
+          <!--</div> -->
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa" formControlName="name">
+            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['name'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nazwa angielska" formControlName="nameEng">
+            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['nameEng'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-group">
+            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
+            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['price'].errors">Podaj cene
+            </small>
           </div>
 
           <div style="margin-top: 15px;">
@@ -65,21 +82,19 @@
           <div class="card-header" id="headingOne">
             <h5 class="mb-0">
               <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name"
-                      aria-expanded="false"
-                      aria-controls="collapse">
+                aria-expanded="false" aria-controls="collapse">
                 {{category.name}}
               </button>
             </h5>
           </div>
 
-          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne"
-               data-parent="#accordion">
+          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
             <!--*ngFor="let charm of category.backendPath"-->
 
             <div class="card-body">
-              <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)"
-                 data-toggle="modal" data-target="#deleteModal" class="charm-delete">
-              <img src="{{pathToCharm + charm.pathToImg}}" alt="charm{{i}}" class="charm">
+              <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)" data-toggle="modal"
+                data-target="#deleteModal" class="charm-delete">
+                <img src="{{pathToCharm + charm.pathToImg}}" alt="charm{{i}}" class="charm">
               </a>
             </div>
           </div>
@@ -103,7 +118,8 @@
         <p>Zastanów się dobrze :D</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCharm(currentCharmId)">Usuwamy !</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCharm(currentCharmId)">Usuwamy
+          !</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
       </div>
     </div>

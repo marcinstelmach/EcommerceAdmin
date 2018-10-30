@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
 import { AddressSendToApi } from 'app/models/address.interface';
 import { API_ADDRESSES, API_USERS } from 'app/constants/enpoints';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AddressService {
   private token: string = '';
 

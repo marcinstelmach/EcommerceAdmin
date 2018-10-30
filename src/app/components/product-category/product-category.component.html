@@ -13,9 +13,17 @@
                    *ngIf="categoryForm.controls['name'].errors">Podaj nazwe
             </small>
           </div>
-          <div class="form-check" style="margin-left: 20px;">
-            <input type="checkbox" class="form-check-input" id="isPremium" formControlName="isPremium">
-            <label class="form-check-label" for="isPremium" style="margin-left: -10px;">Premium</label>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Angielska Nazwa kategorii" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="categoryForm.controls['nameEng'].errors">Podaj nazwe
+            </small>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Id kategorii produktu" formControlName="name">
+            <small class="form-text text-muted form-error"
+                   *ngIf="categoryForm.controls['productCategoryId'].errors">Podaj nazwe
+            </small>
           </div>
           <button type="submit" class="btn btn-dark -align-right" (click)="addCategory()">Dodaj</button>
         </form>
@@ -24,7 +32,7 @@
           <small class="form-text validation-error">{{errors['isPremium']}}</small>
         </div>
       </div>
-
+<!-- 
       <h4 style="margin-bottom: 30px; margin-top: 30px;">Dodaj podkategorie</h4>
       <div class="col-10">
         <form [formGroup]="subCategoryForm">
@@ -49,7 +57,7 @@
           <small class="form-text validation-error">{{errors['name']}}</small>
           <small class="form-text validation-error">{{errors['isPremium']}}</small>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="col-md-6">
       <h4>Aktualne Kategorie</h4>
