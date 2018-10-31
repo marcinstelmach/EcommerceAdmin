@@ -1,4 +1,5 @@
-import {ProductStatus} from './types/productStatus';
+import { ProductStatus } from './types/productStatus'; 
+
 
 export class ProductForDisplay {
   id: number;

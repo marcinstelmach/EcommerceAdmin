@@ -26,3 +26,12 @@ export interface UserDisplayData {
     dateTime: string;
     id: string;
 }
+
+export interface UserDataResponseFromApi  {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    creationDateTime: Date;
+    phoneNumber: number
+  }
