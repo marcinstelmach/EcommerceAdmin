@@ -1,8 +1,8 @@
-import { API_LOGIN_URL } from './../../constants/enpoints';
-import { Observable, of } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { UserLoginResponseFromApi } from 'app/models/userForLogin';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {API_LOGIN_URL} from './../../constants/enpoints';
+import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserLoginResponseFromApi} from '../../models/user.interface';
 
 export const TOKEN = 'token';
 export const REFRESH_TOKEN = 'refreshToken';
@@ -14,7 +14,7 @@ export const EMAIL_FIELD = 'email';
 export class AuthService {
   constructor(private httpClient: HttpClient) {
   }
-  
+
   public getToken(): string {
     return localStorage.getItem(TOKEN);
   }
@@ -48,6 +48,7 @@ export class AuthService {
     localStorage.removeItem(USER_ID);
     localStorage.removeItem(EMAIL_FIELD);
   }
+
   public getUserId(): string {
     return localStorage.getItem(USER_ID);
   }
@@ -56,7 +57,7 @@ export class AuthService {
     const data = {email, password};
     const options = this.setupOptions();
 
-    return this.httpClient.post(API_LOGIN_URL, data, options)
+    return this.httpClient.post(API_LOGIN_URL, data, options);
   }
 
   private setupOptions(): any {

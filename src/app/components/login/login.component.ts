@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserForLogin, UserLoginResponseFromApi} from '../../models/userForLogin';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
-import { AuthService } from 'app/services/auth/auth.service';
-import { UserService } from '../../services/user/user.service';
+import {AuthService} from 'app/services/auth/auth.service';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +11,9 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public loginForm: FormGroup;  
+  public loginForm: FormGroup;
   public error: any;
-  
+
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private authService: AuthService,
@@ -32,11 +31,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() { 
+  login() {
     const userCredentials = this.loginForm.value;
-    console.log(userCredentials)
+    console.log(userCredentials);
     this.authService.login(userCredentials.email, userCredentials.password).subscribe(
-      data => { 
+      data => {
         this.authService.setToken(data);
         this.router.navigate(['/charm']);
       },

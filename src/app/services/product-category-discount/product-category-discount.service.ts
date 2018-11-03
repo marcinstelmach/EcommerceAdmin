@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from '../auth/auth.service';
-import { API_PRODUCTS_CATEGORIES_DISCOUNT } from 'src/app/constants/enpoints';
 import { Observable } from 'rxjs';
-import { ProductCategoryDiscountData } from 'src/app/models/product-category-discount.interface';
+import {API_PRODUCTS_CATEGORIES_DISCOUNT} from '../../constants/enpoints';
+import {ProductCategoryDiscountData} from '../../models/product-category-discount.interface';
 
 @Injectable({
   providedIn: 'root'

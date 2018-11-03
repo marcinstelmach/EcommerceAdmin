@@ -1,5 +1,6 @@
-export interface ProductCategoryForm {
-    name: string;
-    nameEng: string;
-    productCategoryId: string;
+export interface ProductCategory {
+  id?: string;
+  name: string;
+  nameEng: string;
+  productCategories: ProductCategory[];
 }
