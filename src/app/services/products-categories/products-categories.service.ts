@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { API_PRODUCTS_CATEGORIES_URL } from 'app/constants/enpoints';
-import { ProductCategoryForm } from 'app/models/product-category.interface';
+import { ProductCategory } from 'app/models/product-category.interface';
 
 @Injectable()
 export class ProductsCategoriesService {
@@ -37,7 +37,7 @@ export class ProductsCategoriesService {
     return this.http.get(API_PRODUCTS_CATEGORIES_URL + '/' + id, options);
   }
 
-  public addProductCategory(data: ProductCategoryForm): Observable<any> {
+  public addProductCategory(data: ProductCategory): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`,

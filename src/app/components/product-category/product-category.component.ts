@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductCategoryForCreation} from '../../models/productCategoryForCreation';
+import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
+import {ProductCategory} from '../../models/product-category.interface';
 import {HttpErrorResponse} from '@angular/common/http';
-import {ProductCategoryTreeForDisplay} from '../../models/productCategoryTreeForDisplay';
-import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay';
-import { ProductsCategoriesService } from '../../services/products-categories/products-categories.service';
 
 
 @Component({
@@ -14,41 +12,33 @@ import { ProductsCategoriesService } from '../../services/products-categories/pr
 })
 export class ProductCategoryComponent implements OnInit {
   categoryForm: FormGroup;
-  subCategoryForm: FormGroup;
-  categoryForCreation: any;
   errors: any;
-  categoriesTree: ProductCategoryTreeForDisplay[];
+  categories: ProductCategory[];
   treeError = false;
-  currentCategoryId: number;
-  parentCategories: ProductCategoryForDisplay[];
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductsCategoriesService) {
   }
 
-  ngOnInit() {  
-    this.createMainForm(); 
+  ngOnInit() {
+    this.getCategories();
+    this.createMainForm();
   }
 
   createMainForm() {
     this.categoryForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
       'nameEng': new FormControl('', [Validators.required]),
-      'productCategoryId': new FormControl('', [Validators.required]) 
+      'productCategoryId': new FormControl('')
     });
-  }
-
-  createSubCategoryForm() {
-    // this.subCategoryForm = this.fb.group({
-    //   'parentId': new FormControl('', [Validators.required]),
-    //   'name': new FormControl('', [Validators.required]),
-    //   'isPremium': new FormControl(false)
-    // });
   }
 
   addCategory() {
     const data = this.categoryForm.value;
+    console.log(data);
     this.categoryService.addProductCategory(data).subscribe(resp => {
+        this.categoryForm.reset();
+        this.getCategories();
       },
       (err: HttpErrorResponse) => {
         this.errors = err.error;
@@ -56,47 +46,27 @@ export class ProductCategoryComponent implements OnInit {
       });
   }
 
-  getCategoriesTree() {
-    // this.categoryService.getCategoriesTree().subscribe(resp => {
-    //     this.categoriesTree = resp.body;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     this.treeError = true;
-    //   });
+  getCategories() {
+    this.categoryService.fetchProductCategories().subscribe(resp => {
+        this.categories = resp;
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+        this.treeError = true;
+      });
   }
 
-  deleteCategoryModal(categoryId: number) {
+  deleteCategoryModal(categoryId: string) {
     // this.currentCategoryId = categoryId;
   }
 
   deleteCategory() {
     // this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
     //     this.currentCategoryId = null;
-    //     this.getCategoriesTree();
+    //     this.getCategories();
     //   },
     //   (err: HttpErrorResponse) => {
     //     console.log(err.message);
     //   });
   }
-
-  getParentCategories() {
-    // this.categoryService.getParentCategories().subscribe(resp => {
-    //     this.parentCategories = resp.body;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     console.log(err.message);
-    //   });
-  }
-
-  addSubCategory() {
-    // const subCategory = <ProductCategoryForCreation>this.subCategoryForm.value;
-    // this.categoryService.addCategory(subCategory).subscribe(resp => {
-    //   this.getCategoriesTree();
-    // }, (err: HttpErrorResponse) => {
-    //   console.log(err.message);
-    // });
-  }
-
-
-
 }
