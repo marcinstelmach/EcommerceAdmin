@@ -1,3 +1,4 @@
+import { UserComponent } from './components/user/user.component';
 import {LoginComponent} from './components/login/login.component';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
 import {ProductCategoryComponent} from './components/product-category/product-category.component';
@@ -7,14 +8,19 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
 import {CharmComponent} from './components/charm/charm.component';
 import {AuthGuard} from './services/authGuard';
 import {ProductComponent} from './components/product/product.component';
+import { UsersComponent } from './components/users/users.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'charm', component: CharmComponent, canActivate: [AuthGuard]},
   {path: 'product-category', component: ProductCategoryComponent, canActivate: [AuthGuard]},
   {path: 'charm-category', component: CharmCategoryComponent, canActivate: [AuthGuard]},
   {path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+  {path: 'users/:id', component: UserComponent, canActivate: [AuthGuard]},
   // {path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version', component: VersionComponent, canActivate: [AuthGuard]},
   // {path: 'repository/:repositoryId/version/:versionId/file', component: FileComponent, canActivate: [AuthGuard]},

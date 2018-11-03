@@ -4,7 +4,7 @@ export interface UserData {
     lastName: string;
     password: string;
     confirmPassword: string;
-    phoneNumber: number;
+    phoneNumber?: number;
 }
 
 export interface UserLogin {

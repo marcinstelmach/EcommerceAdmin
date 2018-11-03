@@ -1,0 +1,31 @@
+<div *ngIf="usersList$ | async as usersList">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Created at</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usersList; let i = index">
+        <th scope="row">{{ index }}</th>
+        <td>{{user.email}}</td>
+        <td>{{user.firstName}} {{user.lastName}}</td>
+        <td>{{user.creationDateTime | date: 'mediumDate'}}</td>
+        <td>{{user.phoneNumber}}</td>
+        <td> 
+          <button class="btn btn-warning btn-xs"
+                  (click)="setupRodoRequirements(user.id)">
+                  RODO
+          </button>  
+          <button class="btn btn-info"
+            routerLink="/users/{{user.id}}">goto</button>
+        </td> 
+      </tr>
+    </tbody>
+  </table>
+</div>

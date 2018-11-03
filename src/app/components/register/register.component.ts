@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidation} from '../../services/PasswordValidation';
-
-import {UserForCreation} from '../../models/userForCreation';
-import {UserForDisplay} from '../../models/userForDisplay';
-import {HttpErrorResponse} from '@angular/common/http';
-import {Router} from '@angular/router';
+ 
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -14,13 +10,11 @@ import { UserService } from '../../services/user/user.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
-  user: UserForCreation;
-  showModal = false;
-  userForDisplay: UserForDisplay;
+  registerForm: FormGroup; 
+  showModal = false; 
   errors: any;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
 
   }
 
@@ -41,22 +35,20 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this.user = <UserForCreation> this.registerForm.value;
-    this.userService.register(this.user).subscribe(
+    const user = this.registerForm.value;
+    this.userService.register(user).subscribe(
       data => {
-        // this.userForDisplay = data;
-        this.showModal = true;
-      },
-      (err: HttpErrorResponse) => {
-        this.errors = err.error;
-        console.log(this.errors);
+       if(data instanceof Error) {
+        
+       } else {
+        this.showModal = true;         
+       }
       }
     );
   }
 
   hideModal() {
-    this.showModal = false;
-    this.router.navigate(['/login']);
+    this.showModal = false; 
   }
 
 }

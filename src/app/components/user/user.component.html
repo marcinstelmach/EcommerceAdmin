@@ -1,0 +1,11 @@
+<div *ngIf="userData$ | async as user; else loading">
+  {{ user.email }} <br>
+  {{ user.firstName }} <br>
+  {{ user.lastName }} <br>
+  {{ user.phoneNumber }} <br>
+  {{ user.creationDateTime | date: 'medium' }} <br>
+</div>
+
+<ng-template #loading>
+  LOADING
+</ng-template>

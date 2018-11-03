@@ -11,7 +11,7 @@ import {AppRoutingModule} from './app.routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCardModule, MatInputModule} from '@angular/material';
+import {  MatCardModule, MatInputModule, MatTableModule } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthGuard} from './services/authGuard';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
@@ -25,6 +25,12 @@ import { AuthService } from './services/auth/auth.service';
 import { CharmService } from './services/charm/charm.service';
 import { UserService } from './services/user/user.service';
 import { ShipmentService } from './services/shipment/shipment.service';
+import { UsersComponent } from './components/users/users.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserComponent } from './components/user/user.component';
+import { RegisterComponent } from './components/register/register.component';
+import { Interceptors } from "app/interceptors";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,10 @@ import { ShipmentService } from './services/shipment/shipment.service';
     ProductCategoryComponent,
     CharmCategoryComponent,
     CharmComponent,
-    ProductComponent
+    ProductComponent,
+    UsersComponent,
+    UserComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +57,10 @@ import { ShipmentService } from './services/shipment/shipment.service';
     MatCardModule,
     HttpClientModule,
     NgUploaderModule,
-    NgbModule
+    NgbModule,
+    MatTableModule,
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
     UserService,
@@ -59,7 +71,8 @@ import { ShipmentService } from './services/shipment/shipment.service';
     CharmCategoriesService,
     ProductsService,
     ProductsCategoriesService,
-    ShipmentService
+    ShipmentService,
+    ...Interceptors
   ],
   bootstrap: [AppComponent]
 })

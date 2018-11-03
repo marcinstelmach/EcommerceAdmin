@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json",
+    "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -32,6 +32,9 @@
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
     "jquery": "^3.2.1",
+    "ng2-toastr": "^4.1.2",
+    "ngx-spinner": "^6.1.2",
+    "ngx-toastr": "^9.1.1",
     "ngx-uploader": "^4.2.1",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.3.3",

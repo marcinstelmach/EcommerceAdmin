@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from '../auth/auth.service';
-import { API_PRODUCTS_CATEGORIES_DISCOUNT } from 'src/app/constants/enpoints';
+import { API_PRODUCTS_CATEGORIES_DISCOUNT } from 'app/constants/enpoints';
 import { Observable } from 'rxjs';
-import { ProductCategoryDiscountData } from 'src/app/models/product-category-discount.interface';
+import { ProductCategoryDiscountData } from 'app/models/product-category-discount.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductCategoryDiscountService {
   private token: string = '';
 
