@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://stagging.streetwood.pl",
+        "target": "http://localhost:49994",
         "secure": false, 
         "logLevel": "debug",
         "changeOrigin": true

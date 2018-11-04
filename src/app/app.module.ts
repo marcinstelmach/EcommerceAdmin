@@ -9,9 +9,8 @@ import {HeaderComponent} from './components/shared/header/header.component';
 import {LoginComponent} from './components/login/login.component';
 import {AppRoutingModule} from './app.routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'; 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCardModule, MatInputModule, MatTableModule } from '@angular/material'; 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthGuard} from './services/authGuard';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
@@ -20,18 +19,19 @@ import {ProductCategoryComponent} from './components/product-category/product-ca
 import {CharmCategoryComponent} from './components/charm-category/charm-category.component';
 import {CharmComponent} from './components/charm/charm.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {ProductComponent} from './components/product/product.component'; 
-import { AuthService } from './services/auth/auth.service';
-import { CharmService } from './services/charm/charm.service';
-import { UserService } from './services/user/user.service';
-import { ShipmentService } from './services/shipment/shipment.service';
-import { UsersComponent } from './components/users/users.component';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { UserComponent } from './components/user/user.component';
-import { RegisterComponent } from './components/register/register.component';
-import { Interceptors } from 'app/interceptors';
-import { ToastrModule } from 'ngx-toastr'; 
+import {ProductComponent} from './components/product/product.component';
+import {AuthService} from './services/auth/auth.service';
+import {CharmService} from './services/charm/charm.service';
+import {UserService} from './services/user/user.service';
+import {ShipmentService} from './services/shipment/shipment.service';
+import {UsersComponent} from './components/users/users.component';
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {UserComponent} from './components/user/user.component';
+import {RegisterComponent} from './components/register/register.component';
+import {Interceptors} from 'app/interceptors';
+import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
+import {ErrorModalComponent} from './components/shared/alert/error-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import {MaterialModule} from './material.module';
     ProductComponent,
     UsersComponent,
     UserComponent,
-    RegisterComponent
+    RegisterComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +75,8 @@ import {MaterialModule} from './material.module';
     ShipmentService,
     ...Interceptors
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorModalComponent]
 })
 export class AppModule {
 }

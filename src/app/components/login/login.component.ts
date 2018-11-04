@@ -33,15 +33,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     const userCredentials = this.loginForm.value;
-    console.log(userCredentials);
     this.authService.login(userCredentials.email, userCredentials.password).subscribe(
       data => {
         this.authService.setToken(data);
         this.router.navigate(['/charm']);
-      },
-      (err: HttpErrorResponse) => {
-        this.error = err.error;
-        console.log(this.error);
       }
     );
   }
