@@ -32,6 +32,7 @@ import {Interceptors} from 'app/interceptors';
 import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
 import {ErrorModalComponent} from './components/shared/alert/error-modal.component';
+import {DeleteAlertComponent} from './components/shared/delete-alert/delete-alert.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {ErrorModalComponent} from './components/shared/alert/error-modal.compone
     UsersComponent,
     UserComponent,
     RegisterComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
+    DeleteAlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,7 @@ import {ErrorModalComponent} from './components/shared/alert/error-modal.compone
     ...Interceptors
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorModalComponent]
+  entryComponents: [ErrorModalComponent, DeleteAlertComponent]
 })
 export class AppModule {
 }

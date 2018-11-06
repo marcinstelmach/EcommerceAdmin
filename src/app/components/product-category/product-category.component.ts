@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
 import {ProductCategory} from '../../models/product-category.interface';
 import {HttpErrorResponse} from '@angular/common/http';
+import {MatDialog} from '@angular/material';
+import {DeleteAlertComponent} from '../shared/delete-alert/delete-alert.component';
 
 
 @Component({
@@ -12,12 +14,13 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class ProductCategoryComponent implements OnInit {
   categoryForm: FormGroup;
-  errors: any;
   categories: ProductCategory[];
   treeError = false;
+  edit = false;
 
   constructor(private fb: FormBuilder,
-              private categoryService: ProductsCategoriesService) {
+              private categoryService: ProductsCategoriesService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -37,13 +40,9 @@ export class ProductCategoryComponent implements OnInit {
     const data = this.categoryForm.value;
     console.log(data);
     this.categoryService.addProductCategory(data).subscribe(resp => {
-        this.categoryForm.reset();
-        this.getCategories();
-      },
-      (err: HttpErrorResponse) => {
-        this.errors = err.error;
-        console.log(err);
-      });
+      this.categoryForm.reset();
+      this.getCategories();
+    });
   }
 
   getCategories() {
@@ -51,22 +50,19 @@ export class ProductCategoryComponent implements OnInit {
         this.categories = resp;
       },
       (err: HttpErrorResponse) => {
-        console.log(err);
         this.treeError = true;
       });
   }
 
-  deleteCategoryModal(categoryId: string) {
-    // this.currentCategoryId = categoryId;
-  }
-
-  deleteCategory() {
-    // this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
-    //     this.currentCategoryId = null;
-    //     this.getCategories();
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     console.log(err.message);
-    //   });
+  deleteCategory(categoryId: string) {
+    this.dialog.open(DeleteAlertComponent, {
+      data: {title: 'Are you sure ? This will remove all subcategories, and products if exists'}
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.categoryService.deleteProductCategory(categoryId).subscribe(resp => {
+          this.getCategories();
+        });
+      }
+    });
   }
 }

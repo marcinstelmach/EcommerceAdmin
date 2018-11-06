@@ -28,7 +28,7 @@
                 <div [hidden]="!categoryForm.controls['nameEng'].errors.required">English Name is required</div>
               </div>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field *ngIf="edit">
               <mat-select placeholder="Category" formControlName="productCategoryId">
                 <mat-option *ngFor="let category of categories" [value]="category.id">
                   {{category.name}}
@@ -37,13 +37,9 @@
               <div class="error-msg">Select only if create nested category</div>
             </mat-form-field>
           </form>
-          <div *ngIf="errors" class="error">
-            <small class="form-text validation-error">{{errors['name']}}</small>
-            <small class="form-text validation-error">{{errors['isPremium']}}</small>
-          </div>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" [disabled]="categoryForm.invalid" (click)="addCategory()"
+          <button mat-raised-button color="primary" (click)="addCategory()"
                   type="submit">
             Add
           </button>
@@ -58,13 +54,13 @@
           <div *ngFor="let category of categories">
             <p class="category">
               - {{category.name}}
-              <mat-icon class="remove-trash" (click)="deleteCategoryModal(category.id)">delete</mat-icon>
+              <mat-icon class="remove-trash" (click)="deleteCategory(category.id)">delete</mat-icon>
               <mat-icon class="edit-pencil">edit</mat-icon>
             </p>
             <div *ngFor="let children of category.productCategories">
               <p class="sub-category">
                 - {{children.name}}
-                <mat-icon class="remove-trash" (click)="deleteCategoryModal(category.id)">delete</mat-icon>
+                <mat-icon class="remove-trash" (click)="deleteCategory(category.id)">delete</mat-icon>
                 <mat-icon class="edit-pencil">edit</mat-icon>
               </p>
             </div>
@@ -75,25 +71,3 @@
   </div>
 </div>
 
-
-<!--<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">-->
-<!--<div class="modal-dialog" role="document">-->
-<!--<div class="modal-content">-->
-<!--<div class="modal-header">-->
-<!--<h5 class="modal-title">Czy na pewno usunąc kategorie ?</h5>-->
-<!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--<span aria-hidden="true">&times;</span>-->
-<!--</button>-->
-<!--</div>-->
-<!--<div class="modal-body">-->
-<!--<p>Zastanów się dobrze, bo to zjebie całą bazę jesli są w tej kategorii produkty :D</p>-->
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCategory(currentCategoryId)">-->
-<!--Usuwamy !-->
-<!--</button>-->
-<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->

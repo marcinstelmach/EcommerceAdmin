@@ -1,0 +1,17 @@
+.title {
+  font-size: 22px;
+}
+
+.message {
+  font-size: 17px;
+}
+
+.status-code {
+  font-size: 10px;
+}
+
+.modal-container {
+  /*padding: 10px 20px;*/
+  width: 350px;
+
+}

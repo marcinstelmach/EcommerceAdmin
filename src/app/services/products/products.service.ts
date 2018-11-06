@@ -1,17 +1,16 @@
-import { AuthService } from './../auth/auth.service';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {AuthService} from '../auth/auth.service';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { API_PRODUCTS_URL } from 'app/constants/enpoints';
-import { ProductData } from 'app/models/product.interface';
+import {API_PRODUCTS_URL} from 'app/constants/enpoints';
 
 @Injectable()
 export class ProductsService {
-  private token: string = '';
+  token = '';
 
   constructor(private http: HttpClient,
-    private authService: AuthService) {
+              private authService: AuthService) {
     this.token = this.authService.getToken();
   }
 
@@ -23,7 +22,7 @@ export class ProductsService {
     return this.http.get(API_PRODUCTS_URL, options);
   }
 
-  public addNewPropduct(product: ProductData): Observable<any> {
+  public addProduct(product: any): Observable<any> {
     const options = {
       headers: this.getHeadersOptions()
     };
@@ -31,7 +30,7 @@ export class ProductsService {
     return this.http.post(API_PRODUCTS_URL, product, options);
   }
 
-  public getPropductById(id: number): Observable<any> {
+  public getProductById(id: number): Observable<any> {
     const options = {
       headers: this.getHeadersOptions()
     };

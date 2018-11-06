@@ -1,14 +1,12 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProductCategoryForDisplay} from '../../models/productCategoryForDisplay';
-import {HttpErrorResponse} from '@angular/common/http';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput} from 'ngx-uploader';
 import {UploadOutput} from 'ngx-uploader/index';
-import {ProductForCreation} from '../../models/productForCreation';
 import {environment} from '../../../environments/environment';
-import { ProductsCategoriesService } from '../../services/products-categories/products-categories.service';
-import { AuthService } from 'app/services/auth/auth.service';
-import { ProductsService } from '../../services/products/products.service';
+import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
+import {AuthService} from 'app/services/auth/auth.service';
+import {ProductsService} from '../../services/products/products.service';
+import {ProductCategory} from '../../models/product-category.interface';
 
 @Component({
   selector: 'app-product',
@@ -17,8 +15,7 @@ import { ProductsService } from '../../services/products/products.service';
 })
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
-  productForAdd: ProductForCreation;
-  categories: ProductCategoryForDisplay[];
+  categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
   humanizeBytes: Function;
@@ -27,6 +24,7 @@ export class ProductComponent implements OnInit {
   url: string;
   uploadSuccessAlert = false;
   uploadFailAlert = false;
+  productId = 6;
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductsCategoriesService,
@@ -47,35 +45,27 @@ export class ProductComponent implements OnInit {
     this.productForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
       'nameEng': new FormControl('', [Validators.required]),
-      'price': new FormControl('', Validators.required),
       'description': new FormControl('', Validators.required),
-      'descriptionEng': new FormControl(0, Validators.required),
+      'descriptionEng': new FormControl('', Validators.required),
+      'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
       'acceptCharms': new FormControl(true, Validators.required),
-      'hasCharms': new FormControl(0, Validators.required), 
-      'productCategoryId': new FormControl('', Validators.required), 
-      'sizes': new FormControl('s, m, l, xl')
+      'sizes': new FormControl('s, m, l, xl'),
+      'productCategoryId': new FormControl('', Validators.required)
     });
   }
 
   getCategories() {
-    // this.categoryService.getChildCategories().subscribe(resp => {
-    //     this.categories = resp.body;
-    //     this.productForm.controls['categoryId'].setValue(this.categories[0].id);
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     console.log(err.message);
-    //   });
+    this.categoryService.fetchProductCategories().subscribe(resp => {
+      this.categories = resp;
+    });
   }
-  // wysylac zdjecie i produkt w jednym
+
   addProduct() {
-    this.productForAdd = this.productForm.value;
-    // this.productService.addProduct(this.productForAdd).subscribe(resp => {
-    //   this.startUpload(resp.body.id);
-    //   this.uploadSuccessAlert = false;
-    // }, (err: HttpErrorResponse) => {
-    //   this.uploadFailAlert = true;
-    // });
-    this.startUpload();
+    this.productService.addProduct(this.productForm.value).subscribe(resp => {
+      this.productId = resp;
+      this.startUpload();
+      this.uploadSuccessAlert = false;
+    });
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -108,22 +98,12 @@ export class ProductComponent implements OnInit {
     const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: this.url + '/products/all',
+      url: '/api/images/' + this.productId + '/false',
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + token},
-      data: {
-        name: this.productForAdd.name,
-        price: this.productForAdd.price.toString(),
-        categoryId: this.productForAdd.categoryId.toString(),
-        status: this.productForAdd.status.toString(),
-        description: this.productForAdd.description,
-        hasCharms: this.productForAdd.hasCharms.toString(),
-        colors: this.productForAdd.colors,
-        sizes: this.productForAdd.sizes
-      }
+      data: {}
     };
 
     this.uploadInput.emit(event);
   }
-
 }

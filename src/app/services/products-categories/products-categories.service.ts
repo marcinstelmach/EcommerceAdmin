@@ -1,17 +1,17 @@
-import { AuthService } from './../auth/auth.service';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {AuthService} from './../auth/auth.service';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { API_PRODUCTS_CATEGORIES_URL } from 'app/constants/enpoints';
-import { ProductCategory } from 'app/models/product-category.interface';
+import {API_PRODUCTS_CATEGORIES_URL} from 'app/constants/enpoints';
+import {ProductCategory} from 'app/models/product-category.interface';
 
 @Injectable()
 export class ProductsCategoriesService {
-  private token: string = '';
+  token = '';
 
   constructor(private http: HttpClient,
-    private authService: AuthService) {
+              private authService: AuthService) {
     this.token = this.authService.getToken();
   }
 
@@ -46,5 +46,16 @@ export class ProductsCategoriesService {
     };
 
     return this.http.post(API_PRODUCTS_CATEGORIES_URL, data, options);
+  }
+
+  public deleteProductCategory(id: string): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.delete(API_PRODUCTS_CATEGORIES_URL + id);
   }
 }
