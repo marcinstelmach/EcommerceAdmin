@@ -1,13 +1,14 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {humanizeBytes, UploaderOptions, UploadFile, UploadInput} from 'ngx-uploader';
+import {UploadFile, UploadInput} from 'ngx-uploader';
 import {UploadOutput} from 'ngx-uploader/index';
 import {environment} from '../../../environments/environment';
 import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
 import {AuthService} from 'app/services/auth/auth.service';
 import {ProductsService} from '../../services/products/products.service';
 import {ProductCategory} from '../../models/product-category.interface';
-import {MatSnackBar} from '@angular/material';
+import {MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {Product} from '../../models/product.interface';
 
 @Component({
   selector: 'app-product',
@@ -16,6 +17,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
+  productTableColumns: string[] = ['position', 'name', 'description', 'price'];
   categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
@@ -23,30 +25,36 @@ export class ProductComponent implements OnInit {
   productId: number;
   progress = 0;
   showProgressBar = false;
-  howMuch100 = 0;
+  products: Product[];
+  productsTable: any;
+  categoryId = '';
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductsCategoriesService,
               private authService: AuthService,
               private productService: ProductsService,
-              private snackBar: MatSnackBar) {
+              private addedAlert: MatSnackBar) {
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>();
     this.url = environment.API_URL;
   }
 
+
   ngOnInit() {
     this.createForm();
     this.getCategories();
+    this.getProducts();
   }
 
   createForm() {
     this.productForm = this.fb.group({
-      'name': new FormControl('name', [Validators.required]),
-      'nameEng': new FormControl('engName', [Validators.required]),
-      'description': new FormControl('desc', Validators.required),
-      'descriptionEng': new FormControl('desc', Validators.required),
-      'price': new FormControl('15', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
+      'name': new FormControl('', [Validators.required]),
+      'nameEng': new FormControl('', [Validators.required]),
+      'description': new FormControl('', Validators.required),
+      'descriptionEng': new FormControl('', Validators.required),
+      'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
       'acceptCharms': new FormControl(false),
       'sizes': new FormControl('s, m, l, xl'),
       'productCategoryId': new FormControl('', Validators.required)
@@ -82,7 +90,7 @@ export class ProductComponent implements OnInit {
         this.productForm.reset();
         this.uploadInput = null;
         this.showProgressBar = false;
-        this.snackBar.open('Added successfully !', 'Close', {
+        this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
         });
       }
@@ -109,5 +117,18 @@ export class ProductComponent implements OnInit {
       current += file.progress.data.percentage;
     }
     this.progress = ((current * 100) / max);
+  }
+
+  getProducts() {
+    console.log(this.categoryId);
+    this.productService.fetchProducts().subscribe(data => {
+      this.products = data;
+      this.buildTable(data);
+    });
+  }
+
+  buildTable(data: Product[]) {
+    this.productsTable = new MatTableDataSource<Product>(data);
+    this.productsTable.paginator = this.paginator;
   }
 }
