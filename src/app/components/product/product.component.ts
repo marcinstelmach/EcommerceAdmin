@@ -7,6 +7,7 @@ import {ProductsCategoriesService} from '../../services/products-categories/prod
 import {AuthService} from 'app/services/auth/auth.service';
 import {ProductsService} from '../../services/products/products.service';
 import {ProductCategory} from '../../models/product-category.interface';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-product',
@@ -18,21 +19,19 @@ export class ProductComponent implements OnInit {
   categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
-  humanizeBytes: Function;
-  dragOver: boolean;
-  options: UploaderOptions;
   url: string;
-  uploadSuccessAlert = false;
-  uploadFailAlert = false;
-  productId = 6;
+  productId: number;
+  progress = 0;
+  showProgressBar = false;
+  howMuch100 = 0;
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductsCategoriesService,
               private authService: AuthService,
-              private productService: ProductsService) {
+              private productService: ProductsService,
+              private snackBar: MatSnackBar) {
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>();
-    this.humanizeBytes = humanizeBytes;
     this.url = environment.API_URL;
   }
 
@@ -43,12 +42,12 @@ export class ProductComponent implements OnInit {
 
   createForm() {
     this.productForm = this.fb.group({
-      'name': new FormControl('', [Validators.required]),
-      'nameEng': new FormControl('', [Validators.required]),
-      'description': new FormControl('', Validators.required),
-      'descriptionEng': new FormControl('', Validators.required),
-      'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
-      'acceptCharms': new FormControl(true, Validators.required),
+      'name': new FormControl('name', [Validators.required]),
+      'nameEng': new FormControl('engName', [Validators.required]),
+      'description': new FormControl('desc', Validators.required),
+      'descriptionEng': new FormControl('desc', Validators.required),
+      'price': new FormControl('15', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
+      'acceptCharms': new FormControl(false),
       'sizes': new FormControl('s, m, l, xl'),
       'productCategoryId': new FormControl('', Validators.required)
     });
@@ -64,7 +63,6 @@ export class ProductComponent implements OnInit {
     this.productService.addProduct(this.productForm.value).subscribe(resp => {
       this.productId = resp;
       this.startUpload();
-      this.uploadSuccessAlert = false;
     });
   }
 
@@ -72,25 +70,22 @@ export class ProductComponent implements OnInit {
     if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
-      // update current data in files array for uploading file
       const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
       this.files[index] = output.file;
-    } else if (output.type === 'removed') {
-      // remove file from array when removed
-      this.files = this.files.filter((file: UploadFile) => file !== output.file);
-    } else if (output.type === 'dragOver') {
-      this.dragOver = true;
-    } else if (output.type === 'dragOut') {
-      this.dragOver = false;
-    } else if (output.type === 'drop') {
-      this.dragOver = false;
-    } else if (output.type === 'rejected') {
-      this.uploadFailAlert = true;
+      this.countProgress();
+    } else if (output.type === 'allAddedToQueue') {
+      this.showProgressBar = true;
     }
     if (output.type === 'done') {
-      this.productForm.reset();
-      this.uploadSuccessAlert = true;
-      this.uploadFailAlert = false;
+      this.countProgress();
+      if (this.progress === 100) {
+        this.productForm.reset();
+        this.uploadInput = null;
+        this.showProgressBar = false;
+        this.snackBar.open('Added successfully !', 'Close', {
+          duration: 2000
+        });
+      }
     }
   }
 
@@ -105,5 +100,14 @@ export class ProductComponent implements OnInit {
     };
 
     this.uploadInput.emit(event);
+  }
+
+  countProgress(): void {
+    const max = this.files.length * 100;
+    let current = 0;
+    for (const file of this.files) {
+      current += file.progress.data.percentage;
+    }
+    this.progress = ((current * 100) / max);
   }
 }

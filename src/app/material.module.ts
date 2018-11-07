@@ -6,8 +6,10 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatProgressBarModule,
   MatSelectModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 const modules = [
@@ -18,7 +20,9 @@ const modules = [
   MatSelectModule,
   MatIconModule,
   MatDialogModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

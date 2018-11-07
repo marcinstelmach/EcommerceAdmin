@@ -74,11 +74,14 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-              <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" name="file" multiple>
+            <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" name="file" multiple required>
+            <mat-progress-bar mode="determine" value="{{progress}}" *ngIf="showProgressBar"></mat-progress-bar>
           </form>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" [disabled]="productForm.invalid" (click)="addProduct()" type="submit">
+          <button mat-raised-button color="primary" [disabled]="productForm.invalid" (click)="addProduct()"
+                  type="submit">
             Add
           </button>
         </mat-card-actions>
