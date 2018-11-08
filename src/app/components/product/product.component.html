@@ -89,10 +89,10 @@
     </div>
     <div class="col-md-6 offset-1">
       <mat-card>
-        <mat-card-title>Categories</mat-card-title>
+        <mat-card-title>Products</mat-card-title>
         <mat-card-content>
           <mat-form-field>
-            <mat-select placeholder="Select category" [(value)]="categoryId">
+            <mat-select placeholder="Select category" (selectionChange)="selectCategory($event.value)">
               <mat-option *ngFor="let category of categories" [value]="category.id">
                 {{category.name}}
               </mat-option>

@@ -38,12 +38,12 @@ export class ProductsService {
     return this.http.get(API_PRODUCTS_URL + '/' + id, options);
   }
 
-  public getPropductsByCategoryId(categoryId: number): Observable<any> {
+  public getPropductsByCategoryId(categoryId: string): Observable<any> {
     const options = {
       headers: this.getHeadersOptions()
     };
 
-    return this.http.get(API_PRODUCTS_URL + '/' + categoryId, options);
+    return this.http.get(API_PRODUCTS_URL + '/category/' + categoryId, options);
   }
 
   private getHeadersOptions(): HttpHeaders {

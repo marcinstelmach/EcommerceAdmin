@@ -28,7 +28,7 @@
                 <div [hidden]="!categoryForm.controls['nameEng'].errors.required">English Name is required</div>
               </div>
             </mat-form-field>
-            <mat-form-field *ngIf="edit">
+            <mat-form-field *ngIf="!edit">
               <mat-select placeholder="Category" formControlName="productCategoryId">
                 <mat-option *ngFor="let category of categories" [value]="category.id">
                   {{category.name}}

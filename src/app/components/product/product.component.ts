@@ -27,7 +27,6 @@ export class ProductComponent implements OnInit {
   showProgressBar = false;
   products: Product[];
   productsTable: any;
-  categoryId = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -45,7 +44,6 @@ export class ProductComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.getCategories();
-    this.getProducts();
   }
 
   createForm() {
@@ -62,8 +60,8 @@ export class ProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.fetchProductCategories().subscribe(resp => {
-      this.categories = resp;
+    this.categoryService.fetchProductCategories().subscribe((resp: ProductCategory[]) => {
+      this.categories = resp.reduce((a, b) => [...a, ...b.productCategories], []);
     });
   }
 
@@ -88,7 +86,6 @@ export class ProductComponent implements OnInit {
       this.countProgress();
       if (this.progress === 100) {
         this.productForm.reset();
-        this.uploadInput = null;
         this.showProgressBar = false;
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
@@ -119,16 +116,15 @@ export class ProductComponent implements OnInit {
     this.progress = ((current * 100) / max);
   }
 
-  getProducts() {
-    console.log(this.categoryId);
-    this.productService.fetchProducts().subscribe(data => {
-      this.products = data;
-      this.buildTable(data);
-    });
-  }
-
   buildTable(data: Product[]) {
     this.productsTable = new MatTableDataSource<Product>(data);
     this.productsTable.paginator = this.paginator;
+  }
+
+  selectCategory(id: string) {
+    this.productService.getPropductsByCategoryId(id).subscribe(data => {
+      this.products = data;
+      this.buildTable(data);
+    });
   }
 }
