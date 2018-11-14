@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
 import {ProductCategory} from '../../models/product-category.interface';
-import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog} from '@angular/material';
 import {DeleteAlertComponent} from '../shared/delete-alert/delete-alert.component';
 
@@ -15,8 +14,8 @@ import {DeleteAlertComponent} from '../shared/delete-alert/delete-alert.componen
 export class ProductCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   categories: ProductCategory[];
-  treeError = false;
   edit = false;
+  editId = '';
 
   constructor(private fb: FormBuilder,
               private categoryService: ProductsCategoriesService,
@@ -25,10 +24,10 @@ export class ProductCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCategories();
-    this.createMainForm();
+    this.createForm();
   }
 
-  createMainForm() {
+  createForm() {
     this.categoryForm = this.fb.group({
       'name': new FormControl('', [Validators.required]),
       'nameEng': new FormControl('', [Validators.required]),
@@ -38,7 +37,6 @@ export class ProductCategoryComponent implements OnInit {
 
   addCategory() {
     const data = this.categoryForm.value;
-    console.log(data);
     this.categoryService.addProductCategory(data).subscribe(resp => {
       this.categoryForm.reset();
       this.getCategories();
@@ -47,11 +45,25 @@ export class ProductCategoryComponent implements OnInit {
 
   getCategories() {
     this.categoryService.fetchProductCategories().subscribe(resp => {
-        this.categories = resp;
-      },
-      (err: HttpErrorResponse) => {
-        this.treeError = true;
-      });
+      this.categories = resp;
+    });
+  }
+
+  setEditCategory(category: ProductCategory) {
+    this.edit = true;
+    this.categoryForm.controls['name'].setValue(category.name);
+    this.categoryForm.controls['nameEng'].setValue(category.nameEng);
+    this.editId = category.id;
+  }
+
+  editCategory() {
+    const data = this.categoryForm.value;
+    this.categoryService.updateCategory(this.editId, data).subscribe(resp => {
+      this.getCategories();
+      this.editId = '';
+      this.edit = false;
+      this.categoryForm.reset();
+    });
   }
 
   deleteCategory(categoryId: string) {
@@ -64,5 +76,16 @@ export class ProductCategoryComponent implements OnInit {
         });
       }
     });
+  }
+
+  sendFormByEnter() {
+    if (this.categoryForm.invalid) {
+      return;
+    }
+    if (this.edit) {
+      this.editCategory();
+    } else {
+      this.addCategory();
+    }
   }
 }

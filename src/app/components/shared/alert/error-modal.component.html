@@ -3,6 +3,7 @@
   <div mat-dialog-content style="margin-top: 20px;">
     <p class="message">{{error.message}}</p>
     <p class="status-code">Status code: {{error.errorCodeName}}</p>
+    <p class="status-code">{{error | json}}</p>
   </div>
   <div mat-dialog-actions align="end" style="margin-top: 10px;">
     <button mat-raised-button color="warn" [mat-dialog-close] cdkFocusInitial>Ok</button>

@@ -58,4 +58,15 @@ export class ProductsCategoriesService {
 
     return this.http.delete(API_PRODUCTS_CATEGORIES_URL + id);
   }
+
+  public updateCategory(id: string, data: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return this.http.put(`${API_PRODUCTS_CATEGORIES_URL}/${id}`, data, options);
+  }
 }

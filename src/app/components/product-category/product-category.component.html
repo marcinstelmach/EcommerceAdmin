@@ -7,9 +7,10 @@
   <div class="row">
     <div class="col-md-5">
       <mat-card>
-        <mat-card-title>Add new</mat-card-title>
+        <mat-card-title *ngIf="!edit">Add new</mat-card-title>
+        <mat-card-title *ngIf="edit">Edit</mat-card-title>
         <mat-card-content>
-          <form [formGroup]="categoryForm">
+          <form [formGroup]="categoryForm" (keyup.enter)="sendFormByEnter()">
             <mat-form-field
               [ngClass]="{'error': categoryForm.controls['name'].errors && !categoryForm.controls['name'].pristine}"
               color="{{categoryForm.controls['name'].errors && !categoryForm.controls['name'].pristine ? 'warn' : 'primary'}}">
@@ -39,10 +40,8 @@
           </form>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" (click)="addCategory()"
-                  type="submit">
-            Add
-          </button>
+          <button mat-raised-button color="primary" (click)="addCategory()" [disabled]="categoryForm.invalid" type="submit" *ngIf="!edit">Add</button>
+          <button mat-raised-button color="primary" (click)="editCategory()" [disabled]="categoryForm.invalid" type="submit" *ngIf="edit">Edit</button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -50,18 +49,17 @@
       <mat-card>
         <mat-card-title>Categories</mat-card-title>
         <mat-card-content>
-          <p *ngIf="treeError">Nie mozna pobrać kategorii</p>
           <div *ngFor="let category of categories">
             <p class="category">
               - {{category.name}}
               <mat-icon class="remove-trash" (click)="deleteCategory(category.id)">delete</mat-icon>
-              <mat-icon class="edit-pencil">edit</mat-icon>
+              <mat-icon class="edit-pencil" (click)="setEditCategory(category)">edit</mat-icon>
             </p>
             <div *ngFor="let children of category.productCategories">
               <p class="sub-category">
                 - {{children.name}}
-                <mat-icon class="remove-trash" (click)="deleteCategory(category.id)">delete</mat-icon>
-                <mat-icon class="edit-pencil">edit</mat-icon>
+                <mat-icon class="remove-trash" (click)="deleteCategory(children.id)">delete</mat-icon>
+                <mat-icon class="edit-pencil" (click)="setEditCategory(children)">edit</mat-icon>
               </p>
             </div>
           </div>

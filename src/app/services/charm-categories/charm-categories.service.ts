@@ -7,17 +7,17 @@ import { API_CHARMS_CATEGORY_URL } from 'app/constants/enpoints';
 
 @Injectable()
 export class CharmCategoriesService {
-  private token: string = '';
+  token = '';
 
   constructor(private http: HttpClient,
     private authService: AuthService) {
     this.token = this.authService.getToken();
   }
 
-  public addCharmCategory(name: string): Observable<any> {
+  public addCharmCategory(data): Observable<any> {
     const options = this.setOptions();
 
-    return this.http.post(API_CHARMS_CATEGORY_URL, { name }, options);
+    return this.http.post(API_CHARMS_CATEGORY_URL, data , options);
   }
 
   public getCategories(): Observable<any> {

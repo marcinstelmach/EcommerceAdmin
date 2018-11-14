@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
-import {CharmCategoryForCreation} from '../../models/charmCategoryForCreation';
-import {HttpErrorResponse} from '@angular/common/http';
-import { CharmCategoriesService } from '../../services/charm-categories/charm-categories.service';
-
+import {CharmCategoriesService} from '../../services/charm-categories/charm-categories.service';
 
 
 @Component({
@@ -15,61 +12,46 @@ import { CharmCategoriesService } from '../../services/charm-categories/charm-ca
 export class CharmCategoryComponent implements OnInit {
 
   categoryForm: FormGroup;
-  categoryForCreation: CharmCategoryForCreation;
-  errors: any;
-  categories: CharmCategoryForDisplay[] = [];
-  treeError = false;
-  currentCategoryId: number;
+  categories: CharmCategoryForDisplay[];
 
   constructor(private fb: FormBuilder,
               private categoryService: CharmCategoriesService) {
   }
 
   ngOnInit() {
-    this.getCharmCategories();
-    this.createFormForm();
+    this.getCategories();
+    this.createForm();
   }
 
-  createFormForm() {
+  createForm() {
     this.categoryForm = this.fb.group({
-      'name': new FormControl('', [Validators.required])
+      'name': new FormControl('', [Validators.required]),
+      'nameEng': new FormControl('', [Validators.required]),
     });
   }
 
 
   addCategory() {
-    this.categoryForCreation = <CharmCategoryForCreation>this.categoryForm.value;
-    this.categoryService.addCharmCategory(this.categoryForCreation.name).subscribe(resp => {
-        this.getCharmCategories();
-      },
-      (err: HttpErrorResponse) => {
-        this.errors = err.error;
-        console.log(err);
-      });
+    console.log(this.categoryForm.value);
+    // this.categoryService.addCharmCategory(this.categoryForm.value).subscribe(resp => {
+    //   console.log(resp);
+    // });
   }
 
-  getCharmCategories() {
+  getCategories() {
     this.categoryService.getCategories().subscribe(resp => {
-        this.categories = resp.body;
-      },
-      (err: HttpErrorResponse) => {
-        this.treeError = true;
-      });
+      this.categories = resp.body;
+    });
   }
 
-  deleteCategoryModal(categoryId: number) {
-    this.currentCategoryId = categoryId;
-  }
-
-  deleteCategory() {
-    this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
-        this.currentCategoryId = null;
-        this.getCharmCategories();
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
-  }
-
-
+  //
+  // deleteCategory() {
+  //   this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
+  //       this.currentCategoryId = null;
+  //       this.getCategories();
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //       console.log(err.message);
+  //     });
+  // }
 }
