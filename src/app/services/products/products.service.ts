@@ -46,6 +46,14 @@ export class ProductsService {
     return this.http.get(API_PRODUCTS_URL + '/category/' + categoryId, options);
   }
 
+  public deleteProduct(productId: number): Observable<any> {
+    const options = {
+      headers: this.getHeadersOptions()
+    };
+
+    return this.http.delete(API_PRODUCTS_URL + '/' + productId, options);
+  }
+
   private getHeadersOptions(): HttpHeaders {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`,

@@ -26,7 +26,7 @@ export class ProductsCategoriesService {
     return this.http.get(API_PRODUCTS_CATEGORIES_URL, options);
   }
 
-  public fetchProductCategoryById(id: number): Observable<any> {
+  public fetchProductCategoryById(id: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`,

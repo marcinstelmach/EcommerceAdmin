@@ -33,6 +33,7 @@ import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
 import {ErrorModalComponent} from './components/shared/alert/error-modal.component';
 import {DeleteAlertComponent} from './components/shared/delete-alert/delete-alert.component';
+import { EditProductComponent } from './components/product/edit/edit.product.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {DeleteAlertComponent} from './components/shared/delete-alert/delete-aler
     RegisterComponent,
     ErrorModalComponent,
     DeleteAlertComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,7 @@ import {DeleteAlertComponent} from './components/shared/delete-alert/delete-aler
     ...Interceptors
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorModalComponent, DeleteAlertComponent]
+  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent]
 })
 export class AppModule {
 }

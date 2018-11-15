@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  name: 'Developing',
+  name: 'Production',
   API_URL: 'http://localhost:60474/api/',
-  backendPath: 'http://localhost:60474/api/'
+  backendPath: 'http://api.streetwood.pl/'
 };

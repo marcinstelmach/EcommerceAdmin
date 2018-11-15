@@ -1,3 +1,5 @@
+import {Image} from './image.interface';
+
 export interface Product {
   id: number;
   name: string;
@@ -8,4 +10,5 @@ export interface Product {
   acceptCharms: boolean;
   sizes: string;
   productCategoryId: string;
+  images: Image[];
 }

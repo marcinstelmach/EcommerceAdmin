@@ -1,0 +1,91 @@
+<div class="modal-container">
+  <h1 class="title" mat-dialog-title>Edit {{product.name}}</h1>
+  <div mat-dialog-content style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-5">
+        <mat-card>
+          <mat-card-content>
+            <form [formGroup]="productEditForm">
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['name'].errors && !productEditForm.controls['name'].pristine}"
+                color="{{productEditForm.controls['name'].errors && !productEditForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Name" formControlName="name">
+                <div *ngIf="productEditForm.controls['name'].errors && !productEditForm.controls['name'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!productEditForm.controls['name'].errors.required">Name is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['nameEng'].errors && !productEditForm.controls['nameEng'].pristine}"
+                color="{{productEditForm.controls['nameEng'].errors && !productEditForm.controls['nameEng'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="English Name" formControlName="nameEng">
+                <div *ngIf="productEditForm.controls['nameEng'].errors && !productEditForm.controls['nameEng'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!productEditForm.controls['nameEng'].errors.required">English Name is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['description'].errors && !productEditForm.controls['description'].pristine}"
+                color="{{productEditForm.controls['description'].errors && !productEditForm.controls['description'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Description" formControlName="description">
+                <div
+                  *ngIf="productEditForm.controls['description'].errors && !productEditForm.controls['description'].pristine"
+                  class="error-msg">
+                  <div [hidden]="!productEditForm.controls['description'].errors.required">Description is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['descriptionEng'].errors && !productEditForm.controls['descriptionEng'].pristine}"
+                color="{{productEditForm.controls['descriptionEng'].errors && !productEditForm.controls['descriptionEng'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="English description" formControlName="descriptionEng">
+                <div
+                  *ngIf="productEditForm.controls['descriptionEng'].errors && !productEditForm.controls['descriptionEng'].pristine"
+                  class="error-msg">
+                  <div [hidden]="!productEditForm.controls['descriptionEng'].errors.required">English description is
+                    required
+                  </div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['price'].errors && !productEditForm.controls['price'].pristine}"
+                color="{{productEditForm.controls['price'].errors && !productEditForm.controls['price'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Price" formControlName="price">
+                <div *ngIf="productEditForm.controls['price'].errors && !productEditForm.controls['price'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!productEditForm.controls['price'].errors.required">Price is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': productEditForm.controls['sizes'].errors && !productEditForm.controls['sizes'].pristine}"
+                color="{{productEditForm.controls['sizes'].errors && !productEditForm.controls['sizes'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Sizes" formControlName="sizes">
+                <div class="error-msg">
+                  <div>Rozmiary, oddzielone przecinkiem, np.: s,m,l,xl !</div>
+                </div>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-raised-button color="primary" [disabled]="productEditForm.invalid" (click)="editProduct()"
+                    type="submit">
+              Edit
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col-md-7">
+        <mat-card>
+          <mat-card-content>
+            <div class="img-container">
+              <img *ngFor="let image of product.images" src="{{contentHost}}/{{image.imageUrl}}" class="img-thumbnail product-img">
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end" style="margin-top: 10px;">
+    <button mat-raised-button color="warm" (click)="openRemoveModal();">Remove !</button>
+    <button mat-raised-button color="primary" [mat-dialog-close] cdkFocusInitial>Close</button>
+  </div>
+</div>

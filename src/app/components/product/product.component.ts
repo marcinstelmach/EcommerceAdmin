@@ -2,13 +2,13 @@ import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UploadFile, UploadInput} from 'ngx-uploader';
 import {UploadOutput} from 'ngx-uploader/index';
-import {environment} from '../../../environments/environment';
 import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
 import {AuthService} from 'app/services/auth/auth.service';
 import {ProductsService} from '../../services/products/products.service';
 import {ProductCategory} from '../../models/product-category.interface';
-import {MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {Product} from '../../models/product.interface';
+import {EditProductComponent} from './edit/edit.product.component';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +21,6 @@ export class ProductComponent implements OnInit {
   categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
-  url: string;
   productId: number;
   progress = 0;
   showProgressBar = false;
@@ -34,10 +33,10 @@ export class ProductComponent implements OnInit {
               private categoryService: ProductsCategoriesService,
               private authService: AuthService,
               private productService: ProductsService,
-              private addedAlert: MatSnackBar) {
+              private addedAlert: MatSnackBar,
+              private dialog: MatDialog) {
     this.files = [];
     this.uploadInput = new EventEmitter<UploadInput>();
-    this.url = environment.API_URL;
   }
 
 
@@ -125,6 +124,15 @@ export class ProductComponent implements OnInit {
     this.productService.getPropductsByCategoryId(id).subscribe(data => {
       this.products = data;
       this.buildTable(data);
+    });
+  }
+
+  openEditModal(product: Product) {
+    this.dialog.open(EditProductComponent, {
+      minWidth: '60%',
+      maxHeight: '80%',
+      position: {right: '10px'},
+      data: product
     });
   }
 }

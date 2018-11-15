@@ -45,7 +45,7 @@ export class CharmComponent implements OnInit {
 
   ngOnInit() {
     this.pathToCharm = environment.backendPath;
-    this.url = environment.API_URL;
+    // this.url = environment.API_URL;
     this.getCategories();
     this.getCategoriesWithCharms();
     this.createForm();

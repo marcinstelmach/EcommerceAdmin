@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   name: 'Developing',
   API_URL: '/api/',
-  backendPath: 'http://localhost:60474/'
+  backendPath: 'http://localhost:49994/',
 };
