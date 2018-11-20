@@ -20,12 +20,12 @@ export class EditProductComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public product: Product,
               private fb: FormBuilder,
               private dialog: MatDialog,
-              private productService: ProductsService,
-              private router: Router) {
+              private productService: ProductsService) {
   }
 
   ngOnInit() {
     this.createForm();
+    console.log(this.product);
   }
 
   editProduct() {
@@ -49,8 +49,8 @@ export class EditProductComponent implements OnInit {
       data: {title: 'Are you sure, you want to remove this product?'}
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.productService.deleteProduct(this.product.id).subscribe(data => {
-          this.router.navigate(['/product']);
+        this.productService.deleteProduct(this.product.id, this.product.productCategoryId).subscribe(data => {
+          window.location.reload();
         });
       }
     });

@@ -13,7 +13,6 @@ export class ErrorModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
-    console.log(this.data);
     this.error = this.data;
   }
 }

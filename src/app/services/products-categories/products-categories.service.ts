@@ -1,6 +1,5 @@
-import {AuthService} from './../auth/auth.service';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {API_PRODUCTS_CATEGORIES_URL} from 'app/constants/enpoints';
@@ -8,65 +7,27 @@ import {ProductCategory} from 'app/models/product-category.interface';
 
 @Injectable()
 export class ProductsCategoriesService {
-  token = '';
 
-  constructor(private http: HttpClient,
-              private authService: AuthService) {
-    this.token = this.authService.getToken();
+  constructor(private http: HttpClient) {
   }
 
   public fetchProductCategories(): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.get(API_PRODUCTS_CATEGORIES_URL, options);
+    return this.http.get(API_PRODUCTS_CATEGORIES_URL);
   }
 
   public fetchProductCategoryById(id: string): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.get(API_PRODUCTS_CATEGORIES_URL + '/' + id, options);
+    return this.http.get(API_PRODUCTS_CATEGORIES_URL + '/' + id);
   }
 
   public addProductCategory(data: ProductCategory): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.post(API_PRODUCTS_CATEGORIES_URL, data, options);
+    return this.http.post(API_PRODUCTS_CATEGORIES_URL, data);
   }
 
   public deleteProductCategory(id: string): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
-
     return this.http.delete(API_PRODUCTS_CATEGORIES_URL + id);
   }
 
   public updateCategory(id: string, data: any): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
-      })
-    };
-
-    return this.http.put(`${API_PRODUCTS_CATEGORIES_URL}/${id}`, data, options);
+    return this.http.put(`${API_PRODUCTS_CATEGORIES_URL}/${id}`, data);
   }
 }

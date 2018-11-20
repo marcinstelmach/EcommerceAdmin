@@ -1,58 +1,29 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
- 
-import { API_SHIPMENTS } from 'app/constants/enpoints';
-import { ShipmentData } from 'app/models/shipment.interface';
-import { AuthService } from 'app/services/auth/auth.service';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+import {API_SHIPMENTS} from 'app/constants/enpoints';
+import {ShipmentData} from 'app/models/shipment.interface';
 
 @Injectable()
 export class ShipmentService {
-  private token: string = '';
 
-  constructor(private http: HttpClient,
-    private authService: AuthService) {
-    this.token = this.authService.getToken();
+  constructor(private http: HttpClient) {
   }
 
   public getShipments(): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.get(API_SHIPMENTS, options);
+    return this.http.get(API_SHIPMENTS);
   }
 
   public getShipmentById(id: number): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.get(API_SHIPMENTS, options);
+    return this.http.get(API_SHIPMENTS);
   }
 
   public addShipment(shipment: ShipmentData): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.post(API_SHIPMENTS, shipment, options);
+    return this.http.post(API_SHIPMENTS, shipment);
   }
 
   public updateShipment(shipment: ShipmentData): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.put(API_SHIPMENTS+'/'+shipment.id, shipment, options);
-  }
-
-  private getHeadersOptions(): HttpHeaders {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return headers;
+    return this.http.put(API_SHIPMENTS + '/' + shipment.id, shipment);
   }
 }

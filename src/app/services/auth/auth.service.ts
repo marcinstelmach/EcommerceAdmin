@@ -1,8 +1,8 @@
-import { API_LOGIN_URL } from './../../constants/enpoints';
-import { Observable, of } from 'rxjs';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { UserDataResponseFromApi, UserLoginResponseFromApi } from '../../models/user.interface'; 
+import {API_LOGIN_URL} from './../../constants/enpoints';
+import {Observable} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserLoginResponseFromApi} from '../../models/user.interface';
 
 export const TOKEN = 'token';
 export const REFRESH_TOKEN = 'refreshToken';

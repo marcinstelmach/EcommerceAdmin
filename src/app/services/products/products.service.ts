@@ -1,65 +1,32 @@
-import {AuthService} from '../auth/auth.service';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {API_PRODUCTS_URL} from 'app/constants/enpoints';
 
 @Injectable()
 export class ProductsService {
-  token = '';
 
-  constructor(private http: HttpClient,
-              private authService: AuthService) {
-    this.token = this.authService.getToken();
+  constructor(private http: HttpClient) {
   }
 
   public fetchProducts(): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.get(API_PRODUCTS_URL, options);
+    return this.http.get(API_PRODUCTS_URL);
   }
 
   public addProduct(product: any): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.post(API_PRODUCTS_URL, product, options);
+    return this.http.post(API_PRODUCTS_URL, product);
   }
 
   public getProductById(id: number): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.get(API_PRODUCTS_URL + '/' + id, options);
+    return this.http.get(API_PRODUCTS_URL + '/' + id);
   }
 
   public getPropductsByCategoryId(categoryId: string): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.get(API_PRODUCTS_URL + '/category/' + categoryId, options);
+    return this.http.get(API_PRODUCTS_URL + '/category/' + categoryId);
   }
 
-  public deleteProduct(productId: number): Observable<any> {
-    const options = {
-      headers: this.getHeadersOptions()
-    };
-
-    return this.http.delete(API_PRODUCTS_URL + '/' + productId, options);
-  }
-
-  private getHeadersOptions(): HttpHeaders {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json'
-    });
-
-    return headers;
+  public deleteProduct(productId: number, categoryId: string): Observable<any> {
+    return this.http.delete(API_PRODUCTS_URL + '/' + productId + '/' + categoryId);
   }
 }

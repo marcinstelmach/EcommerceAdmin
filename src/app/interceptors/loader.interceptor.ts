@@ -7,16 +7,20 @@ import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {ErrorModalComponent} from '../components/shared/alert/error-modal.component';
+import {AuthService} from '../services/auth/auth.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
   constructor(private spinner: NgxSpinnerService,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private authService: AuthService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.spinner.show();
-    return next.handle(request).pipe(
+    const authToken = 'Bearer ' + this.authService.getToken();
+    const authReq = request.clone({ setHeaders: { Authorization: authToken, 'Content-Type': 'application/json' } });
+    return next.handle(authReq).pipe(
       tap(response => {
         if (response instanceof HttpResponse) {
           this.spinner.hide();
@@ -25,7 +29,7 @@ export class LoaderInterceptor implements HttpInterceptor {
       catchError(error => {
         this.spinner.hide();
         this.dialog.open(ErrorModalComponent, {
-          data: error.error,
+          data: error,
         });
         return of(error);
       })

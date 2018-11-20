@@ -2,16 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {PasswordValidation} from '../../services/PasswordValidation';
 
-import { UserService } from '../../services/user/user.service';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit { 
-  registerForm: FormGroup; 
-  showModal = false;  
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  showModal = false;
   errors: any;
 
   constructor(private fb: FormBuilder, private userService: UserService) {
@@ -33,22 +33,22 @@ export class RegisterComponent implements OnInit {
       validator: PasswordValidation.matchPassword
     });
   }
- 
+
   register(): void {
     const user = this.registerForm.value;
     this.userService.register(user).subscribe(
       data => {
-       if(data instanceof Error) {
-        
-       } else {
-        this.showModal = true;         
-       }
+        if (data instanceof Error) {
+
+        } else {
+          this.showModal = true;
+        }
       }
     );
   }
 
   hideModal(): void {
-    this.showModal = false; 
+    this.showModal = false;
   }
 
 }

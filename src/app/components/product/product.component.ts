@@ -123,16 +123,24 @@ export class ProductComponent implements OnInit {
   selectCategory(id: string) {
     this.productService.getPropductsByCategoryId(id).subscribe(data => {
       this.products = data;
+      for (let product of  this.products) {
+        product.productCategoryId = id;
+      }
+      console.log(this.products);
       this.buildTable(data);
     });
   }
 
   openEditModal(product: Product) {
-    this.dialog.open(EditProductComponent, {
+    let dialogRef = this.dialog.open(EditProductComponent, {
       minWidth: '60%',
       maxHeight: '80%',
       position: {right: '10px'},
       data: product
     });
+    //
+    // dialogRef.afterClosed().subscribe(s => {
+    //   this.
+    // })
   }
 }
