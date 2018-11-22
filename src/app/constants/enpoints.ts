@@ -16,3 +16,5 @@ export const API_SHIPMENTS = PREFIX + '/shipments/';
 export const API_PRODUCTS_CATEGORIES_DISCOUNT = PREFIX + '/ProductCategoryDiscounts/';
 
 export const API_ADDRESSES = '/addresses/';
+
+export const API_CLEAR_CACHE = PREFIX + '/cache';

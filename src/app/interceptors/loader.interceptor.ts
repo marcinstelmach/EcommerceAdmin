@@ -6,7 +6,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {MatDialog} from '@angular/material';
-import {ErrorModalComponent} from '../components/shared/alert/error-modal.component';
+import {ErrorModalComponent} from '../components/shared/error-alert/error-modal.component';
 import {AuthService} from '../services/auth/auth.service';
 
 @Injectable()

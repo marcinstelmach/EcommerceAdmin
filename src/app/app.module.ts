@@ -31,9 +31,11 @@ import {RegisterComponent} from './components/register/register.component';
 import {Interceptors} from 'app/interceptors';
 import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
-import {ErrorModalComponent} from './components/shared/alert/error-modal.component';
+import {ErrorModalComponent} from './components/shared/error-alert/error-modal.component';
 import {DeleteAlertComponent} from './components/shared/delete-alert/delete-alert.component';
 import { EditProductComponent } from './components/product/edit/edit.product.component';
+import {CacheService} from './services/cache/cache.service';
+import { AlertComponent } from './components/shared/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { EditProductComponent } from './components/product/edit/edit.product.com
     ErrorModalComponent,
     DeleteAlertComponent,
     EditProductComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,10 +80,11 @@ import { EditProductComponent } from './components/product/edit/edit.product.com
     ProductsService,
     ProductsCategoriesService,
     ShipmentService,
-    ...Interceptors
+    ...Interceptors,
+    CacheService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent]
+  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent, AlertComponent]
 })
 export class AppModule {
 }

@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {UserDataResponseFromApi} from '../../models/user.interface';
-import {UserService} from './../../services/user/user.service';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-users',

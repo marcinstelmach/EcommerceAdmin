@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
- 
+
 import {Router} from '@angular/router';
-import { AuthService } from 'app/services/auth/auth.service';
+import {AuthService} from 'app/services/auth/auth.service';
+import {CacheService} from '../../../services/cache/cache.service';
+import {MatDialog} from '@angular/material';
+import {AlertComponent} from '../alert/alert.component';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +16,10 @@ export class HeaderComponent implements OnInit {
   versionId: string;
   repositoryId: string;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private cacheService: CacheService,
+              private modal: MatDialog) {
     router.events.subscribe(val => {
       this.checkIfLogin();
       this.createLinks();
@@ -25,6 +31,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.cacheService.cleanCache().subscribe(resp => {
+    });
     this.authService.removeTokens();
     this.router.navigate(['/login']);
   }
@@ -33,10 +41,17 @@ export class HeaderComponent implements OnInit {
     this.isLogin = !this.authService.isTokenExpired();
   }
 
+  cleanCache() {
+    this.cacheService.cleanCache().subscribe(data => {
+      this.modal.open(AlertComponent, {
+        data: 'Cache cleaned !'
+      });
+    });
+  }
+
   private createLinks() {
     const splitted = this.router.url.split('/');
     this.repositoryId = splitted[2];
     this.versionId = splitted[4];
   }
-
 }
