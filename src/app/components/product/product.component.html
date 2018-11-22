@@ -98,7 +98,7 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <table mat-table [dataSource]="productsTable">
+          <table mat-table [dataSource]="productsTable" style="cursor: pointer;">
             <ng-container matColumnDef="position">
               <th mat-header-cell *matHeaderCellDef> #</th>
               <td mat-cell *matCellDef="let element; let i = index" (click)="openEditModal(element)"> {{i + 1}}</td>

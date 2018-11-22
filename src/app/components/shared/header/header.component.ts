@@ -31,8 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.cacheService.cleanCache().subscribe(resp => {
-    });
+    this.cacheService.cleanCache().subscribe();
     this.authService.removeTokens();
     this.router.navigate(['/login']);
   }

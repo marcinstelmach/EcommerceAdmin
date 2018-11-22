@@ -5,7 +5,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {environment} from '../../../../environments/environment';
 import {DeleteAlertComponent} from '../../shared/delete-alert/delete-alert.component';
 import {ProductsService} from '../../../services/products/products.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-edit',
@@ -25,11 +24,13 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    console.log(this.product);
   }
 
   editProduct() {
-    console.log(this.productEditForm.value);
+    const data = this.productEditForm.value;
+    this.productService.updateProduct(this.product.id, data).subscribe(data => {
+      window.location.reload();
+    });
   }
 
   createForm() {

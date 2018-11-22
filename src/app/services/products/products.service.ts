@@ -26,6 +26,10 @@ export class ProductsService {
     return this.http.get(API_PRODUCTS_URL + '/category/' + categoryId);
   }
 
+  public updateProduct(id: number, data: any): Observable<any> {
+    return this.http.put(API_PRODUCTS_URL + '/' + id, data);
+  }
+
   public deleteProduct(productId: number, categoryId: string): Observable<any> {
     return this.http.delete(API_PRODUCTS_URL + '/' + productId + '/' + categoryId);
   }
