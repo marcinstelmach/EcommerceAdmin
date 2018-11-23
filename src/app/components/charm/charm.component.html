@@ -1,127 +1,96 @@
-<div class="container main-container">
-  <div class="col-12">
-    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!uploadSuccessAlert">
-      <strong>Dodano zawieszke</strong>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 page-title">
+      <mat-card>Charms</mat-card>
     </div>
-  </div>
-  <div class="col-12">
-    <h1 class="text-center">Zawieszki</h1>
   </div>
   <div class="row">
-    <div class="col-md-6" style="border-right: 1px solid black;">
-      <h4 style="margin-bottom: 30px;">Dodaj zawieszke</h4>
-      <div class="col-10">
-        <form [formGroup]="charmForm">
-          <!-- <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nazwa zawieszki" formControlName="name">
-            <small class="form-text text-muted form-error"
-                   *ngIf="charmForm.controls['name'].errors">Podaj nazwe
-            </small>
-          </div> -->
-
-          <!-- <div class="form-group">
-            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
-            <small class="form-text text-muted form-error"
-                   *ngIf="charmForm.controls['price'].errors">Podaj cene
-            </small>
-          </div>
-          <div class="form-group">
-            <select class="custom-select" title="categories" formControlName="charmCategoryId">
-              <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <select class="custom-select" title="categories" formControlName="type">
-              <option value="0">Dostępne</option>
-              <option value="1">Niedostępne</option>
-            </select>
-          </div>
-          <div>
-            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
-                   [uploadInput]="uploadInput" name="file"> -->
-          <!-- <span class="custom-file-control form-control-file" *ngIf="files.length > 0">{{files[0].name}}</span> -->
-          <!--</div> -->
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nazwa" formControlName="name">
-            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['name'].errors">Podaj nazwe
-            </small>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Nazwa angielska" formControlName="nameEng">
-            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['nameEng'].errors">Podaj nazwe
-            </small>
-          </div>
-          <div class="form-group">
-            <input type="number" class="form-control" placeholder="Cena" formControlName="price">
-            <small class="form-text text-muted form-error" *ngIf="charmForm.controls['price'].errors">Podaj cene
-            </small>
-          </div>
-
-          <div style="margin-top: 15px;">
-            <button type="submit" class="btn btn-dark -align-right" (click)="addCharm()" [disabled]="charmForm.invalid">
-              Dodaj
-            </button>
-          </div>
-
-        </form>
-        <div *ngIf="errors" class="error">
-          <small class="form-text validation-error">{{errors['name']}}</small>
-          <small class="form-text validation-error">{{errors['price']}}</small>
-          <small class="form-text validation-error">{{errors['charmCategoryId']}}</small>
-          <small class="form-text validation-error">{{errors['type']}}</small>
-        </div>
-      </div>
+    <div class="col-md-5">
+      <mat-card>
+        <mat-card-title>Add new</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="charmForm">
+            <mat-form-field
+              [ngClass]="{'error': charmForm.controls['name'].errors && !charmForm.controls['name'].pristine}"
+              color="{{charmForm.controls['name'].errors && !charmForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Name" formControlName="name">
+              <div *ngIf="charmForm.controls['name'].errors && !charmForm.controls['name'].pristine"
+                   class="error-msg">
+                <div [hidden]="!charmForm.controls['name'].errors.required">Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': charmForm.controls['nameEng'].errors && !charmForm.controls['nameEng'].pristine}"
+              color="{{charmForm.controls['nameEng'].errors && !charmForm.controls['nameEng'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="English Name" formControlName="nameEng">
+              <div *ngIf="charmForm.controls['nameEng'].errors && !charmForm.controls['nameEng'].pristine"
+                   class="error-msg">
+                <div [hidden]="!charmForm.controls['nameEng'].errors.required">English Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': charmForm.controls['price'].errors && !charmForm.controls['price'].pristine}"
+              color="{{charmForm.controls['price'].errors && !charmForm.controls['price'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Price" formControlName="price">
+              <div *ngIf="charmForm.controls['price'].errors && !charmForm.controls['price'].pristine"
+                   class="error-msg">
+                <div [hidden]="!charmForm.controls['price'].errors.required">Price is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Category" formControlName="charmCategoryId">
+                <mat-option *ngFor="let category of categories" [value]="category.id">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <input type="file" ngFileSelect (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" name="file" multiple required>
+            <!--<mat-progress-bar mode="determine" value="{{progress}}" *ngIf="showProgressBar"></mat-progress-bar>-->
+          </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" [disabled]="charmForm.invalid" (click)="addCharm()" type="submit">
+            Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
     </div>
-    <div class="col-md-6">
-      <p>Aby usunąc zawieszkę, kliknij wybraną.</p>
-      <div id="accordion">
-        <div class="card" *ngFor="let category of categoriesWithCharms;">
-          <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
-              <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapse'+ category.name"
-                aria-expanded="false" aria-controls="collapse">
-                {{category.name}}
-              </button>
-            </h5>
-          </div>
-
-          <div id="collapse{{category.name}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-            <!--*ngFor="let charm of category.backendPath"-->
-
-            <div class="card-body">
-              <a *ngFor="let charm of category.charms; let i=index" (click)="deleteCharmModal(charm.id)" data-toggle="modal"
-                data-target="#deleteModal" class="charm-delete">
-                <img src="{{pathToCharm + charm.pathToImg}}" alt="charm{{i}}" class="charm">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-md-6 offset-1">
+      <mat-card>
+        <mat-card-title>Chams</mat-card-title>
+        <!--<mat-card-content>-->
+          <!--<mat-form-field>-->
+            <!--<mat-select placeholder="Select category" (selectionChange)="selectCategory($event.value)">-->
+              <!--<mat-option *ngFor="let category of categories" [value]="category.id">-->
+                <!--{{category.name}}-->
+              <!--</mat-option>-->
+            <!--</mat-select>-->
+          <!--</mat-form-field>-->
+          <!--<table mat-table [dataSource]="productsTable" style="cursor: pointer;">-->
+            <!--<ng-container matColumnDef="position">-->
+              <!--<th mat-header-cell *matHeaderCellDef> #</th>-->
+              <!--<td mat-cell *matCellDef="let element; let i = index" (click)="openEditModal(element)"> {{i + 1}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="name">-->
+              <!--<th mat-header-cell *matHeaderCellDef> Name</th>-->
+              <!--<td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{element.name}}</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="description">-->
+              <!--<th mat-header-cell *matHeaderCellDef> Description</th>-->
+              <!--<td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{element.description.substr(0, 10)}}...</td>-->
+            <!--</ng-container>-->
+            <!--<ng-container matColumnDef="price">-->
+              <!--<th mat-header-cell *matHeaderCellDef> Price</th>-->
+              <!--<td mat-cell *matCellDef="let element" (click)="openEditModal(element)"> {{element.price}} zl</td>-->
+            <!--</ng-container>-->
+            <!--<tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>-->
+            <!--<tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>-->
+          <!--</table>-->
+          <!--<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>-->
+        <!--</mat-card-content>-->
+      </mat-card>
     </div>
   </div>
 </div>
 
-
-<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Czy na pewno usunąc zawieszke ?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Zastanów się dobrze :D</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCharm(currentCharmId)">Usuwamy
-          !</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-      </div>
-    </div>
-  </div>
-</div>

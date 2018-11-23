@@ -1,13 +1,11 @@
-import {CharmService} from './../../services/charm/charm.service';
+import {CharmService} from '../../services/charm/charm.service';
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {CharmCategory} from '../../models/charm-category.interface';
-import {HttpErrorResponse} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
-import {CharmForCreation} from '../../models/charmForCreation';
 import {environment} from '../../../environments/environment';
 import {CharmCategoriesService} from '../../services/charm-categories/charm-categories.service';
-import {AuthService} from './../../services/auth/auth.service';
+import {AuthService} from '../../services/auth/auth.service';
 
 
 @Component({
@@ -17,10 +15,8 @@ import {AuthService} from './../../services/auth/auth.service';
 })
 export class CharmComponent implements OnInit {
   categories: CharmCategory[];
-  categoriesWithCharms: CharmCategory[];
   charmForm: FormGroup;
   options: UploaderOptions;
-  charmForAdd: CharmForCreation;
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
   humanizeBytes: Function;
@@ -31,6 +27,7 @@ export class CharmComponent implements OnInit {
   uploadSuccessAlert = false;
   uploadFailAlert = false;
   currentCharmId: number;
+  charmId: string;
 
 
   constructor(private charmService: CharmService,
@@ -53,28 +50,18 @@ export class CharmComponent implements OnInit {
 
 
   createForm() {
-    // this.charmForm = this.fb.group({
-    //   'name': new FormControl('', Validators.required),
-    //   'price': new FormControl('5', Validators.required),
-    //   'type': new FormControl(0, Validators.required),
-    //   'charmCategoryId': new FormControl('', Validators.required)
-    // });
-
     this.charmForm = this.fb.group({
       'name': new FormControl('', Validators.required),
-      'nameEng': new FormControl('5', Validators.required),
-      'price': new FormControl(0, Validators.required)
+      'nameEng': new FormControl('', Validators.required),
+      'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
+      'charmCategoryId': new FormControl('', Validators.required)
     });
   }
 
   getCategories() {
     this.charmCategoryService.getCategories().subscribe(resp => {
-        this.categories = resp.body;
-        this.charmForm.controls['charmCategoryId'].setValue(this.categories[0].id);
-      },
-      (err: HttpErrorResponse) => {
-        console.log(err.message);
-      });
+      this.categories = resp;
+    });
   }
 
   getCategoriesWithCharms() {
@@ -87,16 +74,9 @@ export class CharmComponent implements OnInit {
   }
 
   addCharm() {
-    // this.charmForAdd = this.charmForm.value;
-    // this.charmForAdd.imageExtension = this.getFileExtension(this.files[0].name);
-    // this.startUpload();
-
-    const charmData = this.charmForm.value;
-
-    this.charmService.addCharm(charmData)
-      .subscribe(response => {
-        console.log(response);
-      });
+    this.charmService.addCharm(this.charmForm.value).subscribe(response => {
+      this.charmId = response;
+    });
   }
 
   onUploadOutput(output: UploadOutput): void {
@@ -127,22 +107,22 @@ export class CharmComponent implements OnInit {
 
   startUpload(): void {
     console.log('Upload');
-    const token = this.authService.getToken();
-    const event: UploadInput = {
-      type: 'uploadAll',
-      url: this.url + '/charms/all',
-      method: 'POST',
-      headers: {'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200'},
-      data: {
-        name: this.charmForAdd.name,
-        price: this.charmForAdd.price.toString(),
-        type: this.charmForAdd.type.toString(),
-        charmCategoryId: this.charmForAdd.charmCategoryId.toString(),
-        imageExtension: this.charmForAdd.imageExtension
-      }
-    };
+    // const token = this.authService.getToken();
+    // const event: UploadInput = {
+    //   type: 'uploadAll',
+    //   url: this.url + '/charms/all',
+    //   method: 'POST',
+    //   headers: {'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200'},
+    //   data: {
+    //     name: this.charmForAdd.name,
+    //     price: this.charmForAdd.price.toString(),
+    //     type: this.charmForAdd.type.toString(),
+    //     charmCategoryId: this.charmForAdd.charmCategoryId.toString(),
+    //     imageExtension: this.charmForAdd.imageExtension
+    //   }
+    // };
 
-    this.uploadInput.emit(event);
+    // this.uploadInput.emit(event);
   }
 
   deleteCharmModal(charmId: number) {
