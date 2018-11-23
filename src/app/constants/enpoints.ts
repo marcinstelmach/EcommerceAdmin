@@ -8,7 +8,7 @@ export const API_CHARMS_CATEGORY_URL = PREFIX + '/CharmCategories/';
 export const API_PRODUCTS_URL = PREFIX + '/products/';
 export const API_PRODUCTS_CATEGORIES_URL = PREFIX + '/productCategories/';
 
-export const API_CHARMS = '/charms/';
+export const API_CHARMS = PREFIX + '/charms/';
 
 export const API_USERS = PREFIX + '/users/';
 
