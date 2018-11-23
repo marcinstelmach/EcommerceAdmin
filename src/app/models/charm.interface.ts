@@ -1,5 +1,6 @@
-export interface CharmObject {
-    name: string;
-    nameEng: string;
-    price: number;
+export interface Charm {
+  id: string;
+  name: string;
+  nameEng: string;
+  price: number;
 }

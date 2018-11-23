@@ -14,15 +14,18 @@ export class CharmCategoriesService {
   }
 
   public getCategories(): Observable<any> {
-    return this.http.get('/api/CharmCategories');
+    return this.http.get(API_CHARMS_CATEGORY_URL);
   }
 
   public getCategoriesById(id: string): Observable<any> {
-    return this.http.get('/api/CharmCategories/' + id);
+    return this.http.get(API_CHARMS_CATEGORY_URL + '/' + id);
   }
 
+  public updateCategory(id: string, data: any): Observable<any> {
+    return this.http.put(API_CHARMS_CATEGORY_URL + '/' + id, data);
+  }
 
-  public deleteCategory(id: number): Observable<any> {
-    return this.http.delete('/api/CharmCategories/' + id);
+  public deleteCategory(id: string): Observable<any> {
+    return this.http.delete(API_CHARMS_CATEGORY_URL + '/' + id);
   }
 }
