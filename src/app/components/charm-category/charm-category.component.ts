@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CharmCategoryForDisplay} from '../../models/charmCategoryForDisplay';
+import {CharmCategory} from '../../models/charm-category.interface';
 import {CharmCategoriesService} from '../../services/charm-categories/charm-categories.service';
+import {DeleteAlertComponent} from '../shared/delete-alert/delete-alert.component';
+import {MatDialog} from '@angular/material';
+import {ProductCategory} from '../../models/product-category.interface';
 
 
 @Component({
@@ -12,10 +15,13 @@ import {CharmCategoriesService} from '../../services/charm-categories/charm-cate
 export class CharmCategoryComponent implements OnInit {
 
   categoryForm: FormGroup;
-  categories: CharmCategoryForDisplay[];
+  categories: CharmCategory[];
+  edit = false;
+  editId = '';
 
   constructor(private fb: FormBuilder,
-              private categoryService: CharmCategoriesService) {
+              private categoryService: CharmCategoriesService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -32,26 +38,56 @@ export class CharmCategoryComponent implements OnInit {
 
 
   addCategory() {
-    console.log(this.categoryForm.value);
-    // this.categoryService.addCharmCategory(this.categoryForm.value).subscribe(resp => {
-    //   console.log(resp);
-    // });
+    this.categoryService.addCharmCategory(this.categoryForm.value).subscribe(resp => {
+      this.getCategories();
+    });
   }
 
   getCategories() {
     this.categoryService.getCategories().subscribe(resp => {
-      this.categories = resp.body;
+      this.categories = resp;
     });
   }
 
-  //
-  // deleteCategory() {
-  //   this.categoryService.deleteCategory(this.currentCategoryId).subscribe(resp => {
-  //       this.currentCategoryId = null;
-  //       this.getCategories();
-  //     },
-  //     (err: HttpErrorResponse) => {
-  //       console.log(err.message);
-  //     });
-  // }
+  setEditCategory(category: CharmCategory) {
+    this.edit = true;
+    this.categoryForm.controls['name'].setValue(category.name);
+    this.categoryForm.controls['nameEng'].setValue(category.nameEng);
+    this.editId = category.id;
+  }
+
+  editCategory() {
+    const data = this.categoryForm.value;
+    this.categoryService.updateCategory(this.editId, data).subscribe(resp => {
+      this.getCategories();
+      this.editId = '';
+      this.edit = false;
+      this.categoryForm.reset();
+    });
+  }
+
+
+  deleteCategory(categoryId: string) {
+    this.dialog.open(DeleteAlertComponent, {
+      data: {title: 'Are you sure ? This will remove all subcategories, and products if exists'}
+    }).afterClosed().subscribe(result => {
+      if (result) {
+        this.categoryService.deleteCategory(categoryId).subscribe(resp => {
+          console.log('removed');
+          this.getCategories();
+        });
+      }
+    });
+  }
+
+  sendFormByEnter() {
+    if (this.categoryForm.invalid) {
+      return;
+    }
+    if (this.edit) {
+      this.editCategory();
+    } else {
+      this.addCategory();
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import {charmStatus} from './types/charmStatus';
 
-export class CharmForDisplay {
+export class CharmInterface {
   id: number;
   name: string;
   uniqueName: string;

@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {API_CHARMS, API_CHARMS_CATEGORY_URL} from './../../constants/enpoints';
-import {CharmObject} from 'app/models/charm.interface';
+import {Charm} from 'app/models/charm.interface';
 
 @Injectable()
 export class CharmService {
@@ -17,13 +17,13 @@ export class CharmService {
     return this.http.get(url);
   }
 
-  public addCharm(charm: CharmObject): Observable<any> {
+  public addCharm(charm: Charm): Observable<any> {
     const url = `/api/${API_CHARMS}`;
 
     return this.http.post(url, charm);
   }
 
-  public updateCharm(charm: CharmObject): Observable<any> {
+  public updateCharm(charm: Charm): Observable<any> {
     const url = `/api/${API_CHARMS}`;
 
     return this.http.put(url, charm);
