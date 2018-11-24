@@ -36,6 +36,7 @@ import {DeleteAlertComponent} from './components/shared/delete-alert/delete-aler
 import { EditProductComponent } from './components/product/edit/edit.product.component';
 import {CacheService} from './services/cache/cache.service';
 import { AlertComponent } from './components/shared/alert/alert.component';
+import { EditCharmComponent } from './components/charm/edit/edit.charm.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     DeleteAlertComponent,
     EditProductComponent,
     AlertComponent,
+    EditCharmComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,7 @@ import { AlertComponent } from './components/shared/alert/alert.component';
     CacheService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent, AlertComponent]
+  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent, AlertComponent, EditCharmComponent]
 })
 export class AppModule {
 }

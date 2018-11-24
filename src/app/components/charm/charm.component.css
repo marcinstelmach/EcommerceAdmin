@@ -1,7 +1,7 @@
-.charm {
-  width: 40px;
+table {
+  width: 100%;
 }
 
-.charm-delete:hover {
-  cursor: pointer;
+tr:hover {
+  background: #f5f5f5;
 }

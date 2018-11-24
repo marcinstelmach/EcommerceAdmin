@@ -3,4 +3,5 @@ export interface Charm {
   name: string;
   nameEng: string;
   price: number;
+  imagePath: string;
 }

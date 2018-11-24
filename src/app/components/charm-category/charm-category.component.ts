@@ -73,7 +73,6 @@ export class CharmCategoryComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result) {
         this.categoryService.deleteCategory(categoryId).subscribe(resp => {
-          console.log('removed');
           this.getCategories();
         });
       }

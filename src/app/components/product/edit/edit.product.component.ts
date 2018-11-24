@@ -50,7 +50,7 @@ export class EditProductComponent implements OnInit {
       data: {title: 'Are you sure, you want to remove this product?'}
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.productService.deleteProduct(this.product.id, this.product.productCategoryId).subscribe(data => {
+        this.productService.deleteProduct(this.product.id).subscribe(data => {
           window.location.reload();
         });
       }

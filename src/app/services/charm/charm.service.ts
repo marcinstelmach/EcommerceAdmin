@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {API_CHARMS} from '../../constants/enpoints';
-import {Charm} from 'app/models/charm.interface';
 
 @Injectable()
 export class CharmService {
@@ -15,11 +14,15 @@ export class CharmService {
     return this.http.get(`${API_CHARMS}/${id}`);
   }
 
-  public addCharm(charm: Charm): Observable<any> {
+  public addCharm(charm: any): Observable<any> {
     return this.http.post(API_CHARMS, charm);
   }
 
-  public updateCharm(charm: Charm): Observable<any> {
-    return this.http.put(API_CHARMS, charm);
+  public updateCharm(id: string, charm: any): Observable<any> {
+    return this.http.put(`${API_CHARMS}/${id}`, charm);
+  }
+
+  public deleteCharm(id: string): Observable<any> {
+    return this.http.delete(`${API_CHARMS}/${id}`);
   }
 }
