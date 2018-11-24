@@ -17,7 +17,8 @@ import {EditProductComponent} from './edit/edit.product.component';
 })
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
-  productTableColumns: string[] = ['position', 'name', 'description', 'price'];
+  productsTable: any;
+  productsTableColumns: string[] = ['position', 'name', 'description', 'price'];
   categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
@@ -25,7 +26,6 @@ export class ProductComponent implements OnInit {
   progress = 0;
   showProgressBar = false;
   products: Product[];
-  productsTable: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
@@ -123,9 +123,6 @@ export class ProductComponent implements OnInit {
   selectCategory(id: string) {
     this.productService.getPropductsByCategoryId(id).subscribe(data => {
       this.products = data;
-      for (let product of  this.products) {
-        product.productCategoryId = id;
-      }
       this.buildTable(data);
     });
   }

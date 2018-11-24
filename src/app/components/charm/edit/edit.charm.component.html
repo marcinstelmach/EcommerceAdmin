@@ -1,0 +1,60 @@
+<div class="modal-container">
+  <h1 class="title" mat-dialog-title>Edit {{charm.name}}</h1>
+  <div mat-dialog-content style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-5">
+        <mat-card>
+          <mat-card-content>
+            <form [formGroup]="charmEditForm">
+              <mat-form-field
+                [ngClass]="{'error': charmEditForm.controls['name'].errors && !charmEditForm.controls['name'].pristine}"
+                color="{{charmEditForm.controls['name'].errors && !charmEditForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Name" formControlName="name">
+                <div *ngIf="charmEditForm.controls['name'].errors && !charmEditForm.controls['name'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!charmEditForm.controls['name'].errors.required">Name is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': charmEditForm.controls['nameEng'].errors && !charmEditForm.controls['nameEng'].pristine}"
+                color="{{charmEditForm.controls['nameEng'].errors && !charmEditForm.controls['nameEng'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="English Name" formControlName="nameEng">
+                <div *ngIf="charmEditForm.controls['nameEng'].errors && !charmEditForm.controls['nameEng'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!charmEditForm.controls['nameEng'].errors.required">English Name is required</div>
+                </div>
+              </mat-form-field>
+              <mat-form-field
+                [ngClass]="{'error': charmEditForm.controls['price'].errors && !charmEditForm.controls['price'].pristine}"
+                color="{{charmEditForm.controls['price'].errors && !charmEditForm.controls['price'].pristine ? 'warn' : 'primary'}}">
+                <input type="text" matInput placeholder="Price" formControlName="price">
+                <div *ngIf="charmEditForm.controls['price'].errors && !charmEditForm.controls['price'].pristine"
+                     class="error-msg">
+                  <div [hidden]="!charmEditForm.controls['price'].errors.required">Price is required</div>
+                </div>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-raised-button color="primary" [disabled]="charmEditForm.invalid" (click)="editCharm()" type="submit">
+              Edit
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col-md-7">
+        <mat-card>
+          <mat-card-content>
+            <div class="img-container">
+              <img src="{{contentHost}}/{{charm.imagePath}}" class="img-thumbnail charm-img">
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end" style="margin-top: 10px;">
+    <button mat-raised-button color="warn" (click)="openRemoveModal();">Remove !</button>
+    <button mat-raised-button color="primary" [mat-dialog-close] cdkFocusInitial>Close</button>
+  </div>
+</div>

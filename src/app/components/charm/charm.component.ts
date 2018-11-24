@@ -1,11 +1,13 @@
 import {CharmService} from '../../services/charm/charm.service';
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {CharmCategory} from '../../models/charm-category.interface';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
-import {environment} from '../../../environments/environment';
+import {UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
 import {CharmCategoriesService} from '../../services/charm-categories/charm-categories.service';
 import {AuthService} from '../../services/auth/auth.service';
+import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
+import {Charm} from '../../models/charm.interface';
+import {EditCharmComponent} from './edit/edit.charm.component';
 
 
 @Component({
@@ -15,36 +17,37 @@ import {AuthService} from '../../services/auth/auth.service';
 })
 export class CharmComponent implements OnInit {
   categories: CharmCategory[];
+  charms: Charm[];
+  charmsTable: any;
+  charmsTableColumns: string[] = ['position', 'name', 'price'];
   charmForm: FormGroup;
   options: UploaderOptions;
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
-  humanizeBytes: Function;
-  dragOver: boolean;
-  pathToCharm: string;
+  progress = 0;
+  showProgressBar = false;
   url: string;
   errors: any;
   uploadSuccessAlert = false;
   uploadFailAlert = false;
   currentCharmId: number;
   charmId: string;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
   constructor(private charmService: CharmService,
               private fb: FormBuilder,
               private charmCategoryService: CharmCategoriesService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private addedAlert: MatSnackBar,
+              private dialog: MatDialog) {
 
-    this.files = []; // local uploading files array
-    this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
-    this.humanizeBytes = humanizeBytes;
+    this.files = [];
+    this.uploadInput = new EventEmitter<UploadInput>();
   }
 
   ngOnInit() {
-    this.pathToCharm = environment.backendPath;
-    // this.url = environment.API_URL;
     this.getCategories();
-    this.getCategoriesWithCharms();
     this.createForm();
   }
 
@@ -64,18 +67,10 @@ export class CharmComponent implements OnInit {
     });
   }
 
-  getCategoriesWithCharms() {
-    // this.charmCategoryService.getCategoriesWithCharms().subscribe(resp => {
-    //     this.categoriesWithCharms = resp.body;
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     console.log(err.message);
-    //   });
-  }
-
   addCharm() {
     this.charmService.addCharm(this.charmForm.value).subscribe(response => {
       this.charmId = response;
+      this.startUpload();
     });
   }
 
@@ -83,64 +78,62 @@ export class CharmComponent implements OnInit {
     if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
-      // update current data in files array for uploading file
       const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
       this.files[index] = output.file;
-    } else if (output.type === 'removed') {
-      // remove file from array when removed
-      this.files = this.files.filter((file: UploadFile) => file !== output.file);
-    } else if (output.type === 'dragOver') {
-      this.dragOver = true;
-    } else if (output.type === 'dragOut') {
-      this.dragOver = false;
-    } else if (output.type === 'drop') {
-      this.dragOver = false;
-    } else if (output.type === 'rejected') {
-      this.uploadFailAlert = true;
+      this.countProgress();
+    } else if (output.type === 'allAddedToQueue') {
+      this.showProgressBar = true;
     }
     if (output.type === 'done') {
-      this.charmForm.reset();
-      this.ngOnInit();
-      this.uploadSuccessAlert = true;
+      this.countProgress();
+      if (this.progress === 100) {
+        this.charmForm.reset();
+        this.showProgressBar = false;
+        this.addedAlert.open('Added successfully !', 'Close', {
+          duration: 2000
+        });
+      }
     }
   }
 
   startUpload(): void {
-    console.log('Upload');
-    // const token = this.authService.getToken();
-    // const event: UploadInput = {
-    //   type: 'uploadAll',
-    //   url: this.url + '/charms/all',
-    //   method: 'POST',
-    //   headers: {'Authorization': 'Bearer ' + token, 'Accept': '/', 'Access-Control-Allow-Origin': 'http://localhost:4200'},
-    //   data: {
-    //     name: this.charmForAdd.name,
-    //     price: this.charmForAdd.price.toString(),
-    //     type: this.charmForAdd.type.toString(),
-    //     charmCategoryId: this.charmForAdd.charmCategoryId.toString(),
-    //     imageExtension: this.charmForAdd.imageExtension
-    //   }
-    // };
+    const token = this.authService.getToken();
+    const event: UploadInput = {
+      type: 'uploadAll',
+      url: '/api/charms/' + this.charmId + '/image',
+      method: 'POST',
+      headers: {'Authorization': 'Bearer ' + token},
+      data: {}
+    };
 
-    // this.uploadInput.emit(event);
+    this.uploadInput.emit(event);
   }
 
-  deleteCharmModal(charmId: number) {
-    this.currentCharmId = charmId;
+  countProgress(): void {
+    const max = this.files.length * 100;
+    let current = 0;
+    for (const file of this.files) {
+      current += file.progress.data.percentage;
+    }
+    this.progress = ((current * 100) / max);
   }
 
-  deleteCharm(id: number) {
-    // this.charmService.deleteCharm(this.currentCharmId).subscribe(resp => {
-    //   if (resp.ok) {
-    //     this.getCategoriesWithCharms();
-    //     return;
-    //   }
-    //   console.log('Cannot delete this charm :(');
-    // });
+  buildTable(data: Charm[]) {
+    this.charmsTable = new MatTableDataSource<Charm>(data);
+    this.charmsTable.paginator = this.paginator;
   }
 
-  private getFileExtension(fileName: string): string {
-    const index = fileName.indexOf('.');
-    return fileName.substr(index);
+  selectCategory(id: string) {
+    this.charms = this.categories.find(s => s.id === id).charms;
+    this.buildTable(this.charms);
+  }
+
+  openEditModal(charm: Charm) {
+    this.dialog.open(EditCharmComponent, {
+      minWidth: '60%',
+      maxHeight: '80%',
+      position: {right: '10px'},
+      data: charm
+    });
   }
 }
