@@ -1,0 +1,114 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 page-title">
+      <mat-card>Shipments</mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <mat-card>
+        <mat-card-title>Add new</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="shipmentForm" (keyup.enter)="sendFormByEnter()">
+            <mat-form-field
+              [ngClass]="{'error': shipmentForm.controls['name'].errors && !shipmentForm.controls['name'].pristine}"
+              color="{{shipmentForm.controls['name'].errors && !shipmentForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Name" formControlName="name">
+              <div *ngIf="shipmentForm.controls['name'].errors && !shipmentForm.controls['name'].pristine"
+                   class="error-msg">
+                <div [hidden]="!shipmentForm.controls['name'].errors.required">Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': shipmentForm.controls['nameEng'].errors && !shipmentForm.controls['nameEng'].pristine}"
+              color="{{shipmentForm.controls['nameEng'].errors && !shipmentForm.controls['nameEng'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="English Name" formControlName="nameEng">
+              <div *ngIf="shipmentForm.controls['nameEng'].errors && !shipmentForm.controls['nameEng'].pristine"
+                   class="error-msg">
+                <div [hidden]="!shipmentForm.controls['nameEng'].errors.required">English Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': shipmentForm.controls['description'].errors && !shipmentForm.controls['description'].pristine}"
+              color="{{shipmentForm.controls['description'].errors && !shipmentForm.controls['description'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Description" formControlName="description">
+              <div *ngIf="shipmentForm.controls['description'].errors && !shipmentForm.controls['description'].pristine"
+                   class="error-msg">
+                <div [hidden]="!shipmentForm.controls['description'].errors.required">Description is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': shipmentForm.controls['descriptionEng'].errors && !shipmentForm.controls['descriptionEng'].pristine}"
+              color="{{shipmentForm.controls['descriptionEng'].errors && !shipmentForm.controls['descriptionEng'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="English Description" formControlName="descriptionEng">
+              <div
+                *ngIf="shipmentForm.controls['descriptionEng'].errors && !shipmentForm.controls['descriptionEng'].pristine"
+                class="error-msg">
+                <div [hidden]="!shipmentForm.controls['descriptionEng'].errors.required">English Description is
+                  required
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': shipmentForm.controls['price'].errors && !shipmentForm.controls['price'].pristine}"
+              color="{{shipmentForm.controls['price'].errors && !shipmentForm.controls['price'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Price" formControlName="price">
+              <div *ngIf="shipmentForm.controls['price'].errors && !shipmentForm.controls['price'].pristine"
+                   class="error-msg">
+                <div [hidden]="!shipmentForm.controls['price'].errors.required">Price is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="Category" formControlName="type">
+                <mat-option value="0">Courier</mat-option>
+                <mat-option value="1">Pay on delivery</mat-option>
+                <mat-option value="2">Personal</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="addShipment()" [disabled]="shipmentForm.invalid"
+                  type="submit">Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-6 offset-1">
+      <mat-card>
+        <mat-card-title>Shipments</mat-card-title>
+        <mat-card-content>
+          <table mat-table [dataSource]="shipmentsTable" style="cursor: pointer;">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> #</th>
+              <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let element"> {{element.description.substr(0, 10)}}...</td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price</th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} zl</td>
+            </ng-container>
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef> Type</th>
+              <td mat-cell *matCellDef="let element"> {{element.type | ShipmentType}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef> Is Active</th>
+              <td mat-cell *matCellDef="let element"> {{element.isActive}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="shipmentsTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: shipmentsTableColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
