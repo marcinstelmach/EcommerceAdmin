@@ -37,6 +37,8 @@ import { EditProductComponent } from './components/product/edit/edit.product.com
 import {CacheService} from './services/cache/cache.service';
 import { AlertComponent } from './components/shared/alert/alert.component';
 import { EditCharmComponent } from './components/charm/edit/edit.charm.component';
+import { ShipmentComponent } from './components/shipment/shipment.component';
+import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { EditCharmComponent } from './components/charm/edit/edit.charm.component
     EditProductComponent,
     AlertComponent,
     EditCharmComponent,
+    ShipmentComponent,
+    ShipmentTypePipe
   ],
   imports: [
     BrowserModule,

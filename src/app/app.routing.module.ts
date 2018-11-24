@@ -1,4 +1,4 @@
-import { UserComponent } from './components/user/user.component';
+import {UserComponent} from './components/user/user.component';
 import {LoginComponent} from './components/login/login.component';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
 import {ProductCategoryComponent} from './components/product-category/product-category.component';
@@ -8,8 +8,9 @@ import {CharmCategoryComponent} from './components/charm-category/charm-category
 import {CharmComponent} from './components/charm/charm.component';
 import {AuthGuard} from './services/authGuard';
 import {ProductComponent} from './components/product/product.component';
-import { UsersComponent } from './components/users/users.component';
-import { RegisterComponent } from './components/register/register.component';
+import {UsersComponent} from './components/users/users.component';
+import {RegisterComponent} from './components/register/register.component';
+import {ShipmentComponent} from './components/shipment/shipment.component';
 
 
 const routes: Routes = [
@@ -21,9 +22,7 @@ const routes: Routes = [
   {path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
   {path: 'users/:id', component: UserComponent, canActivate: [AuthGuard]},
-  // {path: 'repository', component: RepositoryComponent, canActivate: [AuthGuard]},
-  // {path: 'repository/:repositoryId/version', component: VersionComponent, canActivate: [AuthGuard]},
-  // {path: 'repository/:repositoryId/version/:versionId/file', component: FileComponent, canActivate: [AuthGuard]},
+  {path: 'shipment', component: ShipmentComponent, canActivate: [AuthGuard]},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: 'login'},
   {path: '', redirectTo: 'login', pathMatch: 'full'}

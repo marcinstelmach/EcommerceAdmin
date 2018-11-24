@@ -6,35 +6,44 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
-    <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+    <ul class="navbar-nav navbar-sidenav" id="first">
       <li class="nav-item" data-toggle="tooltip" data-placement="right">
         <a class="nav-link" routerLink="/product">
-          <i class="fa fa-fw fa-dashboard"></i>
-          <span class="nav-link-text">Products</span>
+          <i class="fa fa-fw fa-ring"></i>
+          <span class="nav-link-text"> Products</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right">
         <a class="nav-link" routerLink="/product-category">
-          <i class="fa fa-fw fa-area-chart"></i>
-          <span class="nav-link-text">Product Categories</span>
+          <i class="fa fa-fw fa-table"></i>
+          <span class="nav-link-text"> Product Categories</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right">
         <a class="nav-link" routerLink="/charm">
-          <i class="fa fa-fw fa-table"></i>
-          <span class="nav-link-text">Charms</span>
+          <i class="fa fa-fw fa-gem"></i>
+          <span class="nav-link-text"> Charms</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right">
         <a class="nav-link" routerLink="/charm-category">
-          <i class="fa fa-fw fa-area-chart"></i>
-          <span class="nav-link-text">Charm Categories</span>
+          <i class="fa fa-fw fa-table"></i>
+          <span class="nav-link-text"> Charm Categories</span>
         </a>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right">
         <a class="nav-link" routerLink="/users">
           <i class="fa fa-fw fa-user"></i>
-          <span class="nav-link-text">Users</span>
+          <span class="nav-link-text"> Users</span>
+        </a>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <hr>
+      </li>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right">
+        <a class="nav-link" routerLink="/shipment">
+          <i class="fa fa-fw fa-truck"></i>
+          <span class="nav-link-text"> Shipment</span>
         </a>
       </li>
     </ul>
@@ -42,15 +51,15 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" [hidden]="!isLogin">
         <a class="nav-link" (click)="cleanCache()">
-          <i class="fa fa-fw fa-sign-out"></i>Clean Cache !!</a>
+          <i class="fa fa-fw fa-bomb"></i> Clean Cache !!</a>
       </li>
       <li class="nav-item" [hidden]="isLogin">
         <a class="nav-link" routerLink="/login">
-          <i class="fa fa-fw fa-sign-out"></i>login</a>
+          <i class="fa fa-fw fa-wine-bottle"></i> Login</a>
       </li>
       <li class="nav-item" [hidden]="!isLogin">
         <a class="nav-link" (click)="logout()">
-          <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+          <i class="fa fa-fw fa-wine-bottle"></i> Logout</a>
       </li>
     </ul>
   </div>
