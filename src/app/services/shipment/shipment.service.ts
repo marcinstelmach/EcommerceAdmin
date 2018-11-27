@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {API_SHIPMENTS} from 'app/constants/enpoints';
-import {Shipment} from 'app/models/shipment.interface';
 
 @Injectable()
 export class ShipmentService {
@@ -23,7 +22,7 @@ export class ShipmentService {
     return this.http.post(API_SHIPMENTS, shipment);
   }
 
-  public updateShipment(id: string, isActive: boolean): Observable<any> {
-    return this.http.put(`${API_SHIPMENTS}/${id}/${isActive}`, null);
+  public updateShipment(id: string, data: any): Observable<any> {
+    return this.http.put(`${API_SHIPMENTS}/${id}`, data);
   }
 }

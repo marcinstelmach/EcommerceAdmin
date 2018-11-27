@@ -15,6 +15,8 @@ export class ShipmentComponent implements OnInit {
   shipments: Shipment[];
   shipmentsTable: any;
   shipmentsTableColumns: string[] = ['position', 'name', 'description', 'price', 'type', 'isActive'];
+  edit = false;
+  shipmentId = '';
 
   constructor(private fb: FormBuilder,
               private shipmentService: ShipmentService) {
@@ -32,7 +34,8 @@ export class ShipmentComponent implements OnInit {
       'description': new FormControl('', [Validators.required]),
       'descriptionEng': new FormControl('', [Validators.required]),
       'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
-      'type': new FormControl('')
+      'type': new FormControl(''),
+      'isActive': new FormControl(true)
     });
   }
 
@@ -60,5 +63,31 @@ export class ShipmentComponent implements OnInit {
       return;
     }
     this.addShipment();
+  }
+  setEdit(shipment: Shipment) {
+    this.edit = true;
+    this.shipmentForm.controls['name'].setValue(shipment.name);
+    this.shipmentForm.controls['nameEng'].setValue(shipment.nameEng);
+    this.shipmentForm.controls['description'].setValue(shipment.description);
+    this.shipmentForm.controls['descriptionEng'].setValue(shipment.descriptionEng);
+    this.shipmentForm.controls['price'].setValue(shipment.price);
+    this.shipmentForm.controls['isActive'].setValue(shipment.isActive);
+    this.shipmentForm.controls['type'].setValue(shipment.type);
+    this.shipmentId = shipment.id;
+  }
+
+  editShipment() {
+    const data = this.shipmentForm.value;
+    console.log(data);
+    this.shipmentService.updateShipment(this.shipmentId, data).subscribe(resp => {
+      this.getShipments();
+      this.edit = false;
+      this.shipmentForm.reset();
+    });
+  }
+
+  cancelEdit() {
+    this.edit = false;
+    this.shipmentForm.reset();
   }
 }
