@@ -39,6 +39,9 @@ import { AlertComponent } from './components/shared/alert/alert.component';
 import { EditCharmComponent } from './components/charm/edit/edit.charm.component';
 import { ShipmentComponent } from './components/shipment/shipment.component';
 import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
+import { CategoryDiscountComponent } from './components/discounts/category-discount/category-discount.component';
+import {ProductCategoryDiscountService} from './services/product-category-discount/product-category-discount.service';
+import {DescriptionPipe} from './pipes/description.pipe';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
     AlertComponent,
     EditCharmComponent,
     ShipmentComponent,
-    ShipmentTypePipe
+    ShipmentTypePipe,
+    CategoryDiscountComponent,
+    DescriptionPipe
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,8 @@ import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
     ProductsCategoriesService,
     ShipmentService,
     ...Interceptors,
-    CacheService
+    CacheService,
+    ProductCategoryDiscountService
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent, AlertComponent, EditCharmComponent]

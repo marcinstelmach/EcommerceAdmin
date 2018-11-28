@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
   MatSelectModule,
@@ -26,7 +26,9 @@ const modules = [
   MatSnackBarModule,
   MatProgressBarModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {PasswordValidation} from '../../services/PasswordValidation';
+import {CustomValidators} from '../../services/customValidators';
 
 import {UserService} from '../../services/user/user.service';
 
@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
       'firstName': new FormControl('', [Validators.required]),
       'lastName': new FormControl('', [Validators.required])
     }, {
-      validator: PasswordValidation.matchPassword
+      validator: CustomValidators.matchPassword
     });
   }
 

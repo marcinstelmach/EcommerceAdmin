@@ -89,4 +89,9 @@ export class CharmCategoryComponent implements OnInit {
       this.addCategory();
     }
   }
+
+  cancelEdit() {
+    this.edit = false;
+    this.categoryForm.reset();
+  }
 }
