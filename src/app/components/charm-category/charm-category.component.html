@@ -7,7 +7,8 @@
   <div class="row">
     <div class="col-md-5">
       <mat-card>
-        <mat-card-title>Add new</mat-card-title>
+        <mat-card-title *ngIf="!edit">Add new</mat-card-title>
+        <mat-card-title *ngIf="edit">Edit</mat-card-title>
         <mat-card-content>
           <form [formGroup]="categoryForm" (keyup.enter)="sendFormByEnter()">
             <mat-form-field
@@ -32,6 +33,7 @@
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-raised-button color="primary" (click)="addCategory()" [disabled]="categoryForm.invalid" type="submit" *ngIf="!edit">Add</button>
+          <button mat-raised-button color="primary" (click)="cancelEdit()" type="button" *ngIf="edit">Cancel</button>
           <button mat-raised-button color="primary" (click)="editCategory()" [disabled]="categoryForm.invalid" type="submit" *ngIf="edit">Edit</button>
         </mat-card-actions>
       </mat-card>
@@ -43,8 +45,8 @@
           <div *ngFor="let category of categories">
             <p class="category">
               - {{category.name}}
-              <mat-icon class="remove-trash" (click)="deleteCategory(category.id)">delete</mat-icon>
-              <mat-icon class="edit-pencil" (click)="setEditCategory(category)">edit</mat-icon>
+              <i class="fa fa-fw fa-trash-alt remove-trash" (click)="deleteCategory(category.id)"></i>
+              <i class="fa fa-fw fa-pencil-alt edit-pencil" (click)="setEditCategory(category)"></i>
             </p>
           </div>
         </mat-card-content>

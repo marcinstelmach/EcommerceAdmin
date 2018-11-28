@@ -1,0 +1,124 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 page-title">
+      <mat-card>Category Discounts</mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card>
+        <mat-card-title *ngIf="!edit">Add new</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="discountForm" (keyup.enter)="sendFormByEnter()">
+            <mat-form-field
+              [ngClass]="{'error': discountForm.controls['name'].errors && !discountForm.controls['name'].pristine}"
+              color="{{discountForm.controls['name'].errors && !discountForm.controls['name'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Name" formControlName="name">
+              <div *ngIf="discountForm.controls['name'].errors && !discountForm.controls['name'].pristine"
+                   class="error-msg">
+                <div [hidden]="!discountForm.controls['name'].errors.required">Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': discountForm.controls['nameEng'].errors && !discountForm.controls['nameEng'].pristine}"
+              color="{{discountForm.controls['nameEng'].errors && !discountForm.controls['nameEng'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="English Name" formControlName="nameEng">
+              <div *ngIf="discountForm.controls['nameEng'].errors && !discountForm.controls['nameEng'].pristine"
+                   class="error-msg">
+                <div [hidden]="!discountForm.controls['nameEng'].errors.required">English Name is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': discountForm.controls['description'].errors && !discountForm.controls['description'].pristine}"
+              color="{{discountForm.controls['description'].errors && !discountForm.controls['description'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Description" formControlName="description">
+              <div *ngIf="discountForm.controls['description'].errors && !discountForm.controls['nameEng'].pristine"
+                   class="error-msg">
+                <div [hidden]="!discountForm.controls['description'].errors.required">Description is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': discountForm.controls['descriptionEng'].errors && !discountForm.controls['descriptionEng'].pristine}"
+              color="{{discountForm.controls['descriptionEng'].errors && !discountForm.controls['descriptionEng'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="English Description" formControlName="descriptionEng">
+              <div
+                *ngIf="discountForm.controls['descriptionEng'].errors && !discountForm.controls['descriptionEng'].pristine"
+                class="error-msg">
+                <div [hidden]="!discountForm.controls['descriptionEng'].errors.required">English Description is
+                  required
+                </div>
+              </div>
+            </mat-form-field>
+            <mat-form-field
+              [ngClass]="{'error': discountForm.controls['percentValue'].errors && !discountForm.controls['percentValue'].pristine}"
+              color="{{discountForm.controls['percentValue'].errors && !discountForm.controls['percentValue'].pristine ? 'warn' : 'primary'}}">
+              <input type="text" matInput placeholder="Value in percents" formControlName="percentValue">
+              <div
+                *ngIf="discountForm.controls['percentValue'].errors && !discountForm.controls['percentValue'].pristine"
+                class="error-msg">
+                <div [hidden]="!discountForm.controls['percentValue'].errors.required">Percent Value is required</div>
+              </div>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" placeholder="Choose a date" formControlName="availableFrom"
+                     (dateChange)="enableDateTo()">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [min]="dateMin" [matDatepicker]="picker2" placeholder="Choose a date"
+                     formControlName="availableTo">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="addDiscount()" [disabled]="discountForm.invalid"
+                  type="submit" *ngIf="!edit">Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-8">
+      <mat-card>
+        <mat-card-title>Shipments</mat-card-title>
+        <mat-card-content>
+          <table mat-table [dataSource]="discountsTable" style="cursor: pointer;">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> #</th>
+              <td mat-cell *matCellDef="let element; let i = index" (click)="openDiscount(element)"> {{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.description | Description: 20}}</td>
+            </ng-container>
+            <ng-container matColumnDef="percentValue">
+              <th mat-header-cell *matHeaderCellDef> Percent Value</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.percentValue}} %</td>
+            </ng-container>
+            <ng-container matColumnDef="availableFrom">
+              <th mat-header-cell *matHeaderCellDef> From</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableFrom | date:'dd-MM-yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="availableTo">
+              <th mat-header-cell *matHeaderCellDef> To</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableTo | date:'dd-MM-yyyy'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef> Is Active</th>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.isActive}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="discountsTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: discountsTableColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
