@@ -8,6 +8,7 @@
     <div class="col-md-4">
       <mat-card>
         <mat-card-title *ngIf="!edit">Add new</mat-card-title>
+        <mat-card-title *ngIf="edit">Edit</mat-card-title>
         <mat-card-content>
           <form [formGroup]="discountForm" (keyup.enter)="sendFormByEnter()">
             <mat-form-field
@@ -77,12 +78,15 @@
           <button mat-raised-button color="primary" (click)="addDiscount()" [disabled]="discountForm.invalid"
                   type="submit" *ngIf="!edit">Add
           </button>
+          <button mat-raised-button color="primary" (click)="editDiscount()" [disabled]="discountForm.invalid"
+                  type="submit" *ngIf="edit">Edit
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
     <div class="col-md-8">
       <mat-card>
-        <mat-card-title>Shipments</mat-card-title>
+        <mat-card-title>Discounts</mat-card-title>
         <mat-card-content>
           <table mat-table [dataSource]="discountsTable" style="cursor: pointer;">
             <ng-container matColumnDef="position">
@@ -95,7 +99,8 @@
             </ng-container>
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> Description</th>
-              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.description | Description: 20}}</td>
+              <td mat-cell *matCellDef="let element"
+                  (click)="openDiscount(element)"> {{element.description | Description: 20}}</td>
             </ng-container>
             <ng-container matColumnDef="percentValue">
               <th mat-header-cell *matHeaderCellDef> Percent Value</th>
@@ -103,11 +108,13 @@
             </ng-container>
             <ng-container matColumnDef="availableFrom">
               <th mat-header-cell *matHeaderCellDef> From</th>
-              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableFrom | date:'dd-MM-yyyy'}}</td>
+              <td mat-cell *matCellDef="let element"
+                  (click)="openDiscount(element)"> {{element.availableFrom | date:'dd-MM-yyyy'}}</td>
             </ng-container>
             <ng-container matColumnDef="availableTo">
               <th mat-header-cell *matHeaderCellDef> To</th>
-              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableTo | date:'dd-MM-yyyy'}}</td>
+              <td mat-cell *matCellDef="let element"
+                  (click)="openDiscount(element)"> {{element.availableTo | date:'dd-MM-yyyy'}}</td>
             </ng-container>
             <ng-container matColumnDef="isActive">
               <th mat-header-cell *matHeaderCellDef> Is Active</th>
@@ -117,6 +124,33 @@
             <tr mat-row *matRowDef="let row; columns: discountsTableColumns;"></tr>
           </table>
         </mat-card-content>
+      </mat-card>
+
+      <mat-card style="margin-top: 20px;" *ngIf="edit">
+        <mat-card-title>Select Categories for {{editName}}</mat-card-title>
+        <mat-card-content>
+          <table mat-table [dataSource]="categoriesTable" style="cursor: pointer;">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> #</th>
+              <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef> Select</th>
+              <td mat-cell *matCellDef="let element">
+                <mat-slide-toggle [checked]="element.selected" (change)="setSelectValue(element, $event)">Select ?</mat-slide-toggle>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="categoriesTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: categoriesTableColumns;"></tr>
+          </table>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" (click)="saveCategoriesForDiscount()">Saves</button>
+        </mat-card-actions>
       </mat-card>
     </div>
   </div>
