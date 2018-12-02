@@ -33,15 +33,16 @@ import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
 import {ErrorModalComponent} from './components/shared/error-alert/error-modal.component';
 import {DeleteAlertComponent} from './components/shared/delete-alert/delete-alert.component';
-import { EditProductComponent } from './components/product/edit/edit.product.component';
+import {EditProductComponent} from './components/product/edit/edit.product.component';
 import {CacheService} from './services/cache/cache.service';
-import { AlertComponent } from './components/shared/alert/alert.component';
-import { EditCharmComponent } from './components/charm/edit/edit.charm.component';
-import { ShipmentComponent } from './components/shipment/shipment.component';
+import {AlertComponent} from './components/shared/alert/alert.component';
+import {EditCharmComponent} from './components/charm/edit/edit.charm.component';
+import {ShipmentComponent} from './components/shipment/shipment.component';
 import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
-import { CategoryDiscountComponent } from './components/discounts/category-discount/category-discount.component';
+import {CategoryDiscountComponent} from './components/discounts/category-discount/category-discount.component';
 import {ProductCategoryDiscountService} from './services/product-category-discount/product-category-discount.service';
 import {DescriptionPipe} from './pipes/description.pipe';
+import {OpenCategoryDiscountComponent} from './components/discounts/open-category-discount/open-category-discount.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {DescriptionPipe} from './pipes/description.pipe';
     ShipmentComponent,
     ShipmentTypePipe,
     CategoryDiscountComponent,
-    DescriptionPipe
+    DescriptionPipe,
+    OpenCategoryDiscountComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,14 @@ import {DescriptionPipe} from './pipes/description.pipe';
     ProductCategoryDiscountService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorModalComponent, DeleteAlertComponent, EditProductComponent, AlertComponent, EditCharmComponent]
+  entryComponents: [
+    ErrorModalComponent,
+    DeleteAlertComponent,
+    EditProductComponent,
+    AlertComponent,
+    EditCharmComponent,
+    OpenCategoryDiscountComponent
+  ]
 })
 export class AppModule {
 }

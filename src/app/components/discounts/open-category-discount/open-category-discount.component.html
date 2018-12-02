@@ -1,0 +1,83 @@
+<div class="modal-container">
+  <h1>Customize discount</h1>
+  <div mat-dialog-content style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-md-5">
+        <mat-card>
+          <mat-card-content>
+            <mat-list>
+              <h3 mat-subheader>Details</h3>
+              <mat-list-item>
+                <h4 mat-line>Name</h4>
+                <p mat-line>{{discount.name}}</p>
+              </mat-list-item>
+              <mat-list-item>
+                <h4 mat-line>English name</h4>
+                <p mat-line>{{discount.nameEng}}</p>
+              </mat-list-item>
+              <mat-list-item>
+                <h4 mat-line>Description</h4>
+                <p mat-line>{{discount.description}}</p>
+              </mat-list-item>
+              <mat-list-item>
+                <h4 mat-line>English description</h4>
+                <p mat-line>{{discount.descriptionEng}}</p>
+              </mat-list-item>
+              <mat-list-item>
+                <h4 mat-line>Value</h4>
+                <p mat-line>{{discount.percentValue}}%</p>
+              </mat-list-item>
+              <mat-list-item>
+                <h4 mat-line>Date</h4>
+                <p mat-line>{{discount.availableFrom | date:'dd-MM-yyyy'}}
+                  to {{discount.availableTo | date: 'dd-MM-yyyy'}}</p>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-7">
+        <mat-card>
+          <mat-card-content style="padding: 10px;">
+            <!--<table mat-table [dataSource]="discountsTable" style="cursor: pointer;">-->
+              <!--<ng-container matColumnDef="position">-->
+                <!--<th mat-header-cell *matHeaderCellDef> #</th>-->
+                <!--<td mat-cell *matCellDef="let element; let i = index" (click)="openDiscount(element)"> {{i + 1}}</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="name">-->
+                <!--<th mat-header-cell *matHeaderCellDef> Name</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.name}}</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="description">-->
+                <!--<th mat-header-cell *matHeaderCellDef> Description</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.description | Description: 20}}</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="percentValue">-->
+                <!--<th mat-header-cell *matHeaderCellDef> Percent Value</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.percentValue}} %</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="availableFrom">-->
+                <!--<th mat-header-cell *matHeaderCellDef> From</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableFrom | date:'dd-MM-yyyy'}}</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="availableTo">-->
+                <!--<th mat-header-cell *matHeaderCellDef> To</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.availableTo | date:'dd-MM-yyyy'}}</td>-->
+              <!--</ng-container>-->
+              <!--<ng-container matColumnDef="isActive">-->
+                <!--<th mat-header-cell *matHeaderCellDef> Is Active</th>-->
+                <!--<td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.isActive}}</td>-->
+              <!--</ng-container>-->
+              <!--<tr mat-header-row *matHeaderRowDef="discountsTableColumns"></tr>-->
+              <!--<tr mat-row *matRowDef="let row; columns: discountsTableColumns;"></tr>-->
+            <!--</table>-->
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end" style="margin-top: 10px;">
+    <button mat-raised-button color="warn" (click)="openRemoveModal();">Remove !</button>
+    <button mat-raised-button color="primary" [mat-dialog-close] cdkFocusInitial>Close</button>
+  </div>
+</div>
