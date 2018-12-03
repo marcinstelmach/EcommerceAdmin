@@ -1,11 +1,16 @@
 import {NgModule} from '@angular/core';
 import {
+  DateAdapter,
+  MAT_DATE_FORMATS, MAT_DATE_LOCALE,
   MatButtonModule,
-  MatCardModule, MatDatepickerModule,
+  MatCardModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatListModule, MatNativeDateModule,
+  MatInputModule,
+  MatListModule,
+  MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
   MatSelectModule,
@@ -35,7 +40,10 @@ const modules = [
 @NgModule({
 
   imports: modules,
-  exports: modules
+  exports: modules,
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pl'},
+  ]
 })
 export class MaterialModule {
 }
