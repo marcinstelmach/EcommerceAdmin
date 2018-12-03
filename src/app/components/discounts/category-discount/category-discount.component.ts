@@ -13,7 +13,7 @@ import {CategoryForDiscount} from '../../../models/category-for.discount';
 export class CategoryDiscountComponent implements OnInit {
   discountForm: FormGroup;
   discounts: ProductCategoryDiscount[];
-  dateMin: Date = new Date();
+  dateMin: Date;
   discountsTable: any;
   discountsTableColumns: string[] = ['position', 'name', 'description', 'percentValue', 'availableFrom', 'availableTo', 'isActive'];
   categoriesTable: any;
@@ -46,7 +46,8 @@ export class CategoryDiscountComponent implements OnInit {
   enableDateTo() {
     this.discountForm.controls['availableTo'].enable();
     const availableFrom = this.discountForm.controls['availableFrom'].value as Date;
-    this.dateMin.setDate(availableFrom.getDate() + 1);
+    this.dateMin = new Date(availableFrom);
+    this.dateMin.setDate(this.dateMin.getDate() + 1);
   }
 
   addDiscount() {

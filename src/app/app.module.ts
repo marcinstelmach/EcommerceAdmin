@@ -42,7 +42,6 @@ import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
 import {CategoryDiscountComponent} from './components/discounts/category-discount/category-discount.component';
 import {ProductCategoryDiscountService} from './services/product-category-discount/product-category-discount.service';
 import {DescriptionPipe} from './pipes/description.pipe';
-import {OpenCategoryDiscountComponent} from './components/discounts/open-category-discount/open-category-discount.component';
 
 @NgModule({
   declarations: [
@@ -66,8 +65,7 @@ import {OpenCategoryDiscountComponent} from './components/discounts/open-categor
     ShipmentComponent,
     ShipmentTypePipe,
     CategoryDiscountComponent,
-    DescriptionPipe,
-    OpenCategoryDiscountComponent
+    DescriptionPipe
   ],
   imports: [
     BrowserModule,
@@ -103,8 +101,7 @@ import {OpenCategoryDiscountComponent} from './components/discounts/open-categor
     DeleteAlertComponent,
     EditProductComponent,
     AlertComponent,
-    EditCharmComponent,
-    OpenCategoryDiscountComponent
+    EditCharmComponent
   ]
 })
 export class AppModule {
