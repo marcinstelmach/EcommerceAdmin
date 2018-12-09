@@ -28,6 +28,7 @@ export class CharmComponent implements OnInit {
   dragOver: boolean;
   pathToCharm: string;
   url: string;
+  errors: any;
   uploadSuccessAlert = false;
   uploadFailAlert = false;
   currentCharmId: number;
@@ -149,7 +150,7 @@ export class CharmComponent implements OnInit {
     this.currentCharmId = charmId;
   }
 
-  deleteCharm() {
+  deleteCharm(id: number) {
     // this.charmService.deleteCharm(this.currentCharmId).subscribe(resp => {
     //   if (resp.ok) {
     //     this.getCategoriesWithCharms();

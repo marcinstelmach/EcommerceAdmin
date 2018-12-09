@@ -1,5 +1,15 @@
 {
   "compileOnSave": false,
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts",
+    "node_modules/ngx-uploader/src/ngx-uploader/module/ngx-uploader.module.ts",
+    "node_modules/@angular-devkit/build-angular/node_modules/@ngtools/webpack/src/index.js",
+    "node_modules/ngx-uploader/src/ngx-uploader/directives/ng-file-select.directive.ts",
+    "node_modules/@angular-devkit/build-angular/node_modules/@ngtools/webpack/src/index.js",
+    "./src/main.ts",
+    "./src/polyfills.ts"
+  ],
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -14,8 +24,6 @@
     "lib": [
       "es2017",
       "dom"
-    ],
-    "module": "es2015",
-    "baseUrl": "./"
+    ]
   }
 }

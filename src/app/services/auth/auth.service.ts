@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment.prod';
 import {API_LOGIN_URL} from './../../constants/enpoints';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
@@ -56,8 +57,9 @@ export class AuthService {
   public login(email: string, password: string): Observable<any> {
     const data = {email, password};
     const options = this.setupOptions();
+    const url = `${environment.backendPath}${API_LOGIN_URL}`;
 
-    return this.httpClient.post(API_LOGIN_URL, data, options);
+    return this.httpClient.post(url, data, options);
   }
 
   private setupOptions(): any {
