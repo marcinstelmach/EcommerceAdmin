@@ -28,9 +28,6 @@ export class CharmComponent implements OnInit {
   showProgressBar = false;
   url: string;
   errors: any;
-  uploadSuccessAlert = false;
-  uploadFailAlert = false;
-  currentCharmId: number;
   charmId: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

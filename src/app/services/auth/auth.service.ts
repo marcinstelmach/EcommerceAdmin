@@ -1,5 +1,5 @@
-import { environment } from './../../../environments/environment.prod';
-import {API_LOGIN_URL} from './../../constants/enpoints';
+import {environment} from '../../../environments/environment.prod';
+import {API_LOGIN_URL} from '../../constants/enpoints';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';

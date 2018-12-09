@@ -4,7 +4,6 @@ import {CharmCategory} from '../../models/charm-category.interface';
 import {CharmCategoriesService} from '../../services/charm-categories/charm-categories.service';
 import {DeleteAlertComponent} from '../shared/delete-alert/delete-alert.component';
 import {MatDialog} from '@angular/material';
-import {ProductCategory} from '../../models/product-category.interface';
 
 
 @Component({
