@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://api.streetwood.pl/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
