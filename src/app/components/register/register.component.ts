@@ -12,11 +12,6 @@ import {UserService} from '../../services/user/user.service';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   showModal = false;
-  userForDisplay: any = {
-    id: '', 
-    name: '',
-    email: ''
-  }
   errors: any;
 
   constructor(private fb: FormBuilder, private userService: UserService) {

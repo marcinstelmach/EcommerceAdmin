@@ -1,4 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,14 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+
+  ngOnInit(): void {
+    if (environment.production) {
+      if (location.protocol === 'http') {
+        window.location.href = location.href.replace('http', 'https');
+      }
+    }
+  }
 }

@@ -60,13 +60,6 @@
               <div [hidden]="!registerForm.controls['lastName'].errors.required">Last name is required.</div>
             </div>
           </mat-form-field>
-          <div *ngIf="errors" class="error">
-            <small class="form-text validation-error">{{errors['firstName']}}</small>
-            <small class="form-text validation-error">{{errors['lastName']}}</small>
-            <small class="form-text validation-error">{{errors['email']}}</small>
-            <small class="form-text validation-error">{{errors['password']}}</small>
-            <small class="form-text validation-error">{{errors['confirmPassword']}}</small>
-          </div>
           <mat-card-actions align="end">
             <button class="btn btn-success my-button" [disabled]="registerForm.invalid" (click)="register()" type="submit">
               Register

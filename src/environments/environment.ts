@@ -6,6 +6,5 @@
 export const environment = {
   production: false,
   name: 'Developing',
-  API_URL: '/api/',
   backendPath: '',
 };

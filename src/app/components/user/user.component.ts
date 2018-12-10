@@ -1,8 +1,8 @@
-import { UserService } from '../../services/user/user.service';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserDataResponseFromApi } from '../../models/user.interface';
-import { ActivatedRoute } from '@angular/router';
+import {UserService} from '../../services/user/user.service';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {UserDataResponseFromApi} from '../../models/user.interface';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -11,7 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   public userData$: Observable<UserDataResponseFromApi>;
-  constructor(private usersService: UserService, private route: ActivatedRoute) { }
+
+  constructor(private usersService: UserService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.getUser();

@@ -89,6 +89,7 @@ export class CharmComponent implements OnInit {
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
         });
+        this.getCategories();
       }
     }
   }

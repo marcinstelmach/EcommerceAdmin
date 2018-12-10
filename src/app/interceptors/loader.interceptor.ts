@@ -8,6 +8,7 @@ import {of} from 'rxjs';
 import {MatDialog} from '@angular/material';
 import {ErrorModalComponent} from '../components/shared/error-alert/error-modal.component';
 import {AuthService} from '../services/auth/auth.service';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
@@ -18,9 +19,8 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.spinner.show();
-    const authToken = 'Bearer ' + this.authService.getToken();
-    const authReq = request.clone({ setHeaders: { Authorization: authToken, 'Content-Type': 'application/json' } });
-    return next.handle(authReq).pipe(
+    const preparedRequest = this.prepareRequest(request);
+    return next.handle(preparedRequest).pipe(
       tap(response => {
         if (response instanceof HttpResponse) {
           this.spinner.hide();
@@ -34,5 +34,16 @@ export class LoaderInterceptor implements HttpInterceptor {
         return of(error);
       })
     );
+  }
+
+  prepareRequest(request: HttpRequest<any>) {
+    const authToken = 'Bearer ' + this.authService.getToken();
+    const authReq = request.clone({setHeaders: {Authorization: authToken, 'Content-Type': 'application/json'}});
+    if (environment.production === true) {
+      const newUrl = `${environment.backendPath}${authReq.url}`;
+      const prodRequest = authReq.clone({url: newUrl});
+      return prodRequest;
+    }
+    return authReq;
   }
 }

@@ -28,7 +28,6 @@ import {UsersComponent} from './components/users/users.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {UserComponent} from './components/user/user.component';
 import {RegisterComponent} from './components/register/register.component';
-import {Interceptors} from 'app/interceptors';
 import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
 import {ErrorModalComponent} from './components/shared/error-alert/error-modal.component';
@@ -42,6 +41,7 @@ import {ShipmentTypePipe} from './pipes/shipment-type.pipe';
 import {CategoryDiscountComponent} from './components/discounts/category-discount/category-discount.component';
 import {ProductCategoryDiscountService} from './services/product-category-discount/product-category-discount.service';
 import {DescriptionPipe} from './pipes/description.pipe';
+import {Interceptors} from './interceptors';
 
 @NgModule({
   declarations: [
