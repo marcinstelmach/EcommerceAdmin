@@ -3,12 +3,13 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UploadFile, UploadInput} from 'ngx-uploader';
 import {UploadOutput} from 'ngx-uploader/index';
 import {ProductsCategoriesService} from '../../services/products-categories/products-categories.service';
-import {AuthService} from 'app/services/auth/auth.service';
 import {ProductsService} from '../../services/products/products.service';
 import {ProductCategory} from '../../models/product-category.interface';
 import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {Product} from '../../models/product.interface';
 import {EditProductComponent} from './edit/edit.product.component';
+import {AuthService} from '../../services/auth/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -72,7 +73,7 @@ export class ProductComponent implements OnInit {
   }
 
   onUploadOutput(output: UploadOutput): void {
-    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') { // add file to array when added
+    if (output.type === 'addedToQueue' && typeof output.file !== 'undefined') {
       this.files.push(output.file);
     } else if (output.type === 'uploading' && typeof output.file !== 'undefined') {
       const index = this.files.findIndex(file => typeof output.file !== 'undefined' && file.id === output.file.id);
@@ -97,7 +98,7 @@ export class ProductComponent implements OnInit {
     const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: '/api/images/' + this.productId + '/false',
+      url: `${environment.backendPath}/api/images/${this.productId}/false`,
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + token},
       data: {}

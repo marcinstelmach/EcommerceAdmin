@@ -14,7 +14,7 @@ import {ProductsService} from '../../../services/products/products.service';
 export class EditProductComponent implements OnInit {
   productEditForm: FormGroup;
   categoryName = '';
-  contentHost = environment.backendPath;
+  contentHost = environment.contentHost;
 
   constructor(@Inject(MAT_DIALOG_DATA) public product: Product,
               private fb: FormBuilder,

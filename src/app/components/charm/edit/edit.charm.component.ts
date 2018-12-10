@@ -13,7 +13,7 @@ import {Charm} from '../../../models/charm.interface';
 })
 export class EditCharmComponent implements OnInit {
   charmEditForm: FormGroup;
-  contentHost = environment.backendPath;
+  contentHost = environment.contentHost;
 
   constructor(@Inject(MAT_DIALOG_DATA) public charm: Charm,
               private fb: FormBuilder,

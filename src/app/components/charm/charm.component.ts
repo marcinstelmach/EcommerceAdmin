@@ -8,6 +8,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {MatDialog, MatPaginator, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {Charm} from '../../models/charm.interface';
 import {EditCharmComponent} from './edit/edit.charm.component';
+import {environment} from '../../../environments/environment';
 
 
 @Component({
@@ -98,7 +99,7 @@ export class CharmComponent implements OnInit {
     const token = this.authService.getToken();
     const event: UploadInput = {
       type: 'uploadAll',
-      url: '/api/charms/' + this.charmId + '/image',
+      url: `${environment.backendPath}/api/charms/${this.charmId}/image`,
       method: 'POST',
       headers: {'Authorization': 'Bearer ' + token},
       data: {}

@@ -7,4 +7,5 @@ export const environment = {
   production: false,
   name: 'Developing',
   backendPath: '',
+  contentHost: 'http://localhost:49994'
 };
