@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {API_PRODUCTS_CATEGORIES_DISCOUNT} from 'app/constants/enpoints';
 import {Observable} from 'rxjs';
-import {ProductCategoryDiscount} from 'app/models/product-category-discount.interface';
+import {API_PRODUCTS_CATEGORIES_DISCOUNT} from '../../constants/enpoints';
 
 @Injectable()
 export class ProductCategoryDiscountService {

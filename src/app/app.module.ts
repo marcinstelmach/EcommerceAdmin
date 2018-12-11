@@ -42,6 +42,8 @@ import {CategoryDiscountComponent} from './components/discounts/category-discoun
 import {ProductCategoryDiscountService} from './services/product-category-discount/product-category-discount.service';
 import {DescriptionPipe} from './pipes/description.pipe';
 import {Interceptors} from './interceptors';
+import { CodeDiscountComponent } from './components/discounts/code-discount/code-discount.component';
+import {OrderDiscountService} from './services/order-discount/order-discount.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import {Interceptors} from './interceptors';
     ShipmentComponent,
     ShipmentTypePipe,
     CategoryDiscountComponent,
-    DescriptionPipe
+    DescriptionPipe,
+    CodeDiscountComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +96,8 @@ import {Interceptors} from './interceptors';
     ShipmentService,
     ...Interceptors,
     CacheService,
-    ProductCategoryDiscountService
+    ProductCategoryDiscountService,
+    OrderDiscountService
   ],
   bootstrap: [AppComponent],
   entryComponents: [
