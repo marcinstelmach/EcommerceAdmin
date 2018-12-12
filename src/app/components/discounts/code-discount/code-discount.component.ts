@@ -77,6 +77,7 @@ export class CodeDiscountComponent implements OnInit {
   }
 
   editDiscount() {
+    this.discountForm.controls['availableTo'].enable();
     const data = this.discountForm.value;
     this.orderDiscountService.updateDiscount(this.editId, data).subscribe(resp => {
       this.edit = false;

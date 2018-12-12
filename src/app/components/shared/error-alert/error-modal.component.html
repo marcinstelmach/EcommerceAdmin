@@ -2,8 +2,17 @@
   <h1 class="title" mat-dialog-title>Ups...</h1>
   <div mat-dialog-content style="margin-top: 20px;">
     <p class="message">{{error.message}}</p>
-    <p class="status-code">Status code: {{error.errorCodeName}}</p>
-    <p class="status-code">{{error | json}}</p>
+    <p class="status-code">Status code: {{error.errorCodeName}} {{error.status}}</p>
+    <p>
+      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#detailsId" aria-expanded="false" aria-controls="detailsId">
+        Details
+      </button>
+    </p>
+    <div class="collapse" id="detailsId">
+      <div class="card card-body">
+        <p class="status-code">{{error.exception | json}}</p>
+      </div>
+    </div>
   </div>
   <div mat-dialog-actions align="end" style="margin-top: 10px;">
     <button mat-raised-button color="warn" [mat-dialog-close] cdkFocusInitial>Ok</button>

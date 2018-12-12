@@ -4,6 +4,7 @@
 
 .message {
   font-size: 17px;
+  margin-bottom: 20px;
 }
 
 .status-code {
@@ -14,4 +15,10 @@
   /*padding: 10px 20px;*/
   width: 350px;
 
+}
+
+button {
+  color: rgba(116,126,125,0.84);
+  font-size: 10px;
+  margin-left: -10px;
 }

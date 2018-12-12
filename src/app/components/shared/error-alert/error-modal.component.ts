@@ -13,6 +13,11 @@ export class ErrorModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
-    this.error = this.data;
+    this.error = {
+      errorCodeName: this.data.error.errorCodeName,
+        message: this.data.error.message,
+      status: this.data.status,
+      exception: this.data
+    } as StreetwoodError;
   }
 }

@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {
-  DateAdapter,
-  MAT_DATE_FORMATS, MAT_DATE_LOCALE,
+  MAT_DATE_LOCALE,
   MatButtonModule,
   MatCardModule,
   MatDatepickerModule,
   MatDialogModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -34,7 +34,8 @@ const modules = [
   MatPaginatorModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatListModule
+  MatListModule,
+  MatExpansionModule
 ];
 
 @NgModule({
