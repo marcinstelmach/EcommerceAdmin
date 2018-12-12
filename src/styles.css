@@ -60,3 +60,7 @@ form {
   margin-bottom: 30px;
   /*font-size: 20px;*/
 }
+
+.create-similar {
+  color: rgba(83,226,18,0.84);
+}

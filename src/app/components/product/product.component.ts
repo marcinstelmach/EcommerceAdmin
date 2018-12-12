@@ -19,7 +19,7 @@ import {environment} from '../../../environments/environment';
 export class ProductComponent implements OnInit {
   productForm: FormGroup;
   productsTable: any;
-  productsTableColumns: string[] = ['position', 'name', 'description', 'price'];
+  productsTableColumns: string[] = ['position', 'name', 'description', 'price', 'new'];
   categories: ProductCategory[];
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
@@ -139,5 +139,16 @@ export class ProductComponent implements OnInit {
       position: {right: '10px'},
       data: product
     });
+  }
+
+  createSimilar(product: Product) {
+    this.productForm.controls['name'].setValue(product.name);
+    this.productForm.controls['nameEng'].setValue(product.nameEng);
+    this.productForm.controls['description'].setValue(product.description);
+    this.productForm.controls['descriptionEng'].setValue(product.descriptionEng);
+    this.productForm.controls['price'].setValue(product.price);
+    this.productForm.controls['acceptCharms'].setValue(product.acceptCharms);
+    this.productForm.controls['sizes'].setValue(product.sizes);
+    this.productForm.controls['productCategoryId'].setValue(product.productCategoryId);
   }
 }
