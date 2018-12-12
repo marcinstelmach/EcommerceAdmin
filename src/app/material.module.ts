@@ -5,7 +5,6 @@ import {
   MatCardModule,
   MatDatepickerModule,
   MatDialogModule,
-  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -34,8 +33,7 @@ const modules = [
   MatPaginatorModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatListModule,
-  MatExpansionModule
+  MatListModule
 ];
 
 @NgModule({
