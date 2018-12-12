@@ -20,7 +20,7 @@ export class CharmComponent implements OnInit {
   categories: CharmCategory[];
   charms: Charm[];
   charmsTable: any;
-  charmsTableColumns: string[] = ['position', 'name', 'price'];
+  charmsTableColumns: string[] = ['position', 'name', 'price', 'new'];
   charmForm: FormGroup;
   options: UploaderOptions;
   files: UploadFile[];
@@ -31,6 +31,7 @@ export class CharmComponent implements OnInit {
   errors: any;
   charmId: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  rememberForm = false;
 
 
   constructor(private charmService: CharmService,
@@ -85,7 +86,9 @@ export class CharmComponent implements OnInit {
     if (output.type === 'done') {
       this.countProgress();
       if (this.progress === 100) {
-        this.charmForm.reset();
+        if (!this.rememberForm) {
+          this.charmForm.reset();
+        }
         this.showProgressBar = false;
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
@@ -134,5 +137,11 @@ export class CharmComponent implements OnInit {
       position: {right: '10px'},
       data: charm
     });
+  }
+
+  createSimilar(charm: Charm) {
+    this.charmForm.controls['name'].setValue(charm.name);
+    this.charmForm.controls['nameEng'].setValue(charm.nameEng);
+    this.charmForm.controls['price'].setValue(charm.price);
   }
 }
