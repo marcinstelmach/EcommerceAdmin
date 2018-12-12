@@ -28,6 +28,7 @@ export class ProductComponent implements OnInit {
   showProgressBar = false;
   products: Product[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  rememberForm = false;
 
 
   constructor(private fb: FormBuilder,
@@ -85,7 +86,10 @@ export class ProductComponent implements OnInit {
     if (output.type === 'done') {
       this.countProgress();
       if (this.progress === 100) {
-        this.productForm.reset();
+        if (!this.rememberForm) {
+          this.productForm.reset();
+        }
+
         this.showProgressBar = false;
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000

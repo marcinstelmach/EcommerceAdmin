@@ -78,6 +78,7 @@
                    [uploadInput]="uploadInput" name="file" multiple required>
             <mat-progress-bar mode="determine" value="{{progress}}" *ngIf="showProgressBar"></mat-progress-bar>
           </form>
+          <mat-slide-toggle style="margin-top: 15px;" [(ngModel)]="rememberForm">Remember form</mat-slide-toggle>
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-raised-button color="primary" [disabled]="productForm.invalid" (click)="addProduct()"
