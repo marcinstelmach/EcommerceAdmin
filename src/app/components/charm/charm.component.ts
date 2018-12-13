@@ -32,6 +32,7 @@ export class CharmComponent implements OnInit {
   charmId: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   rememberForm = false;
+  currentCategory = '';
 
 
   constructor(private charmService: CharmService,
@@ -86,6 +87,8 @@ export class CharmComponent implements OnInit {
     if (output.type === 'done') {
       this.countProgress();
       if (this.progress === 100) {
+        this.getCategories();
+
         if (!this.rememberForm) {
           this.charmForm.reset();
         }
@@ -93,7 +96,9 @@ export class CharmComponent implements OnInit {
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
         });
-        this.getCategories();
+        if (this.currentCategory !== '') {
+          this.selectCategory(this.currentCategory);
+        }
       }
     }
   }
@@ -126,6 +131,7 @@ export class CharmComponent implements OnInit {
   }
 
   selectCategory(id: string) {
+    this.currentCategory = id;
     this.charms = this.categories.find(s => s.id === id).charms;
     this.buildTable(this.charms);
   }
@@ -136,6 +142,11 @@ export class CharmComponent implements OnInit {
       maxHeight: '80%',
       position: {right: '10px'},
       data: charm
+    }).afterClosed().subscribe(result => {
+      this.getCategories();
+      if (this.currentCategory !== '') {
+        this.selectCategory(this.currentCategory);
+      }
     });
   }
 

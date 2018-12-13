@@ -27,9 +27,7 @@ export class EditCharmComponent implements OnInit {
 
   editCharm() {
     const data = this.charmEditForm.value;
-    this.charmService.updateCharm(this.charm.id, data).subscribe(resp => {
-      window.location.reload();
-    });
+    this.charmService.updateCharm(this.charm.id, data).subscribe();
   }
 
   createForm() {
