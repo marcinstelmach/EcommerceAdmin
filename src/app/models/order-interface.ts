@@ -25,6 +25,21 @@ export interface Order {
   productOrders: ProductOrder;
 }
 
+export interface OrderList {
+  id: string;
+  email: string;
+  idShipped: boolean;
+  isPayed: boolean;
+  isClosed: boolean;
+  comment: string;
+  basePrice: number;
+  shipmentPrice: number;
+  finalPrice: number;
+  creationDateTime: Date;
+  payedDateTime: Date;
+  closedDateTime: Date;
+}
+
 export interface ProductOrder {
   id: string;
   amount: number;

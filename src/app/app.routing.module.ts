@@ -1,4 +1,3 @@
-import {UserComponent} from './components/user/user.component';
 import {LoginComponent} from './components/login/login.component';
 import {PageNotFoundComponent} from './components/shared/page-not-found/page-not-found.component';
 import {ProductCategoryComponent} from './components/product-category/product-category.component';
@@ -24,13 +23,12 @@ const routes: Routes = [
   {path: 'charm-category', component: CharmCategoryComponent, canActivate: [AuthGuard]},
   {path: 'product', component: ProductComponent, canActivate: [AuthGuard]},
   {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
-  {path: 'users/:id', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'shipment', component: ShipmentComponent, canActivate: [AuthGuard]},
   {path: 'category-discount', component: CategoryDiscountComponent, canActivate: [AuthGuard]},
   {path: 'code-discount', component: CodeDiscountComponent, canActivate: [AuthGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
   {path: '404', component: PageNotFoundComponent},
-  {path: '**', redirectTo: 'login'},
+  {path: '**', redirectTo: '404'},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 
 ];

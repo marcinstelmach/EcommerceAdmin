@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {ShipmentType} from '../models/types/shipment.type';
 
 @Pipe({name: 'ShipmentType'})
 export class ShipmentTypePipe implements PipeTransform {
@@ -12,5 +11,4 @@ export class ShipmentTypePipe implements PipeTransform {
       return 'Personal';
     }
   }
-
 }

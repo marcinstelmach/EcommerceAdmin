@@ -42,6 +42,8 @@ import {Interceptors} from './interceptors';
 import { CodeDiscountComponent } from './components/discounts/code-discount/code-discount.component';
 import {OrderDiscountService} from './services/order-discount/order-discount.service';
 import { OrderComponent } from './components/order/order.component';
+import {CacheService} from './services/cache/cache.service';
+import {OrderService} from './services/order/order.service';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { OrderComponent } from './components/order/order.component';
     ShipmentService,
     ...Interceptors,
     ProductCategoryDiscountService,
-    OrderDiscountService
+    OrderDiscountService,
+    CacheService,
+    OrderService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -1,3 +1,61 @@
-<p>
-  order works!
-</p>
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 page-title">
+      <mat-card>Orders</mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <mat-card>
+        <mat-card-title>Filters</mat-card-title>
+        <mat-card-content>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" type="button">Filter</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-8 offset-1">
+      <mat-card>
+        <mat-card-title>Charms</mat-card-title>
+        <mat-card-content>
+          <table mat-table [dataSource]="ordersTable" style="cursor: pointer;">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> #</th>
+              <td mat-cell *matCellDef="let element; let i = index" (click)="openOrder(element.id)"> {{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email</th>
+              <td mat-cell *matCellDef="let element" (click)="openOrder(element.id)"> {{element.email}}</td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef> Date time</th>
+              <td mat-cell *matCellDef="let element" (click)="openOrder(element.id)"> {{element.creationDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price</th>
+              <td mat-cell *matCellDef="let element"
+                  (click)="openOrder(element.id)"> {{element.finalPrice | currency: 'PLN'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isPayed">
+              <th mat-header-cell *matHeaderCellDef> Is Payed</th>
+              <td mat-cell *matCellDef="let element" (click)="openOrder(element.id)"> {{element.isPayed}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isShipped">
+              <th mat-header-cell *matHeaderCellDef> Is Shipped</th>
+              <td mat-cell *matCellDef="let element" (click)="openOrder(element.id)"> {{element.isShipped}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isClosed">
+              <th mat-header-cell *matHeaderCellDef> Is Closed</th>
+              <td mat-cell *matCellDef="let element" (click)="openOrder(element.id)"> {{element.isClosed}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="ordersTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: ordersTableColumns;"></tr>
+          </table>
+          <!--<mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>-->
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

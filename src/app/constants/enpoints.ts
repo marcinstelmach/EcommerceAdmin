@@ -15,5 +15,6 @@ export const API_SHIPMENTS = PREFIX + '/shipments/';
 
 export const API_CLEAR_CACHE = PREFIX + '/cache';
 
-export const API_DISCOUNT = PREFIX + '/Orders/';
+export const API_DISCOUNT = PREFIX + '/OrderDiscounts/';
 export const API_ORDER_DISCOUNT = PREFIX + '/OrderDiscounts/';
+export const API_ORDERS = PREFIX + '/Orders';
