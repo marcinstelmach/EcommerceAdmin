@@ -118,7 +118,7 @@
             </ng-container>
             <ng-container matColumnDef="isActive">
               <th mat-header-cell *matHeaderCellDef> Is Active</th>
-              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"> {{element.isActive}}</td>
+              <td mat-cell *matCellDef="let element" (click)="openDiscount(element)"><span [outerHTML]="element.isActive | TrueFalse"></span></td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="discountsTableColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: discountsTableColumns;"></tr>
