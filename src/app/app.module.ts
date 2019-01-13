@@ -44,6 +44,7 @@ import {OrderDiscountService} from './services/order-discount/order-discount.ser
 import { OrderComponent } from './components/order/order.component';
 import {CacheService} from './services/cache/cache.service';
 import {OrderService} from './services/order/order.service';
+import {TrueFalsePipe} from './pipes/true-false.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {OrderService} from './services/order/order.service';
     CategoryDiscountComponent,
     DescriptionPipe,
     CodeDiscountComponent,
-    OrderComponent
+    OrderComponent,
+    TrueFalsePipe
   ],
   imports: [
     BrowserModule,

@@ -64,3 +64,11 @@ form {
 .create-similar {
   color: rgba(83,226,18,0.84);
 }
+
+.true {
+  color: rgba(83,226,18,0.84);
+}
+
+.false {
+  color: rgba(202,7,16,0.84);
+}
