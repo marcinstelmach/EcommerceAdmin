@@ -2,7 +2,7 @@ import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {UserDataResponseFromApi} from '../../models/user.interface';
+import {User} from '../../models/user.interface';
 import {UserService} from '../../services/user/user.service';
 
 @Component({
@@ -11,7 +11,7 @@ import {UserService} from '../../services/user/user.service';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  public usersList$: Observable<UserDataResponseFromApi[]>;
+  public usersList$: Observable<User[]>;
 
   constructor(private usersService: UserService, private router: Router) {
   }

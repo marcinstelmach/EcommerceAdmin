@@ -1,7 +1,6 @@
 import {ProductsCategoriesService} from './services/products-categories/products-categories.service';
 import {ProductsService} from './services/products/products.service';
 import {CharmCategoriesService} from './services/charm-categories/charm-categories.service';
-import {AddressService} from './services/address/address.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
@@ -26,14 +25,12 @@ import {UserService} from './services/user/user.service';
 import {ShipmentService} from './services/shipment/shipment.service';
 import {UsersComponent} from './components/users/users.component';
 import {NgxSpinnerModule} from 'ngx-spinner';
-import {UserComponent} from './components/user/user.component';
 import {RegisterComponent} from './components/register/register.component';
 import {ToastrModule} from 'ngx-toastr';
 import {MaterialModule} from './material.module';
 import {ErrorModalComponent} from './components/shared/error-alert/error-modal.component';
 import {DeleteAlertComponent} from './components/shared/delete-alert/delete-alert.component';
 import {EditProductComponent} from './components/product/edit/edit.product.component';
-import {CacheService} from './services/cache/cache.service';
 import {AlertComponent} from './components/shared/alert/alert.component';
 import {EditCharmComponent} from './components/charm/edit/edit.charm.component';
 import {ShipmentComponent} from './components/shipment/shipment.component';
@@ -44,6 +41,7 @@ import {DescriptionPipe} from './pipes/description.pipe';
 import {Interceptors} from './interceptors';
 import { CodeDiscountComponent } from './components/discounts/code-discount/code-discount.component';
 import {OrderDiscountService} from './services/order-discount/order-discount.service';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +55,6 @@ import {OrderDiscountService} from './services/order-discount/order-discount.ser
     CharmComponent,
     ProductComponent,
     UsersComponent,
-    UserComponent,
     RegisterComponent,
     ErrorModalComponent,
     DeleteAlertComponent,
@@ -68,7 +65,8 @@ import {OrderDiscountService} from './services/order-discount/order-discount.ser
     ShipmentTypePipe,
     CategoryDiscountComponent,
     DescriptionPipe,
-    CodeDiscountComponent
+    CodeDiscountComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -89,13 +87,11 @@ import {OrderDiscountService} from './services/order-discount/order-discount.ser
     AuthService,
     AuthGuard,
     CharmService,
-    AddressService,
     CharmCategoriesService,
     ProductsService,
     ProductsCategoriesService,
     ShipmentService,
     ...Interceptors,
-    CacheService,
     ProductCategoryDiscountService,
     OrderDiscountService
   ],

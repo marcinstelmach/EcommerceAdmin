@@ -1,7 +1,8 @@
-export interface AddressSendToApi {
-    city: string;
-    street: string;
-    postCode: string;
-    phoneNumber: number;
-    country: string;
+export interface Address {
+  id: string;
+  city: string;
+  street: string;
+  postCode: string;
+  phoneNumber: number;
+  country: string;
 }

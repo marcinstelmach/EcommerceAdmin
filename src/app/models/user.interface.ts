@@ -13,11 +13,11 @@ export interface UserLogin {
 }
 
 export interface UserLoginResponseFromApi {
-    email: string,
-    expires: string,
-    refreshToken: string,
-    token: string,
-    userId: string
+    email: string;
+    expires: string;
+    refreshToken: string;
+    token: string;
+    userId: string;
 }
 
 export interface UserDisplayData {
@@ -27,11 +27,11 @@ export interface UserDisplayData {
     id: string;
 }
 
-export interface UserDataResponseFromApi  {
+export interface User  {
     id: string;
     email: string;
     firstName: string;
     lastName: string;
     creationDateTime: Date;
-    phoneNumber: number
+    phoneNumber: number;
   }
