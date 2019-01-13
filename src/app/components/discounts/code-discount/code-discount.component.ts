@@ -100,6 +100,7 @@ export class CodeDiscountComponent implements OnInit {
     this.discountForm.controls['descriptionEng'].setValue(discount.descriptionEng);
     this.discountForm.controls['percentValue'].setValue(discount.percentValue);
     this.discountForm.controls['code'].setValue(discount.code);
+    this.discountForm.controls['code'].disable();
     this.discountForm.controls['availableFrom'].setValue(discount.availableFrom);
     this.discountForm.controls['availableTo'].setValue(discount.availableTo);
   }
