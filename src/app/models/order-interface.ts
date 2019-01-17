@@ -8,7 +8,7 @@ import {Charm} from './charm.interface';
 
 export interface Order {
   id: string;
-  idShipped: boolean;
+  isShipped: boolean;
   isPayed: boolean;
   isClosed: boolean;
   comment: string;

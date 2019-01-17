@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(userCredentials.email, userCredentials.password).subscribe(
       data => {
         this.authService.setToken(data);
-        this.router.navigate(['/charm']);
+        this.router.navigate(['/orders']);
       }
     );
   }

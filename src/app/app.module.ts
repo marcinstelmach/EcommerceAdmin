@@ -45,6 +45,7 @@ import { OrderComponent } from './components/order/order.component';
 import {CacheService} from './services/cache/cache.service';
 import {OrderService} from './services/order/order.service';
 import {TrueFalsePipe} from './pipes/true-false.pipe';
+import {EditOrderComponent} from './components/order/edit/edit.order/edit.order.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {TrueFalsePipe} from './pipes/true-false.pipe';
     DescriptionPipe,
     CodeDiscountComponent,
     OrderComponent,
-    TrueFalsePipe
+    TrueFalsePipe,
+    EditOrderComponent
   ],
   imports: [
     BrowserModule,

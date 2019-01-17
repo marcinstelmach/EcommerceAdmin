@@ -21,6 +21,10 @@ export class OrderService {
     return this.http.get(url);
   }
 
+  get(id: string): Observable<any> {
+    return this.http.get(`${API_ORDERS}/${id}`);
+  }
+
   // private setUrlNull(url: string): string {
   //   url = url.replace(new RegExp('undefined', 'g'), '%00');
   //   return url;

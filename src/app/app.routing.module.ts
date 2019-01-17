@@ -13,6 +13,7 @@ import {ShipmentComponent} from './components/shipment/shipment.component';
 import {CategoryDiscountComponent} from './components/discounts/category-discount/category-discount.component';
 import {CodeDiscountComponent} from './components/discounts/code-discount/code-discount.component';
 import {OrderComponent} from './components/order/order.component';
+import {EditOrderComponent} from './components/order/edit/edit.order/edit.order.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'category-discount', component: CategoryDiscountComponent, canActivate: [AuthGuard]},
   {path: 'code-discount', component: CodeDiscountComponent, canActivate: [AuthGuard]},
   {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
+  {path: 'orders/:id', component: EditOrderComponent, canActivate: [AuthGuard]},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '404'},
   {path: '', redirectTo: 'login', pathMatch: 'full'}

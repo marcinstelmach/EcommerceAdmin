@@ -1,0 +1,61 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-12 page-title">
+      <mat-card>Order <span *ngIf="orderId">{{orderId}}</span></mat-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>Info</mat-card-title>
+        <mat-card-content *ngIf="order !== undefined">
+          <table mat-table [dataSource]="orderTable" style="cursor: pointer;">
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> #</th>
+              <td mat-cell *matCellDef="let element; let i = index"> {{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="creationDateTime" *ngIf="order.creationDateTime !== null">
+              <th mat-header-cell *matHeaderCellDef> Created</th>
+              <td mat-cell *matCellDef="let element"> {{element.creationDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="finalPrice">
+              <th mat-header-cell *matHeaderCellDef> Final Price</th>
+              <td mat-cell *matCellDef="let element"> {{element.finalPrice | currency: 'PLN'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="basePrice">
+              <th mat-header-cell *matHeaderCellDef> Base Price</th>
+              <td mat-cell *matCellDef="let element"> {{element.basePrice | currency: 'PLN'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="shipmentPrice">
+              <th mat-header-cell *matHeaderCellDef> Shipment Price</th>
+              <td mat-cell *matCellDef="let element"> {{element.shipmentPrice | currency: 'PLN'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="isPayed">
+              <th mat-header-cell *matHeaderCellDef> Is Payed</th>
+              <td mat-cell *matCellDef="let element"><span [outerHTML]="element.isPayed | TrueFalse"></span></td>
+            </ng-container>
+            <ng-container matColumnDef="isShipped">
+              <th mat-header-cell *matHeaderCellDef> Is Shipped</th>
+              <td mat-cell *matCellDef="let element"><span [outerHTML]="element.isShipped | TrueFalse"></span></td>
+            </ng-container>
+            <ng-container matColumnDef="isClosed">
+              <th mat-header-cell *matHeaderCellDef> Is Closed</th>
+              <td mat-cell *matCellDef="let element"><span [outerHTML]="element.isClosed | TrueFalse"></span></td>
+            </ng-container>
+            <ng-container matColumnDef="payedDateTime" *ngIf="order.payedDateTime !== null">
+              <th mat-header-cell *matHeaderCellDef> Payed</th>
+              <td mat-cell *matCellDef="let element"> {{element.payedDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="closedDateTime" *ngIf="order.closedDateTime !== null">
+              <th mat-header-cell *matHeaderCellDef> Closed</th>
+              <td mat-cell *matCellDef="let element"> {{element.closedDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="orderTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: orderTableColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

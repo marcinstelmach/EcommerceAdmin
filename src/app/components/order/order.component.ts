@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {OrderService} from '../../services/order/order.service';
 import {OrderList} from '../../models/order-interface';
 import {MatTableDataSource} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +14,7 @@ export class OrderComponent implements OnInit {
   ordersTable: any;
   ordersTableColumns: string[] = ['position', 'email', 'date', 'price', 'isPayed', 'isShipped', 'isClosed'];
 
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService, private router: Router) {
   }
 
   ngOnInit() {
@@ -23,7 +24,6 @@ export class OrderComponent implements OnInit {
   getLastOrders() {
     this.orderService.getFiltered().subscribe(data => {
       this.orders = data;
-      console.log(this.orders);
       this.buildTable();
     });
   }
@@ -33,6 +33,6 @@ export class OrderComponent implements OnInit {
   }
 
   openOrder(id: string) {
-
+    this.router.navigate(['orders', id]);
   }
 }
