@@ -96,6 +96,7 @@ export class CategoryDiscountComponent implements OnInit {
 
   getCategoriesForDiscount(id: string) {
     this.categoryDiscountService.getCategoriesForDiscount(id).subscribe(data => {
+      console.log(data);
       this.categoriesTable = new MatTableDataSource<CategoryForDiscount[]>(data);
     });
   }

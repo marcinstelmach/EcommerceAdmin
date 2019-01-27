@@ -26,6 +26,7 @@ export class EditOrderComponent implements OnInit {
   getOrder() {
     this.orderService.get(this.orderId).subscribe(data => {
       this.order = data;
+      console.log(this.order);
       this.buildOrderTable(this.order);
     });
   }

@@ -22,7 +22,7 @@ export interface Order {
   user: User;
   address: Address;
   orderDiscount: OrderDiscount;
-  productOrders: ProductOrder;
+  productOrders: ProductOrder[];
 }
 
 export interface OrderList {
@@ -49,7 +49,7 @@ export interface ProductOrder {
   charmsPrice: number;
   productCategoryDiscount: ProductCategoryDiscount;
   product: Product;
-  productOrderCharms: ProductOrderCharm;
+  productOrderCharms: ProductOrderCharm[];
 }
 
 export interface ProductOrderCharm {

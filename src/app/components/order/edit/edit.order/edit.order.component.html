@@ -1,7 +1,10 @@
 <div class="main-container">
   <div class="row">
     <div class="col-12 page-title">
-      <mat-card>Order <span *ngIf="orderId">{{orderId}}</span></mat-card>
+      <mat-card *ngIf="order">Order
+        <span style="font-size: 15px; color: rgba(126,138,145,0.93)">{{order.user.email}}</span>
+        <p><span style="font-size: 10px;" *ngIf="orderId">{{orderId}}</span></p>
+      </mat-card>
     </div>
   </div>
   <div class="row">
@@ -16,7 +19,7 @@
             </ng-container>
             <ng-container matColumnDef="creationDateTime" *ngIf="order.creationDateTime !== null">
               <th mat-header-cell *matHeaderCellDef> Created</th>
-              <td mat-cell *matCellDef="let element"> {{element.creationDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+              <td mat-cell *matCellDef="let element"> {{element.creationDateTime | date:'dd-MM-yyyy, HH:mm'}}</td>
             </ng-container>
             <ng-container matColumnDef="finalPrice">
               <th mat-header-cell *matHeaderCellDef> Final Price</th>
@@ -42,16 +45,131 @@
               <th mat-header-cell *matHeaderCellDef> Is Closed</th>
               <td mat-cell *matCellDef="let element"><span [outerHTML]="element.isClosed | TrueFalse"></span></td>
             </ng-container>
-            <ng-container matColumnDef="payedDateTime" *ngIf="order.payedDateTime !== null">
+            <ng-container matColumnDef="payedDateTime">
               <th mat-header-cell *matHeaderCellDef> Payed</th>
-              <td mat-cell *matCellDef="let element"> {{element.payedDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+              <td mat-cell *matCellDef="let element">
+                <span
+                  *ngIf="element.payedDateTime !== '0001-01-01T00:00:00'">{{element.payedDateTime | date:'dd-MM-yyyy, HH:mm'}}</span>
+              </td>
             </ng-container>
-            <ng-container matColumnDef="closedDateTime" *ngIf="order.closedDateTime !== null">
+            <ng-container matColumnDef="closedDateTime">
               <th mat-header-cell *matHeaderCellDef> Closed</th>
-              <td mat-cell *matCellDef="let element"> {{element.closedDateTime | date:'dd-MM-yyyy, hh:mm'}}</td>
+              <td mat-cell *matCellDef="let element">
+                <span
+                  *ngIf="element.closedDateTime !== '0001-01-01T00:00:00'">{{element.closedDateTime | date:'dd-MM-yyyy, HH:mm'}}</span>
+              </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="orderTableColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: orderTableColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 30px;">
+    <div class="col-4">
+      <mat-card *ngIf="order">
+        <mat-card-title>User</mat-card-title>
+        <mat-card-content>
+          <table class="table">
+            <tr>
+              <td>First name</td>
+              <td>{{order.user.firstName}}</td>
+            </tr>
+            <tr>
+              <td>Last name</td>
+              <td>{{order.user.lastName}}</td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>{{order.user.email}}</td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td>{{order.user.phoneNumber}}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-8" *ngIf="order">
+      <mat-card *ngFor="let productOrder of order.productOrders; let i=index;" style="margin-bottom: 30px;">
+        <mat-card-title>Product {{i + 1}}</mat-card-title>
+        <mat-card-content>
+          <table class="table">
+            <tr>
+              <td>Amount</td>
+              <td>{{productOrder.amount}}</td>
+            </tr>
+            <tr>
+              <td>Base price</td>
+              <td>{{productOrder.currentProductPrice}}</td>
+            </tr>
+            <tr>
+              <td>Final price</td>
+              <td>{{productOrder.finalPrice}}</td>
+            </tr>
+            <tr>
+              <td>Charm Price</td>
+              <td>{{productOrder.charmsPrice}}</td>
+            </tr>
+            <tr>
+              <td>Comment</td>
+              <td>{{productOrder.comment}}</td>
+            </tr>
+            <tr>
+              <td><b>Product</b></td>
+              <td>
+                <table class="table">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{productOrder.product.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Price</td>
+                    <td>{{productOrder.product.price}}</td>
+                  </tr>
+                  <tr>
+                    <td>Sizes</td>
+                    <td>{{productOrder.product.sizes}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr *ngIf="productOrder.productOrderCharms && productOrder.productOrderCharms.length > 0">
+              <td><b>Charms</b></td>
+              <td>
+                <table class="table" *ngFor="let charm of productOrder.productOrderCharms.sort()">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{charm.charm.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Price</td>
+                    <td>{{charm.currentPrice}}</td>
+                  </tr>
+                  <tr>
+                    <td>Sequence</td>
+                    <td>{{charm.sequence}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr *ngIf="productOrder.productCategoryDiscount">
+              <td><b>Product Category Discount</b></td>
+              <td>
+                <table class="table">
+                  <tr>
+                    <td>Name</td>
+                    <td>{{productOrder.productCategoryDiscount.name}}</td>
+                  </tr>
+                  <tr>
+                    <td>Value</td>
+                    <td>{{productOrder.productCategoryDiscount.percentValue}} %</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
           </table>
         </mat-card-content>
       </mat-card>
