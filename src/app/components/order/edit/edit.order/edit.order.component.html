@@ -94,24 +94,24 @@
     </div>
     <div class="col-8" *ngIf="order">
       <mat-card *ngFor="let productOrder of order.productOrders; let i=index;" style="margin-bottom: 30px;">
-        <mat-card-title>Product {{i + 1}}</mat-card-title>
+        <mat-card-title>Product {{i + 1}} ({{productOrder.product.name}})</mat-card-title>
         <mat-card-content>
           <table class="table">
             <tr>
               <td>Amount</td>
-              <td>{{productOrder.amount}}</td>
+              <td>{{productOrder.amount}} szt.</td>
             </tr>
             <tr>
               <td>Base price</td>
-              <td>{{productOrder.currentProductPrice}}</td>
+              <td>{{productOrder.currentProductPrice}} zł</td>
             </tr>
             <tr>
               <td>Final price</td>
-              <td>{{productOrder.finalPrice}}</td>
+              <td>{{productOrder.finalPrice}} zł</td>
             </tr>
-            <tr>
+            <tr *ngIf="productOrder.charmsPrice > 0">
               <td>Charm Price</td>
-              <td>{{productOrder.charmsPrice}}</td>
+              <td>{{productOrder.charmsPrice}} zł</td>
             </tr>
             <tr>
               <td>Comment</td>
@@ -127,7 +127,7 @@
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td>{{productOrder.product.price}}</td>
+                    <td>{{productOrder.product.price}} zł</td>
                   </tr>
                   <tr>
                     <td>Sizes</td>
@@ -146,7 +146,7 @@
                   </tr>
                   <tr>
                     <td>Price</td>
-                    <td>{{charm.currentPrice}}</td>
+                    <td>{{charm.currentPrice}} zł</td>
                   </tr>
                   <tr>
                     <td>Sequence</td>
