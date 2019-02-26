@@ -52,14 +52,14 @@
           <div *ngFor="let category of categories">
             <p class="category">
               - {{category.name}}
-              <i class="fa fa-fw fa-trash-alt remove-trash" (click)="deleteCategory(category.id)"></i>
+              <i class="fa fa-fw fa-trash-alt remove-trash" (click)="deleteCategory(category)"></i>
               <i class="fa fa-fw fa-pencil-alt edit-pencil" (click)="setEditCategory(category)"></i>
             </p>
             <div *ngFor="let children of category.productCategories">
               <p class="sub-category">
                 - {{children.name}}
-                <i class="fa fa-fw fa-trash-alt remove-trash" (click)="deleteCategory(category.id)"></i>
-                <i class="fa fa-fw fa-pencil-alt edit-pencil" (click)="setEditCategory(category)"></i>
+                <i class="fa fa-fw fa-trash-alt remove-trash" (click)="deleteCategory(children)"></i>
+                <i class="fa fa-fw fa-pencil-alt edit-pencil" (click)="setEditCategory(children)"></i>
               </p>
             </div>
           </div>

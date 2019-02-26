@@ -66,12 +66,12 @@ export class ProductCategoryComponent implements OnInit {
     });
   }
 
-  deleteCategory(categoryId: string) {
+  deleteCategory(category: ProductCategory) {
     this.dialog.open(DeleteAlertComponent, {
-      data: {title: 'Are you sure ? This will remove all subcategories, and products if exists'}
+      data: {title: `Are you sure to remove ${category.name} ? This will remove all subcategories, and products if exists`}
     }).afterClosed().subscribe(result => {
       if (result) {
-        this.categoryService.deleteProductCategory(categoryId).subscribe(resp => {
+        this.categoryService.deleteProductCategory(category.id).subscribe(resp => {
           this.getCategories();
         });
       }
