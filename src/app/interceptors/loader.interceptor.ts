@@ -1,5 +1,5 @@
 import {tap} from 'rxjs/internal/operators';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {NgxSpinnerService} from 'ngx-spinner';
@@ -27,6 +27,9 @@ export class LoaderInterceptor implements HttpInterceptor {
         }
       }),
       catchError(error => {
+        if (error instanceof HttpErrorResponse) {
+
+        }
         this.spinner.hide();
         this.dialog.open(ErrorModalComponent, {
           data: error,

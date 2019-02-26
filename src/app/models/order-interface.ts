@@ -7,7 +7,7 @@ import {Product} from './product.interface';
 import {Charm} from './charm.interface';
 
 export interface Order {
-  id: string;
+  id: number;
   isShipped: boolean;
   isPayed: boolean;
   isClosed: boolean;
@@ -26,7 +26,7 @@ export interface Order {
 }
 
 export interface OrderList {
-  id: string;
+  id: number;
   email: string;
   idShipped: boolean;
   isPayed: boolean;
