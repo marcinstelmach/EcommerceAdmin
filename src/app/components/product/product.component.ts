@@ -54,7 +54,7 @@ export class ProductComponent implements OnInit {
       'description': new FormControl('', Validators.required),
       'descriptionEng': new FormControl('', Validators.required),
       'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
-      'acceptCharms': new FormControl(false),
+      'acceptCharms': new FormControl(true),
       'sizes': new FormControl('s, m, l, xl'),
       'productCategoryId': new FormControl('', Validators.required)
     });

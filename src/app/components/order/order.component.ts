@@ -24,6 +24,7 @@ export class OrderComponent implements OnInit {
   getLastOrders() {
     this.orderService.getFiltered().subscribe(data => {
       this.orders = data;
+      console.log(this.orders);
       this.buildTable();
     });
   }

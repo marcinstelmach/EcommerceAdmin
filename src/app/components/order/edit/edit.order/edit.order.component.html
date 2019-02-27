@@ -1,10 +1,7 @@
 <div class="main-container">
   <div class="row">
     <div class="col-12 page-title">
-      <mat-card *ngIf="order">Order
-        <span style="font-size: 15px; color: rgba(126,138,145,0.93)">{{order.user.email}}</span>
-        <p><span style="font-size: 10px;" *ngIf="orderId">{{orderId}}</span></p>
-      </mat-card>
+      <mat-card *ngIf="order">Order nr {{orderId}}</mat-card>
     </div>
   </div>
   <div class="row">
