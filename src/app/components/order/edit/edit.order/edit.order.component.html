@@ -1,7 +1,15 @@
 <div class="main-container">
   <div class="row">
     <div class="col-12 page-title">
-      <mat-card *ngIf="order">Order nr {{orderId}}</mat-card>
+      <mat-card *ngIf="order">
+        <span class="order-title">Order nr {{orderId}}</span>
+        <button *ngIf="!order.isPayed" mat-raised-button color="warn" (click)="update('payed')">Pay</button>
+        <button *ngIf="order.isPayed" mat-raised-button color="primary" (click)="update('payed')">Payed</button>
+        <button *ngIf="!order.isShipped" mat-raised-button color="warn" (click)="update('shipped')">Ship</button>
+        <button *ngIf="order.isShipped" mat-raised-button color="primary" (click)="update('shipped')">Shipped</button>
+        <button *ngIf="!order.isClosed" mat-raised-button color="warn" (click)="update('closed')">Close</button>
+        <button *ngIf="order.isClosed" mat-raised-button color="primary" (click)="update('closed')">Closed</button>
+      </mat-card>
     </div>
   </div>
   <div class="row">

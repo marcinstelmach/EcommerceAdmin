@@ -1,3 +1,11 @@
 table {
   width: 100%;
 }
+
+button {
+  margin: 10px;
+}
+
+.order-title {
+  margin-right: 30px;
+}
