@@ -4,7 +4,6 @@ export interface UserData {
     lastName: string;
     password: string;
     confirmPassword: string;
-    phoneNumber?: number;
 }
 
 export interface UserLogin {
@@ -33,5 +32,4 @@ export interface User  {
     firstName: string;
     lastName: string;
     creationDateTime: Date;
-    phoneNumber: number;
   }
