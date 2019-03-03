@@ -9,3 +9,7 @@ button {
 .order-title {
   margin-right: 30px;
 }
+
+.one-column-container {
+  padding: 0;
+}

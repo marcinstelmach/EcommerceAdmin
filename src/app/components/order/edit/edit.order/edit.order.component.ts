@@ -14,7 +14,7 @@ export class EditOrderComponent implements OnInit {
   order: Order;
   orderTable: any;
   orderTableColumns: string[] = ['position', 'creationDateTime', 'finalPrice', 'basePrice', 'shipmentPrice', 'isPayed', 'isShipped',
-    'isClosed', 'payedDateTime', 'closedDateTime'];
+    'isClosed', 'payedDateTime', 'shipmentDateTime', 'closedDateTime'];
 
   constructor(private router: Router,
               private orderService: OrderService,
@@ -28,7 +28,6 @@ export class EditOrderComponent implements OnInit {
   getOrder() {
     this.orderService.get(this.orderId).subscribe(data => {
       this.order = data;
-      console.log(this.order);
       this.buildOrderTable(this.order);
     });
   }

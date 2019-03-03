@@ -18,6 +18,7 @@ export interface Order {
   creationDateTime: Date;
   payedDateTime: Date;
   closedDateTime: Date;
+  shipmentDateTime: Date;
   shipment: Shipment;
   user: User;
   address: Address;

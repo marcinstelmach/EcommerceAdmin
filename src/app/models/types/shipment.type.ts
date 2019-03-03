@@ -1,5 +1,5 @@
 export enum ShipmentType {
-  Courier,
-  CashOnDelivery,
-  Personal
+  Courier = 'Courier',
+  CashOnDelivery = 'CashOnDelivery',
+  Personal = 'Personal'
 }
