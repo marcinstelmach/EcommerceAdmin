@@ -3,6 +3,7 @@ import {OrderService} from '../../services/order/order.service';
 import {OrderList} from '../../models/order-interface';
 import {MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-order',
@@ -13,8 +14,10 @@ export class OrderComponent implements OnInit {
   orders: OrderList[];
   ordersTable: any;
   ordersTableColumns: string[] = ['position', 'email', 'date', 'price', 'isPayed', 'isShipped', 'isClosed'];
+  filterForm: FormGroup;
 
-  constructor(private orderService: OrderService, private router: Router) {
+  constructor(private orderService: OrderService, private router: Router, private fb: FormBuilder) {
+    this.createFilterForm();
   }
 
   ngOnInit() {
@@ -34,5 +37,20 @@ export class OrderComponent implements OnInit {
 
   openOrder(id: string) {
     this.router.navigate(['orders', id]);
+  }
+
+  createFilterForm() {
+    this.filterForm = this.fb.group({
+      'id': new FormControl(''),
+      'dateFrom': new FormControl(''),
+      'dateTo': new FormControl(''),
+      'isShipped': new FormControl(''),
+      'isPayed': new FormControl(''),
+      'isClosed': new FormControl(''),
+    });
+  }
+
+  filterOrders() {
+    console.log(this.filterForm);
   }
 }

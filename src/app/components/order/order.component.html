@@ -9,9 +9,27 @@
       <mat-card>
         <mat-card-title>Filters</mat-card-title>
         <mat-card-content>
+          <form [formGroup]="filterForm">
+            <mat-form-field>
+              <input type="number" matInput placeholder="Id" formControlName="id">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" placeholder="Date from" formControlName="dateFrom">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker2" placeholder="Date to" formControlName="dateTo">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="isShipped">Shipped {{filterForm.value.isShipped | Slide}}</mat-slide-toggle>
+            <mat-slide-toggle formControlName="isPayed">Payed {{filterForm.value.isPayed | Slide}}</mat-slide-toggle>
+            <mat-slide-toggle formControlName="isClosed">Closed {{filterForm.value.isClosed | Slide}}</mat-slide-toggle>
+          </form>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" type="button">Filter</button>
+          <button mat-raised-button color="primary" type="button" (click)="filterOrders()">Filter</button>
         </mat-card-actions>
       </mat-card>
     </div>
