@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from '../../services/order/order.service';
-import {OrderList} from '../../models/order-interface';
+import {OrderFilter, OrderList} from '../../models/order-interface';
 import {MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -25,7 +25,8 @@ export class OrderComponent implements OnInit {
   }
 
   getLastOrders() {
-    this.orderService.getFiltered().subscribe(data => {
+    const filter = new OrderFilter();
+    this.orderService.getFiltered(filter).subscribe(data => {
       this.orders = data;
       this.buildTable();
     });
@@ -47,10 +48,14 @@ export class OrderComponent implements OnInit {
       'isShipped': new FormControl(''),
       'isPayed': new FormControl(''),
       'isClosed': new FormControl(''),
+      'take': new FormControl('')
     });
   }
 
   filterOrders() {
-    console.log(this.filterForm);
+    this.orderService.getFiltered(this.filterForm.value).subscribe(data => {
+      this.orders = data;
+      this.buildTable();
+    });
   }
 }

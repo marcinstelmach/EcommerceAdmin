@@ -2,33 +2,38 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {API_ORDERS} from '../../constants/enpoints';
-import {Order} from '../../models/order-interface';
+import {Order, OrderFilter} from '../../models/order-interface';
 
 @Injectable()
 export class OrderService {
   constructor(private http: HttpClient) {
   }
 
-  getFiltered(take = 10, id?, dateFrom?, dateTo?, isShipped?, isPayed?, isClosed?): Observable<any> {
-    let url = `${API_ORDERS}?take=${take}`;
+  getFiltered(filter: OrderFilter): Observable<any> {
+    let url = API_ORDERS;
 
-    if (id !== undefined) {
-      url += `&id=${id}`;
+    if (filter.take !== '') {
+      url += `?take=${filter.take}`;
+    } else {
+      url += '?take=30';
     }
-    if (dateFrom !== undefined) {
-      url += `&dateFrom=${dateFrom}`;
+    if (filter.id !== '') {
+      url += `&id=${filter.id}`;
     }
-    if (dateTo !== undefined) {
-      url += `&dateTo=${dateTo}`;
+    if (filter.dateFrom !== '') {
+      url += `&dateFrom=${filter.dateFrom}`;
     }
-    if (isShipped !== undefined) {
-      url += `&isShipped=${isShipped}`;
+    if (filter.dateTo !== '') {
+      url += `&dateTo=${filter.dateTo}`;
     }
-    if (isPayed !== undefined) {
-      url += `&isPayed=${isPayed}`;
+    if (filter.isShipped !== '') {
+      url += `&isShipped=${filter.isShipped}`;
     }
-    if (isClosed !== undefined) {
-      url += `&isClosed=${isClosed}`;
+    if (filter.isPayed !== '') {
+      url += `&isPayed=${filter.isPayed}`;
+    }
+    if (filter.isClosed !== '') {
+      url += `&isClosed=${filter.isClosed}`;
     }
 
     return this.http.get(url);

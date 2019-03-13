@@ -58,3 +58,22 @@ export interface ProductOrderCharm {
   sequence: number;
   charm: Charm;
 }
+
+export class OrderFilter {
+  id;
+  dateFrom;
+  dateTo;
+  isShipped;
+  isPayed;
+  isClosed;
+  take;
+
+  constructor() {
+    this.id = '';
+    this.dateFrom = '';
+    this.dateTo = '';
+    this.isShipped = '';
+    this.isClosed = '';
+    this.take = '';
+  }
+}
