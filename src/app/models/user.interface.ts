@@ -17,6 +17,7 @@ export interface UserLoginResponseFromApi {
     refreshToken: string;
     token: string;
     userId: string;
+    userType: string;
 }
 
 export interface UserDisplayData {

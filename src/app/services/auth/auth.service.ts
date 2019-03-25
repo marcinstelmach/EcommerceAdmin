@@ -9,6 +9,7 @@ export const REFRESH_TOKEN = 'refreshToken';
 export const EXPIRES = 'expires';
 export const USER_ID = 'userId';
 export const EMAIL_FIELD = 'email';
+export const USER_TYPE = 'userType';
 
 @Injectable()
 export class AuthService {
@@ -25,6 +26,7 @@ export class AuthService {
     localStorage.setItem(EXPIRES, userData.expires);
     localStorage.setItem(USER_ID, userData.userId);
     localStorage.setItem(EMAIL_FIELD, userData.email);
+    localStorage.setItem(USER_TYPE, userData.userType);
   }
 
   public getTokenExpirationDate(): number {
@@ -47,10 +49,16 @@ export class AuthService {
     localStorage.removeItem(EXPIRES);
     localStorage.removeItem(USER_ID);
     localStorage.removeItem(EMAIL_FIELD);
+    localStorage.removeItem(USER_TYPE);
   }
 
   public getUserId(): string {
     return localStorage.getItem(USER_ID);
+  }
+
+  public isAdmin(): boolean {
+    const userType = localStorage.getItem(USER_TYPE);
+    return userType === 'Admin';
   }
 
   public login(email: string, password: string): Observable<any> {
