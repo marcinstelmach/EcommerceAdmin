@@ -3,10 +3,11 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {API_ORDERS} from '../../constants/enpoints';
 import {Order, OrderFilter} from '../../models/order-interface';
+import {DatesService} from '../dates.service';
 
 @Injectable()
 export class OrderService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datesService: DatesService) {
   }
 
   getFiltered(filter: OrderFilter): Observable<any> {
@@ -53,9 +54,32 @@ export class OrderService {
     return this.http.put(`${API_ORDERS}/${order.id}`, data);
   }
 
-  // private setUrlNull(url: string): string {
-  //   url = url.replace(new RegExp('undefined', 'g'), '%00');
-  //   return url;
-  // }
+  getToday(): Observable<any> {
+    let url = API_ORDERS;
+    url += `?dateFrom=${this.datesService.getToday()}`;
+    url += `&dateTo=${this.datesService.getToday()}`;
+
+    return this.http.get(url);
+  }
+
+  getThisWeek(): Observable<any> {
+    let url = API_ORDERS;
+    const week = this.datesService.getCurrentWeek();
+
+    url += `?dateFrom=${week[0]}`;
+    url += `&dateTo=${week[6]}`;
+
+    return this.http.get(url);
+  }
+
+  getThisMonth(): Observable<any> {
+    let url = API_ORDERS;
+    const days = this.datesService.getMonthDates(new Date());
+
+    url += `?dateFrom=${days.first}`;
+    url += `&dateTo=${days.last}`;
+
+    return this.http.get(url);
+  }
 }
 

@@ -3,7 +3,7 @@ import {OrderService} from '../../services/order/order.service';
 import {OrderFilter, OrderList} from '../../models/order-interface';
 import {MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-order',
@@ -54,6 +54,27 @@ export class OrderComponent implements OnInit {
 
   filterOrders() {
     this.orderService.getFiltered(this.filterForm.value).subscribe(data => {
+      this.orders = data;
+      this.buildTable();
+    });
+  }
+
+  today() {
+    this.orderService.getToday().subscribe(data => {
+      this.orders = data;
+      this.buildTable();
+    });
+  }
+
+  thisWeek() {
+    this.orderService.getThisWeek().subscribe(data => {
+      this.orders = data;
+      this.buildTable();
+    });
+  }
+
+  thisMonth() {
+    this.orderService.getThisMonth().subscribe(data => {
       this.orders = data;
       this.buildTable();
     });

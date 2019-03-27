@@ -47,6 +47,7 @@ import {OrderService} from './services/order/order.service';
 import {TrueFalsePipe} from './pipes/true-false.pipe';
 import {EditOrderComponent} from './components/order/edit/edit.order/edit.order.component';
 import {SlidePipe} from './pipes/slide.pipe';
+import {DatesService} from './services/dates.service';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import {SlidePipe} from './pipes/slide.pipe';
     ProductCategoryDiscountService,
     OrderDiscountService,
     CacheService,
-    OrderService
+    OrderService,
+    DatesService
   ],
   bootstrap: [AppComponent],
   entryComponents: [

@@ -5,3 +5,7 @@ table {
 tr:hover {
   background: #f5f5f5;
 }
+
+.date-range-button {
+  margin-top: 15px;
+}

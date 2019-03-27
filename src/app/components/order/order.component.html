@@ -27,6 +27,15 @@
             <mat-slide-toggle formControlName="isPayed">Payed {{filterForm.value.isPayed | Slide}}</mat-slide-toggle>
             <mat-slide-toggle formControlName="isClosed">Closed {{filterForm.value.isClosed | Slide}}</mat-slide-toggle>
           </form>
+          <div class="date-range-button">
+            <button mat-stroked-button color="primary" (click)="today()">Today</button>
+          </div>
+          <div class="date-range-button">
+            <button mat-stroked-button color="primary" (click)="thisWeek()">This week</button>
+          </div>
+          <div class="date-range-button">
+            <button mat-stroked-button color="primary" (click)="thisMonth()">This month</button>
+          </div>
         </mat-card-content>
         <mat-card-actions align="end">
           <button mat-raised-button color="primary" type="button" (click)="filterOrders()">Filter</button>
