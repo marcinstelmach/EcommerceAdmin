@@ -30,8 +30,7 @@ const routes: Routes = [
   {path: 'orders', component: OrderComponent, canActivate: [AuthGuard]},
   {path: 'orders/:id', component: EditOrderComponent, canActivate: [AuthGuard]},
   {path: '404', component: PageNotFoundComponent},
-  {path: '**', redirectTo: '404'},
-  {path: '', redirectTo: 'login', pathMatch: 'full'}
+  {path: '**', redirectTo: 'login'},
 
 ];
 
