@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
   products: Product[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   rememberForm = false;
+  currentCategory: string;
 
 
   constructor(private fb: FormBuilder,
@@ -94,6 +95,10 @@ export class ProductComponent implements OnInit {
         this.addedAlert.open('Added successfully !', 'Close', {
           duration: 2000
         });
+
+        if (this.currentCategory !== '') {
+          this.selectCategory(this.currentCategory);
+        }
       }
     }
   }
@@ -126,6 +131,7 @@ export class ProductComponent implements OnInit {
   }
 
   selectCategory(id: string) {
+    this.currentCategory = id;
     this.productService.getPropductsByCategoryId(id).subscribe(data => {
       this.products = data;
       this.buildTable(data);
