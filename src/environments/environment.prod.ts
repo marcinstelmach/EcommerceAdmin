@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   name: 'Production',
-  backendPath: 'http://streetwood.azurewebsites.net',
-  contentHost: 'http://streetwood.azurewebsites.net'
+  backendPath: 'https://stagging.streetwood.pl',
+  contentHost: 'https://stagging.streetwood.pl/'
 };

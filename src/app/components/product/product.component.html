@@ -67,6 +67,9 @@
               </div>
             </mat-form-field>
             <mat-slide-toggle formControlName="acceptCharms">Accept charms ?</mat-slide-toggle>
+            <mat-form-field *ngIf="productForm.controls['acceptCharms'].value == true">
+              <input type="number" matInput placeholder="Max charms count" formControlName="maxCharmCount">
+            </mat-form-field>
             <mat-form-field>
               <mat-select placeholder="Category" formControlName="productCategoryId">
                 <mat-option *ngFor="let category of categories" [value]="category.id">

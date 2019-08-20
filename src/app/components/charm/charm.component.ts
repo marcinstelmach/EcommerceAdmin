@@ -32,7 +32,7 @@ export class CharmComponent implements OnInit {
   charmId: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   rememberForm = false;
-  currentCategory = '';
+  currentCategory: string;
 
 
   constructor(private charmService: CharmService,
@@ -70,6 +70,7 @@ export class CharmComponent implements OnInit {
   addCharm() {
     this.charmService.addCharm(this.charmForm.value).subscribe(response => {
       this.charmId = response;
+      this.currentCategory = this.charmForm.controls['charmCategoryId'].value;
       this.startUpload();
     });
   }

@@ -57,7 +57,8 @@ export class ProductComponent implements OnInit {
       'price': new FormControl('', [Validators.required, Validators.pattern('^\\d{0,8}(\\.\\d{1,2})?$')]),
       'acceptCharms': new FormControl(true),
       'sizes': new FormControl('s, m, l, xl'),
-      'productCategoryId': new FormControl('', Validators.required)
+      'productCategoryId': new FormControl('', Validators.required),
+      'maxCharmCount': new FormControl(0, Validators.required)
     });
   }
 
@@ -70,6 +71,7 @@ export class ProductComponent implements OnInit {
   addProduct() {
     this.productService.addProduct(this.productForm.value).subscribe(resp => {
       this.productId = resp;
+      this.currentCategory = this.productForm.controls['productCategoryId'].value;
       this.startUpload();
     });
   }
@@ -131,6 +133,7 @@ export class ProductComponent implements OnInit {
   }
 
   selectCategory(id: string) {
+    console.log('Selecting category with id: ' + id);
     this.currentCategory = id;
     this.productService.getPropductsByCategoryId(id).subscribe(data => {
       this.products = data;
