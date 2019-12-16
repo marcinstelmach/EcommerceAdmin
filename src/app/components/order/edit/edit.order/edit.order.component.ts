@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {Order} from '../../../../models/order-interface';
 import {OrderService} from '../../../../services/order/order.service';
 import {MatSnackBar, MatTableDataSource} from '@angular/material';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-edit.order',
@@ -12,6 +13,7 @@ import {MatSnackBar, MatTableDataSource} from '@angular/material';
 export class EditOrderComponent implements OnInit {
   orderId: string;
   order: Order;
+  contentHost = environment.contentHost;
   orderTable: any;
   orderTableColumns: string[] = ['position', 'creationDateTime', 'finalPrice', 'basePrice', 'shipmentPrice', 'isPayed', 'isShipped',
     'isClosed', 'payedDateTime', 'shipmentDateTime', 'closedDateTime'];

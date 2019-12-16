@@ -13,3 +13,12 @@ button {
 .one-column-container {
   padding: 0;
 }
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.product-thumbnail {
+  width: 100px;
+}

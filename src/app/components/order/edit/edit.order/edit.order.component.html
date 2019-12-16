@@ -163,7 +163,11 @@
     <div class="col-8" *ngIf="order">
       <div class="col-12 one-column-container">
         <mat-card *ngFor="let productOrder of order.productOrders; let i=index;" style="margin-bottom: 30px;">
-          <mat-card-title>Product {{i + 1}} ({{productOrder.product.name}})</mat-card-title>
+          <mat-card-title>
+            <span>{{i + 1}}. {{productOrder.product.name}}</span>
+            <img class="product-thumbnail" *ngIf="productOrder.product.images.length > 0"
+                 src="{{contentHost}}/{{productOrder.product.images[0].imageUrl}}" alt="photoImage">
+          </mat-card-title>
           <mat-card-content>
             <table class="table">
               <tr>
@@ -174,24 +178,24 @@
                 <td>Base price</td>
                 <td>{{productOrder.currentProductPrice}} zł</td>
               </tr>
-              <tr>
-                <td>Final price</td>
-                <td>{{productOrder.finalPrice}} zł</td>
-              </tr>
               <tr *ngIf="productOrder.charmsPrice > 0">
-                <td>Charm Price</td>
+                <td>Charms Price</td>
                 <td>{{productOrder.charmsPrice}} zł</td>
               </tr>
               <tr *ngIf="productOrder.productCategoryDiscount">
                 <td>Category Discount</td>
                 <td>{{productOrder.productCategoryDiscount.percentValue}}%</td>
               </tr>
+              <tr class="font-weight-bold">
+                <td>Final price</td>
+                <td>{{productOrder.finalPrice}} zł</td>
+              </tr>
               <tr>
                 <td>Comment</td>
                 <td>{{productOrder.comment}}</td>
               </tr>
               <tr>
-                <td><b>Product</b></td>
+                <td class="section-title">Product</td>
                 <td>
                   <table class="table">
                     <tr>
@@ -203,8 +207,8 @@
                       <td>{{productOrder.product.price}} zł</td>
                     </tr>
                     <tr>
-                      <td>Sizes</td>
-                      <td>{{productOrder.product.sizes}}</td>
+                      <td>Size</td>
+                      <td>{{productOrder.size}}</td>
                     </tr>
                   </table>
                 </td>
@@ -215,7 +219,7 @@
                   <table class="table" *ngFor="let charm of productOrder.productOrderCharms.sort()">
                     <tr>
                       <td>Name</td>
-                      <td>{{charm.charm.name}}</td>
+                      <td>{{charm.charm.name}}  <img src="{{contentHost}}/{{charm.charm.imagePath}}" alt=""></td>
                     </tr>
                     <tr>
                       <td>Price</td>

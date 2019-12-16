@@ -51,6 +51,7 @@ export interface ProductOrder {
   productCategoryDiscount: ProductCategoryDiscount;
   product: Product;
   productOrderCharms: ProductOrderCharm[];
+  images: Image[];
 }
 
 export interface ProductOrderCharm {
@@ -76,4 +77,10 @@ export class OrderFilter {
     this.isClosed = '';
     this.take = '';
   }
+}
+
+
+export class Image {
+  imageUrl: string;
+  isMain: boolean;
 }
